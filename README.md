@@ -1,2 +1,6 @@
-# buscaminas
-Proyecto Ingeniería del Software (EHU)
+# Buscaminas
+## Proyecto Ingeniería del Software (EHU)
+** Participantes: ** 
+- 
+- 
+- 
