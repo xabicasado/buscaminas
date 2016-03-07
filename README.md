@@ -1,6 +1,6 @@
 # Buscaminas
 ## Proyecto Ingeniería del Software (EHU)
-** Participantes: ** 
+__ Participantes:  
 - Mikel Abad
 - Walid Boussaboun
 - Xabier Casado
