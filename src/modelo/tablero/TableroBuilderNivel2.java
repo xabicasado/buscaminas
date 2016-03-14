@@ -1,23 +1,18 @@
 package modelo.tablero;
 
 public class TableroBuilderNivel2 extends TableroBuilderSinPersonalizar {
-
 	@Override
 	protected void definirFilas() {
-		// TODO Auto-generated method stub
-		
+		tablero.setFilas(10);
 	}
 
 	@Override
 	protected void definirColumnas() {
-		// TODO Auto-generated method stub
-		
+		tablero.setColumnas(15);
 	}
 
 	@Override
 	protected void definirMinas() {
-		// TODO Auto-generated method stub
-		
+		tablero.setMinas(30);
 	}
-
 }
