@@ -13,10 +13,22 @@ public class Tablero {
 	public void setMinas(int minas) { this.minas = minas; }
 	
 	public void desplegarCasilla(int pFila ,int pColumna ) {
-		//TODO Falta implementar
+		casillas[pFila][pColumna].desplegarCasilla();
 	}
 	
 	public void accionCasilla(int pFila, int pColumna){
-		//TODO Falta implementar
+		casillas[pFila][pColumna].accionCasilla();
+	}
+	
+	public void desplegarAdyacentes(int pFila, int pColumna){
+		desplegarCasilla(pFila-1, pColumna+1);
+		desplegarCasilla(pFila-1, pColumna);
+		desplegarCasilla(pFila-1, pColumna-1);
+		desplegarCasilla(pFila, pColumna+1);
+		desplegarCasilla(pFila, pColumna-1);
+		desplegarCasilla(pFila+1, pColumna+1);
+		desplegarCasilla(pFila+1, pColumna);
+		desplegarCasilla(pFila+1, pColumna-1);
+		
 	}
 }

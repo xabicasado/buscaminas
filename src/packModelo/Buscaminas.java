@@ -25,4 +25,12 @@ public class Buscaminas {
 	private void construirTablero() {
 		
 	}
+	
+	public void desplegarCasilla(int pFila ,int pColumna ) {
+		tablero.desplegarCasilla(pFila, pColumna);
+	}
+	
+	public void accionCasilla(int pFila, int pColumna){
+		tablero.accionCasilla(pFila, pColumna);
+	}
 }

@@ -1,6 +1,7 @@
 package packModelo.packCasilla;
 
 import packModelo.packCoordenada.Coordenada;
+import packModelo.packEstado.Cubierta;
 import packModelo.packEstado.Estado;
 
 public abstract class Casilla {
@@ -9,11 +10,14 @@ public abstract class Casilla {
 	
 	public Casilla(int pFila, int pColumna){
 		// TODO Completar constructor Casilla
-		// coordenada = new Coordenada(pFila, pColumna);
-		// estado = new Estado(cubierta);
+		coordenada = new Coordenada(pFila, pColumna);
+		estado = new Cubierta(coordenada);
 	}
-	public abstract void accionDescubrir();
-	public abstract Coordenada getCoordenada();
-	public abstract void setEstado(Estado pEstado);
+	public abstract void desplegarCasilla();
+	public Coordenada getCoordenada(){return this.coordenada;}
+	public void setEstado(Estado pEstado){estado=pEstado;}
+	public void accionCasilla(){
+		this.estado.descubrirCasilla();
+	}
 	
 }
