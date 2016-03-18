@@ -5,8 +5,8 @@ import packModelo.packEstado.Estado;
 
 public class CasillaMina extends Casilla {
 
-	public CasillaMina(int pFila, int pColumna) {
-		super(pFila, pColumna);
+	public CasillaMina(Coordenada pCoordenada) {
+		super(pCoordenada);
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package packModelo.packTablero;
 
 import packModelo.packCasilla.Casilla;
+import packModelo.packCoordenada.Coordenada;
 
 public class Tablero {
 	private int filas;
@@ -9,8 +10,25 @@ public class Tablero {
 	private Casilla [][] casillas;
 	
 	public void setFilas(int filas) { this.filas = filas; }
+	public int getFilas() { return this.filas; }
+	
 	public void setColumnas(int columnas) { this.columnas = columnas; }
+	public int getColumnas() { return this.columnas; }
+	
 	public void setMinas(int minas) { this.minas = minas; }
+	public int getMinas() { return this.minas; }
+	
+	public Casilla[][] getCasillas() { return this.casillas; }
+	public void setCasillas(Casilla[][] casillas) { this.casillas = casillas; }
+	
+	public Casilla devolverCasilla(Coordenada pCoordenada) {
+		return this.casillas[pCoordenada.getFila()][pCoordenada.getColumna()];
+	}
+	public void ponerCasilla(Casilla pCasilla) {
+		// TODO Preguntar la forma más correcta
+		Coordenada c = pCasilla.getCoordenada();
+		this.casillas[c.getFila()][c.getColumna()] = pCasilla;
+	}
 	
 	public void desplegarCasilla(int pFila ,int pColumna ) {
 		casillas[pFila][pColumna].desplegarCasilla();
@@ -20,15 +38,15 @@ public class Tablero {
 		casillas[pFila][pColumna].accionCasilla();
 	}
 	
-	public void desplegarAdyacentes(int pFila, int pColumna){
-		desplegarCasilla(pFila-1, pColumna+1);
-		desplegarCasilla(pFila-1, pColumna);
-		desplegarCasilla(pFila-1, pColumna-1);
-		desplegarCasilla(pFila, pColumna+1);
-		desplegarCasilla(pFila, pColumna-1);
-		desplegarCasilla(pFila+1, pColumna+1);
-		desplegarCasilla(pFila+1, pColumna);
-		desplegarCasilla(pFila+1, pColumna-1);
+	public void desplegarAdyacentes(Coordenada pCoordenada){
+		desplegarCasilla(pCoordenada.getFila()-1, pCoordenada.getColumna()+1);
+		desplegarCasilla(pCoordenada.getFila()-1, pCoordenada.getColumna());
+		desplegarCasilla(pCoordenada.getFila()-1, pCoordenada.getColumna()-1);
+		desplegarCasilla(pCoordenada.getFila(), pCoordenada.getColumna()+1);
+		desplegarCasilla(pCoordenada.getFila(), pCoordenada.getColumna()-1);
+		desplegarCasilla(pCoordenada.getFila()+1, pCoordenada.getColumna()+1);
+		desplegarCasilla(pCoordenada.getFila()+1, pCoordenada.getColumna());
+		desplegarCasilla(pCoordenada.getFila()+1, pCoordenada.getColumna()-1);
 		
 	}
 }

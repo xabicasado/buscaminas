@@ -1,12 +1,18 @@
 package packModelo.packCoordenada;
 
 public class Coordenada {
-	private int fila, columna;
+	private int fila;
+	private int columna;
 	
-	public Coordenada(int f, int c){
-	fila=f;
-	columna=c;
+	public Coordenada() { }
+	public Coordenada(int pFila, int pColumna){
+		this.fila = pFila;
+		this.columna = pColumna;
 	}
-	public int getFila(){return fila;}
-	public int getColumna(){return columna;}
+	
+	public int getFila() { return this.fila; }
+	public void setFila(int fila) { this.fila = fila; }
+	
+	public int getColumna() { return this.columna; }
+	public void setColumna(int columna) { this.columna = columna; }
 }

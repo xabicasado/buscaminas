@@ -2,12 +2,11 @@ package packModelo.packCasilla;
 
 import packModelo.packCoordenada.Coordenada;
 import packModelo.packEstado.Descubierta;
-import packModelo.packEstado.Estado;
 
 public class CasillaNumero extends Casilla {
 
-	public CasillaNumero(int pFila, int pColumna) {
-		super(pFila, pColumna);
+	public CasillaNumero(Coordenada pCoordenada) {
+		super(pCoordenada);
 	}
 
 	@Override

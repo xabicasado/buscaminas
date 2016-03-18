@@ -15,14 +15,14 @@ public class Buscaminas {
 		return elBuscaminas;
 	}
 	
-	public void setTableroBuilder(TableroBuilder tableroBuilder) { this.tableroBuilder = tableroBuilder; }
+	public void setTableroBuilder(TableroBuilder pTableroBuilder) { this.tableroBuilder = pTableroBuilder; }
 	public Tablero getTablero() { return tablero; }
 	
 	public void jugar() {
 		
 	}
 	
-	private void construirTablero() {
+	private void construirTablero(int pNivel) {
 		
 	}
 	

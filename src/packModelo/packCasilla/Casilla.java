@@ -8,12 +8,15 @@ public abstract class Casilla {
 	private Estado estado;
 	private Coordenada coordenada;
 	
-	public Casilla(int pFila, int pColumna){
-		coordenada = new Coordenada(pFila, pColumna);
-		estado = new Cubierta(coordenada);
+	public Casilla(Coordenada pCoordenada){
+		this.coordenada = pCoordenada;
+		this.estado = new Cubierta(this.coordenada);
 	}
 	
 	public Coordenada getCoordenada() { return this.coordenada; }
+	public void setCoordenada(Coordenada coordenada) { this.coordenada = coordenada; }
+	
+	public Estado getEstado() { return estado; }
 	public void setEstado(Estado pEstado) { this.estado=pEstado; }
 	
 	public abstract void desplegarCasilla();
