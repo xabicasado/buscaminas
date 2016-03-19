@@ -1,12 +1,13 @@
 package packModelo;
 
+import packModelo.packCoordenada.Coordenada;
 import packModelo.packTablero.Tablero;
 import packModelo.packTablero.TableroBuilder;
 
 public class Buscaminas {
 	private static Buscaminas elBuscaminas;
 	private TableroBuilder tableroBuilder;
-	private Tablero tablero;
+	private static Tablero tablero;
 	
 	private Buscaminas() { }
 	
@@ -26,11 +27,15 @@ public class Buscaminas {
 		
 	}
 	
-	public void desplegarCasilla(int pFila ,int pColumna ) {
+	public static void desplegarCasilla(int pFila ,int pColumna ) {
 		tablero.desplegarCasilla(pFila, pColumna);
 	}
 	
 	public void accionCasilla(int pFila, int pColumna){
 		tablero.accionCasilla(pFila, pColumna);
+	}
+	
+	public static void desplegarAdyacentes(Coordenada pCoordenada){
+		tablero.desplegarAdyacentes(pCoordenada);
 	}
 }

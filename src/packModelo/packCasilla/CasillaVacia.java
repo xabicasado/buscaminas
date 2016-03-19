@@ -14,6 +14,6 @@ public class CasillaVacia extends Casilla {
 	public void desplegarCasilla() {
 		setEstado(new Descubierta(this.getCoordenada()));
 		// TODO Esto NO puede ser así
-		Buscaminas.getElBuscaminas().getTablero().desplegarAdyacentes(this.getCoordenada());
+		Buscaminas.desplegarAdyacentes(this.getCoordenada());
 	}
 }
