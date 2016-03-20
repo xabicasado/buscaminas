@@ -31,7 +31,9 @@ public class Tablero {
 	}
 	
 	public void desplegarCasilla(int pFila ,int pColumna ) {
+		if ((pFila >0 && pColumna>0)&&(pFila<=filas && pColumna <= columnas)){
 		casillas[pFila][pColumna].desplegarCasilla();
+		}
 	}
 	
 	public void accionCasilla(int pFila, int pColumna){
