@@ -76,4 +76,8 @@ public abstract class TableroBuilder {
 							if(mines[line+i][column+j] == -1) mines[line][column]++;
 	            }
 	}
+	private void incrementarAdyacentes(Coordenada pC){
+		Coordenada c = pC;
+		
+	}
 }
