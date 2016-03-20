@@ -4,6 +4,7 @@ import java.util.Random;
 
 import packModelo.packCasilla.Casilla;
 import packModelo.packCasilla.CasillaMina;
+import packModelo.packCasilla.CasillaNumero;
 import packModelo.packCasilla.CasillaVacia;
 import packModelo.packCoordenada.Coordenada;
 
@@ -56,28 +57,36 @@ public abstract class TableroBuilder {
 	}
 	
 	public void ponerNumMinasAdyacentes() {
-		Coordenada c;
+		Coordenada c = new Coordenada();
 		for (int i = 0; i < tablero.getFilas() - 1; i++) {
 			for (int j = 0; j < tablero.getColumnas() - 1; j++) {
 				c.setFila(i);
 				c.setColumna(j);
 				if(tablero.devolverCasilla(c) instanceof CasillaMina) {
-					// TODO Falta terminar
+					incrementarAdyacentes(c);
 				}
 			}
 		}
-		
-		
-		for(int line=1 ; line < 9 ; line++)
-			for(int column=1 ; column < 9 ; column++){
-				for(int i=-1 ; i<=1 ; i++)
-					for(int j=-1 ; j<=1 ; j++)
-						if(mines[line][column] != -1)
-							if(mines[line+i][column+j] == -1) mines[line][column]++;
-	            }
 	}
 	private void incrementarAdyacentes(Coordenada pC){
-		Coordenada c = pC;
-		
+		incrementarCasilla(pC.getFila()-1, pC.getColumna()+1);
+		incrementarCasilla(pC.getFila()-1, pC.getColumna());
+		incrementarCasilla(pC.getFila()-1, pC.getColumna()-1);
+		incrementarCasilla(pC.getFila(), pC.getColumna()+1);
+		incrementarCasilla(pC.getFila(), pC.getColumna()-1);
+		incrementarCasilla(pC.getFila()+1, pC.getColumna()+1);
+		incrementarCasilla(pC.getFila()+1, pC.getColumna());
+		incrementarCasilla(pC.getFila()+1, pC.getColumna()-1);
+	}
+	private void incrementarCasilla(int pFila, int pColumna){
+		if ((pFila >= 0 && pColumna >= 0)&&(pFila < tablero.getFilas() && pColumna < tablero.getColumnas())){
+			if (tablero.getCasillas()[pFila][pColumna] instanceof CasillaVacia){
+				tablero.ponerCasilla(new CasillaNumero(new Coordenada(pFila, pColumna)));
+			}
+			else if (tablero.getCasillas()[pFila][pColumna] instanceof CasillaNumero){
+				Coordenada c = new Coordenada(pFila, pColumna);
+				((CasillaNumero) tablero.devolverCasilla(c)).incrementarNumero();
+			}
+		}
 	}
 }

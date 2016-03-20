@@ -24,6 +24,9 @@ public class Tablero {
 	public Casilla devolverCasilla(Coordenada pCoordenada) {
 		return this.casillas[pCoordenada.getFila()][pCoordenada.getColumna()];
 	}
+	public void incrementarNumCasilla(Coordenada pCoordenada){
+		
+	}
 	public void ponerCasilla(Casilla pCasilla) {
 		// TODO Preguntar la forma más correcta
 		Coordenada c = pCasilla.getCoordenada();
@@ -31,7 +34,7 @@ public class Tablero {
 	}
 	
 	public void desplegarCasilla(int pFila ,int pColumna ) {
-		if ((pFila >0 && pColumna>0)&&(pFila<=filas && pColumna <= columnas)){
+		if ((pFila >=0 && pColumna>=0)&&(pFila<filas && pColumna < columnas)){
 		casillas[pFila][pColumna].desplegarCasilla();
 		}
 	}
