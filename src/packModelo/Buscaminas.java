@@ -7,7 +7,7 @@ import packModelo.packTablero.TableroBuilder;
 public class Buscaminas {
 	private static Buscaminas elBuscaminas;
 	private TableroBuilder tableroBuilder;
-	private static Tablero tablero;
+	private Tablero tablero;
 	
 	private Buscaminas() { }
 	
@@ -17,7 +17,7 @@ public class Buscaminas {
 	}
 	
 	public void setTableroBuilder(TableroBuilder pTableroBuilder) { this.tableroBuilder = pTableroBuilder; }
-	public Tablero getTablero() { return tablero; }
+	
 	
 	public void jugar() {
 		
@@ -27,7 +27,7 @@ public class Buscaminas {
 		
 	}
 	
-	public static void desplegarCasilla(int pFila ,int pColumna ) {
+	public void desplegarCasilla(int pFila ,int pColumna ) {
 		tablero.desplegarCasilla(pFila, pColumna);
 	}
 	
@@ -35,7 +35,7 @@ public class Buscaminas {
 		tablero.accionCasilla(pFila, pColumna);
 	}
 	
-	public static void desplegarAdyacentes(Coordenada pCoordenada){
+	public void desplegarAdyacentes(Coordenada pCoordenada){
 		tablero.desplegarAdyacentes(pCoordenada);
 	}
 }
