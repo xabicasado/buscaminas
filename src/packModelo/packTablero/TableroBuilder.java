@@ -13,7 +13,6 @@ public abstract class TableroBuilder {
 	
 	public void generarTablero() {
 		tablero = new Tablero();
-		// TODO ¿Esto va aquí o en Buscaminas?
 		definirFilas();
 		definirColumnas();
 		definirMinas();
@@ -30,7 +29,6 @@ public abstract class TableroBuilder {
 	public void inicializarCasillas() {
 		for (int i = 0; i <= tablero.getFilas() - 1; i++) {
 			for (int j = 0; j < tablero.getColumnas() - 1; j++) {
-				// TODO Preguntar si se puede usar el mismo objeto Coordenada
 				Coordenada c = new Coordenada(i,j);
 				tablero.ponerCasilla(new CasillaVacia(c));
 			}

@@ -13,7 +13,6 @@ public class CasillaVacia extends Casilla {
 	@Override
 	public void desplegarCasilla() {
 		setEstado(new Descubierta(this.getCoordenada()));
-		// TODO Esto NO puede ser así
 		Buscaminas.getElBuscaminas().desplegarAdyacentes(this.getCoordenada());
 	}
 }

@@ -28,7 +28,6 @@ public class Tablero {
 		
 	}
 	public void ponerCasilla(Casilla pCasilla) {
-		// TODO Preguntar la forma más correcta
 		Coordenada c = pCasilla.getCoordenada();
 		this.casillas[c.getFila()][c.getColumna()] = pCasilla;
 	}
