@@ -7,9 +7,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class TableroTest {
-
+	private Tablero tablero;
+	
 	@Before
 	public void setUp() throws Exception {
+		
 	}
 
 	@After
