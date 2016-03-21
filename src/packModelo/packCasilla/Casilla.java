@@ -1,8 +1,5 @@
 package packModelo.packCasilla;
 
-import packModelo.packCoordenada.Coordenada;
-import packModelo.packEstado.Cubierta;
-import packModelo.packEstado.Estado;
 
 public abstract class Casilla {
 	private Estado estado;

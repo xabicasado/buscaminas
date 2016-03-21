@@ -1,8 +1,6 @@
 package packModelo.packCasilla;
 
 import packModelo.Buscaminas;
-import packModelo.packCoordenada.Coordenada;
-import packModelo.packEstado.Descubierta;
 
 public class CasillaVacia extends Casilla {
 

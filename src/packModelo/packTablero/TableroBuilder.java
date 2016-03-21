@@ -6,7 +6,7 @@ import packModelo.packCasilla.Casilla;
 import packModelo.packCasilla.CasillaMina;
 import packModelo.packCasilla.CasillaNumero;
 import packModelo.packCasilla.CasillaVacia;
-import packModelo.packCoordenada.Coordenada;
+import packModelo.packCasilla.Coordenada;
 
 public abstract class TableroBuilder {
 	protected Tablero tablero;

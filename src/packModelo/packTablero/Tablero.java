@@ -1,7 +1,7 @@
 package packModelo.packTablero;
 
 import packModelo.packCasilla.Casilla;
-import packModelo.packCoordenada.Coordenada;
+import packModelo.packCasilla.Coordenada;
 
 public class Tablero {
 	private int filas;

@@ -1,6 +1,6 @@
 package packModelo;
 
-import packModelo.packCoordenada.Coordenada;
+import packModelo.packCasilla.Coordenada;
 import packModelo.packTablero.Tablero;
 import packModelo.packTablero.TableroBuilder;
 

@@ -1,6 +1,5 @@
-package packModelo.packEstado;
+package packModelo.packCasilla;
 
-import packModelo.packCoordenada.Coordenada;
 import packModelo.Buscaminas;
 
 public class Cubierta extends Estado {

@@ -1,6 +1,5 @@
-package packModelo.packEstado;
+package packModelo.packCasilla;
 
-import packModelo.packCoordenada.Coordenada;
 
 public class Descubierta extends Estado {
 

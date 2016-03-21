@@ -1,7 +1,5 @@
 package packModelo.packCasilla;
 
-import packModelo.packCoordenada.Coordenada;
-import packModelo.packEstado.Estado;
 
 public class CasillaMina extends Casilla {
 
