@@ -20,7 +20,7 @@ public class Buscaminas {
 	
 	public void jugar() {
 		// TODO Implementar método
-		this.tableroBuilder.generarTablero();
+		this.tablero = this.tableroBuilder.generarTablero();
 	}
 	
 	// TODO desplegarCasilla y accionCasilla deberían recibir Coordenada en lugar de dos variables
