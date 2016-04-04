@@ -18,4 +18,8 @@ public class CasillaNumero extends Casilla {
 	public void incrementarNumero(){
 		this.numero = this.numero+1;
 	}
+
+	public int getNumero() {
+		return numero;
+	}
 }
