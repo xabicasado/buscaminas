@@ -18,6 +18,8 @@ public class Buscaminas {
 	
 	public void setTableroBuilder(TableroBuilder pTableroBuilder) { this.tableroBuilder = pTableroBuilder; }
 	
+	public Tablero getTablero() { return tablero;}
+
 	public void jugar() {
 		// TODO Implementar método
 		this.tablero = this.tableroBuilder.generarTablero();
