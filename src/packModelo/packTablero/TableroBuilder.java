@@ -14,17 +14,19 @@ public abstract class TableroBuilder {
 	protected abstract void definirColumnas();
 	protected abstract void definirMinas();
 	
-	public void generarTablero() {
-		tablero = new Tablero();
+	public Tablero generarTablero() {
+		this.tablero = new Tablero();
 		
 		definirFilas();
 		definirColumnas();
 		definirMinas();
 		
-		tablero.setCasillas(new Casilla[tablero.getFilas()][tablero.getColumnas()]);
+		this.tablero.setCasillas(new Casilla[this.tablero.getFilas()][this.tablero.getColumnas()]);
 		inicializarCasillas();
 		ponerMinas();
 		ponerNumMinasAdyacentes();
+		
+		return this.tablero;
 	}
 	
 	public void inicializarCasillas() {

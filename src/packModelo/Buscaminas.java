@@ -20,10 +20,7 @@ public class Buscaminas {
 	
 	public void jugar() {
 		// TODO Implementar método
-	}
-	
-	private void construirTablero(int pNivel) {
-		// TODO ¿Qué hace este método? ¿Se puede implementar en jugar()?
+		this.tableroBuilder.generarTablero();
 	}
 	
 	// TODO desplegarCasilla y accionCasilla deberían recibir Coordenada en lugar de dos variables
@@ -37,5 +34,9 @@ public class Buscaminas {
 	
 	public void desplegarAdyacentes(Coordenada pCoordenada){
 		tablero.desplegarAdyacentes(pCoordenada);
+	}
+	
+	public static void main(String[] args) {
+		
 	}
 }
