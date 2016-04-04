@@ -3,10 +3,11 @@ package packModelo.packCasilla;
 
 public class CasillaNumero extends Casilla {
 	
-	private int numero=1;
+	private int numero;
 
 	public CasillaNumero(Coordenada pCoordenada) {
 		super(pCoordenada);
+		this.numero = 1;
 	}
 
 	@Override
@@ -15,6 +16,6 @@ public class CasillaNumero extends Casilla {
 	}
 	
 	public void incrementarNumero(){
-		numero=numero+1;
+		this.numero = this.numero+1;
 	}
 }

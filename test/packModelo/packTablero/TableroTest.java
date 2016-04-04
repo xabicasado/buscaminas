@@ -11,11 +11,12 @@ public class TableroTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		
+		tablero = new Tablero();
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		
 	}
 
 	@Test

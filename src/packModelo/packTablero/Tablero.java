@@ -24,9 +24,11 @@ public class Tablero {
 	public Casilla devolverCasilla(Coordenada pCoordenada) {
 		return this.casillas[pCoordenada.getFila()][pCoordenada.getColumna()];
 	}
+	
 	public void incrementarNumCasilla(Coordenada pCoordenada){
 		
 	}
+	
 	public void ponerCasilla(Casilla pCasilla) {
 		Coordenada c = pCasilla.getCoordenada();
 		this.casillas[c.getFila()][c.getColumna()] = pCasilla;

@@ -1,7 +1,6 @@
 package packModelo.packTablero;
 
 import java.util.Random;
-
 import packModelo.packCasilla.Casilla;
 import packModelo.packCasilla.CasillaMina;
 import packModelo.packCasilla.CasillaNumero;
@@ -11,20 +10,22 @@ import packModelo.packCasilla.Coordenada;
 public abstract class TableroBuilder {
 	protected Tablero tablero;
 	
+	protected abstract void definirFilas();
+	protected abstract void definirColumnas();
+	protected abstract void definirMinas();
+	
 	public void generarTablero() {
 		tablero = new Tablero();
+		
 		definirFilas();
 		definirColumnas();
 		definirMinas();
+		
 		tablero.setCasillas(new Casilla[tablero.getFilas()][tablero.getColumnas()]);
 		inicializarCasillas();
 		ponerMinas();
 		ponerNumMinasAdyacentes();
 	}
-	
-	protected abstract void definirFilas();
-	protected abstract void definirColumnas();
-	protected abstract void definirMinas();
 	
 	public void inicializarCasillas() {
 		for (int i = 0; i <= tablero.getFilas() - 1; i++) {
@@ -66,16 +67,7 @@ public abstract class TableroBuilder {
 			}
 		}
 	}
-	private void incrementarAdyacentes(Coordenada pC){
-		incrementarCasilla(pC.getFila()-1, pC.getColumna()+1);
-		incrementarCasilla(pC.getFila()-1, pC.getColumna());
-		incrementarCasilla(pC.getFila()-1, pC.getColumna()-1);
-		incrementarCasilla(pC.getFila(), pC.getColumna()+1);
-		incrementarCasilla(pC.getFila(), pC.getColumna()-1);
-		incrementarCasilla(pC.getFila()+1, pC.getColumna()+1);
-		incrementarCasilla(pC.getFila()+1, pC.getColumna());
-		incrementarCasilla(pC.getFila()+1, pC.getColumna()-1);
-	}
+	
 	private void incrementarCasilla(int pFila, int pColumna){
 		if ((pFila >= 0 && pColumna >= 0)&&(pFila < tablero.getFilas() && pColumna < tablero.getColumnas())){
 			if (tablero.getCasillas()[pFila][pColumna] instanceof CasillaVacia){
@@ -86,5 +78,16 @@ public abstract class TableroBuilder {
 				((CasillaNumero) tablero.devolverCasilla(c)).incrementarNumero();
 			}
 		}
+	}
+	
+	private void incrementarAdyacentes(Coordenada pC){
+		incrementarCasilla(pC.getFila()-1, pC.getColumna()+1);
+		incrementarCasilla(pC.getFila()-1, pC.getColumna());
+		incrementarCasilla(pC.getFila()-1, pC.getColumna()-1);
+		incrementarCasilla(pC.getFila(), pC.getColumna()+1);
+		incrementarCasilla(pC.getFila(), pC.getColumna()-1);
+		incrementarCasilla(pC.getFila()+1, pC.getColumna()+1);
+		incrementarCasilla(pC.getFila()+1, pC.getColumna());
+		incrementarCasilla(pC.getFila()+1, pC.getColumna()-1);
 	}
 }

@@ -18,15 +18,15 @@ public class Buscaminas {
 	
 	public void setTableroBuilder(TableroBuilder pTableroBuilder) { this.tableroBuilder = pTableroBuilder; }
 	
-	
 	public void jugar() {
-		
+		// TODO Implementar método
 	}
 	
 	private void construirTablero(int pNivel) {
-		
+		// TODO ¿Qué hace este método? ¿Se puede implementar en jugar()?
 	}
 	
+	// TODO desplegarCasilla y accionCasilla deberían recibir Coordenada en lugar de dos variables
 	public void desplegarCasilla(int pFila ,int pColumna ) {
 		tablero.desplegarCasilla(pFila, pColumna);
 	}
