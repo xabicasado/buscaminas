@@ -26,27 +26,6 @@ public abstract class TableroBuilder {
 		ponerMinas();
 		ponerNumMinasAdyacentes();
 		
-		//Pruebas
-		Coordenada c = new Coordenada();
-		Casilla casilla;
-		for (int i = 0; i < this.tablero.getFilas(); i++) {
-			for (int j = 0; j < this.tablero.getColumnas(); j++) {
-				c.setFila(i);
-				c.setColumna(j);
-				casilla = this.tablero.devolverCasilla(c);
-				
-				if(casilla instanceof CasillaMina) {
-					System.out.print(" * ");
-				} else if(casilla instanceof CasillaNumero) {
-					System.out.print(" " + ((CasillaNumero) casilla).getNumero() + " ");
-				} else {
-					System.out.print(" 0 ");
-				}	
-			}
-			System.out.println("");
-		}
-		//Fin Pruebas
-		
 		return this.tablero;
 	}
 	
@@ -112,5 +91,26 @@ public abstract class TableroBuilder {
 		incrementarCasilla(pC.getFila()+1, pC.getColumna()+1);
 		incrementarCasilla(pC.getFila()+1, pC.getColumna());
 		incrementarCasilla(pC.getFila()+1, pC.getColumna()-1);
+	}
+	
+	public void imprimirChivato() {
+		Coordenada c = new Coordenada();
+		Casilla casilla;
+		for (int i = 0; i < this.tablero.getFilas(); i++) {
+			for (int j = 0; j < this.tablero.getColumnas(); j++) {
+				c.setFila(i);
+				c.setColumna(j);
+				casilla = this.tablero.devolverCasilla(c);
+				
+				if(casilla instanceof CasillaMina) {
+					System.out.print(" * ");
+				} else if(casilla instanceof CasillaNumero) {
+					System.out.print(" " + ((CasillaNumero) casilla).getNumero() + " ");
+				} else {
+					System.out.print(" 0 ");
+				}	
+			}
+			System.out.println("");
+		}
 	}
 }
