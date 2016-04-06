@@ -6,54 +6,59 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import packModelo.Buscaminas;
+import packModelo.packTablero.Tablero;
+import packModelo.packTablero.TableroBuilderNivel1;
+
 public class CasillaMinaTest {
+Coordenada co1,co2;
+Casilla ca;
+Estado es;
+TableroBuilderNivel1 tb;
 
 	@Before
 	public void setUp() throws Exception {
+		co1 = new Coordenada(1,2);
+		ca = new CasillaMina(co1);
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		co1 = new Coordenada(1,2);
+		ca = new CasillaMina(co1);
 	}
 
 	@Test
 	public void testDesplegarCasilla() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testCasillaMina() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testCasilla() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetCoordenada() {
-		fail("Not yet implemented");
+		System.out.println("/////Probando desplegarCasilla de CasillaMina/////");
+		ca.desplegarCasilla();
+		System.out.println("/////Si dice que ha finalizado el juego es correcto/////");
 	}
 
 	@Test
 	public void testSetCoordenada() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetEstado() {
-		fail("Not yet implemented");
+		co2 = new Coordenada(3,3);
+		ca.setCoordenada(co2);
+		assertEquals(ca.getCoordenada(),co2);
 	}
 
 	@Test
 	public void testSetEstado() {
-		fail("Not yet implemented");
+		es = new Cubierta(co1);
+		ca.setEstado(es);
+		assertEquals(ca.getEstado(),es);
 	}
-
+	
 	@Test
 	public void testAccionCasilla() {
-		fail("Not yet implemented");
+		System.out.println("/////Probando accionCasilla de CasillaMina/////");
+		es = new Cubierta(co1);
+		ca.setEstado(es);
+		tb = new TableroBuilderNivel1();
+		Buscaminas.getElBuscaminas().setTableroBuilder(tb);
+		Buscaminas.getElBuscaminas().jugar();
+		Buscaminas.getElBuscaminas().getTablero().ponerCasilla(ca);
+		ca.accionCasilla();
+		System.out.println("/////Si dice que ha finalizado el juego es correcto/////");
 	}
-
 }
