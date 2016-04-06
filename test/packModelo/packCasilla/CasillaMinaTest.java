@@ -12,7 +12,7 @@ import packModelo.packTablero.TableroBuilderNivel1;
 
 public class CasillaMinaTest {
 Coordenada co1,co2;
-Casilla ca;
+CasillaMina ca;
 Estado es;
 TableroBuilderNivel1 tb;
 
@@ -29,15 +29,16 @@ TableroBuilderNivel1 tb;
 	}
 
 	@Test
-	public void testDesplegarCasilla() {
+	public void testAccionCasilla() {
 		System.out.println("/////Probando desplegarCasilla de CasillaMina/////");
-		ca.desplegarCasilla();
+		ca.accionCasilla();
 		System.out.println("/////Si dice que ha finalizado el juego es correcto/////");
 	}
 
 	@Test
 	public void testSetCoordenada() {
 		co2 = new Coordenada(3,3);
+		assertNotEquals(ca.getCoordenada(),co2);
 		ca.setCoordenada(co2);
 		assertEquals(ca.getCoordenada(),co2);
 	}
@@ -45,12 +46,13 @@ TableroBuilderNivel1 tb;
 	@Test
 	public void testSetEstado() {
 		es = new Cubierta(co1);
+		assertNotEquals(ca.getEstado(),es);
 		ca.setEstado(es);
 		assertEquals(ca.getEstado(),es);
 	}
 	
 	@Test
-	public void testAccionCasilla() {
+	public void testDesplegarCasilla() {
 		System.out.println("/////Probando accionCasilla de CasillaMina/////");
 		es = new Cubierta(co1);
 		ca.setEstado(es);
@@ -58,7 +60,7 @@ TableroBuilderNivel1 tb;
 		Buscaminas.getElBuscaminas().setTableroBuilder(tb);
 		Buscaminas.getElBuscaminas().jugar();
 		Buscaminas.getElBuscaminas().getTablero().ponerCasilla(ca);
-		ca.accionCasilla();
+		ca.desplegarCasilla();
 		System.out.println("/////Si dice que ha finalizado el juego es correcto/////");
 	}
 }

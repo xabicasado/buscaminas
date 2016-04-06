@@ -31,12 +31,6 @@ TableroBuilderNivel1 tb;
 	}
 
 	@Test
-	public void testDesplegarCasilla() {
-		ca.desplegarCasilla();
-		assertTrue(ca.getEstado() instanceof Descubierta);
-	}
-
-	@Test
 	public void testIncrementarNumero() {
 		n1 = ca.getNumero();
 		ca.incrementarNumero();
@@ -46,6 +40,7 @@ TableroBuilderNivel1 tb;
 
 	@Test
 	public void testSetCoordenada() {
+		assertNotEquals(ca.getCoordenada(),co2);
 		ca.setCoordenada(co2);
 		assertEquals(ca.getCoordenada(),co2);
 	}
@@ -53,20 +48,21 @@ TableroBuilderNivel1 tb;
 
 	@Test
 	public void testSetEstado() {
+		assertNotEquals(ca.getEstado(),es1);
 		es1 = new Cubierta(co2);
 		ca.setEstado(es1);
 		assertEquals(ca.getEstado(),es1);
 	}
 
 	@Test
-	public void testAccionCasilla() {
+	public void testDesplegarCasilla() {
 		es1 = new Cubierta(co1);
 		ca.setEstado(es1);
 		tb = new TableroBuilderNivel1();
 		Buscaminas.getElBuscaminas().setTableroBuilder(tb);
 		Buscaminas.getElBuscaminas().jugar();
 		Buscaminas.getElBuscaminas().getTablero().ponerCasilla(ca);
-		ca.accionCasilla();
+		ca.desplegarCasilla();
 		assertTrue(ca.getEstado() instanceof Descubierta);
 	}
 
