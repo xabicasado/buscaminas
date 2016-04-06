@@ -1,7 +1,10 @@
 package packModelo.packTablero;
 
 import packModelo.packCasilla.Casilla;
+import packModelo.packCasilla.CasillaMina;
+import packModelo.packCasilla.CasillaNumero;
 import packModelo.packCasilla.Coordenada;
+import packModelo.packCasilla.Cubierta;
 
 public class Tablero {
 	private int filas;
@@ -25,10 +28,6 @@ public class Tablero {
 		return this.casillas[pCoordenada.getFila()][pCoordenada.getColumna()];
 	}
 	
-	public void incrementarNumCasilla(Coordenada pCoordenada){
-		
-	}
-	
 	public void ponerCasilla(Casilla pCasilla) {
 		Coordenada c = pCasilla.getCoordenada();
 		this.casillas[c.getFila()][c.getColumna()] = pCasilla;
@@ -36,7 +35,7 @@ public class Tablero {
 	
 	public void desplegarCasilla(int pFila ,int pColumna ) {
 		if ((pFila >=0 && pColumna>=0)&&(pFila<filas && pColumna < columnas)){
-		casillas[pFila][pColumna].desplegarCasilla();
+			casillas[pFila][pColumna].desplegarCasilla();
 		}
 	}
 	
@@ -45,14 +44,53 @@ public class Tablero {
 	}
 	
 	public void desplegarAdyacentes(Coordenada pCoordenada){
-		desplegarCasilla(pCoordenada.getFila()-1, pCoordenada.getColumna()+1);
-		desplegarCasilla(pCoordenada.getFila()-1, pCoordenada.getColumna());
 		desplegarCasilla(pCoordenada.getFila()-1, pCoordenada.getColumna()-1);
+		desplegarCasilla(pCoordenada.getFila()-1, pCoordenada.getColumna());
+		desplegarCasilla(pCoordenada.getFila()-1, pCoordenada.getColumna()+1);
 		desplegarCasilla(pCoordenada.getFila(), pCoordenada.getColumna()+1);
-		desplegarCasilla(pCoordenada.getFila(), pCoordenada.getColumna()-1);
 		desplegarCasilla(pCoordenada.getFila()+1, pCoordenada.getColumna()+1);
 		desplegarCasilla(pCoordenada.getFila()+1, pCoordenada.getColumna());
 		desplegarCasilla(pCoordenada.getFila()+1, pCoordenada.getColumna()-1);
-		
+		desplegarCasilla(pCoordenada.getFila(), pCoordenada.getColumna()-1);
+	}
+	
+	public void imprimirChivato() {
+		Coordenada c = new Coordenada();
+		Casilla casilla;
+		for (int i = 0; i < this.filas; i++) {
+			for (int j = 0; j < this.columnas; j++) {
+				c.setFila(i);
+				c.setColumna(j);
+				casilla = devolverCasilla(c);
+				
+				if(casilla instanceof CasillaMina) {
+					System.out.print(" * ");
+				} else if(casilla instanceof CasillaNumero) {
+					System.out.print(" " + ((CasillaNumero) casilla).getNumero() + " ");
+				} else {
+					System.out.print(" 0 ");
+				}	
+			}
+			System.out.println("");
+		}
+	}
+	
+	public void imprimirResultado() {
+		Coordenada c = new Coordenada();
+		Casilla casilla;
+		for (int i = 0; i < this.filas; i++) {
+			for (int j = 0; j < this.columnas; j++) {
+				c.setFila(i);
+				c.setColumna(j);
+				casilla = devolverCasilla(c);
+				
+				if(casilla.getEstado() instanceof Cubierta) {
+					System.out.print(" - ");
+				} else {
+					System.out.print(" X ");
+				}	
+			}
+			System.out.println("");
+		}
 	}
 }

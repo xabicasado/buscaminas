@@ -31,7 +31,7 @@ public abstract class TableroBuilder {
 	
 	public void inicializarCasillas() {
 		for (int i = 0; i <= tablero.getFilas() - 1; i++) {
-			for (int j = 0; j < tablero.getColumnas() - 1; j++) {
+			for (int j = 0; j <= tablero.getColumnas() - 1; j++) {
 				Coordenada c = new Coordenada(i,j);
 				tablero.ponerCasilla(new CasillaVacia(c));
 			}
@@ -46,8 +46,8 @@ public abstract class TableroBuilder {
 		
 		for(int i = 0 ; i <= tablero.getMinas(); i++){
 			do {
-				fila = r.nextInt(tablero.getFilas() - 1);
-				columna = r.nextInt(tablero.getColumnas() - 1);
+				fila = r.nextInt(tablero.getFilas());
+				columna = r.nextInt(tablero.getColumnas());
 				c.setFila(fila);
 				c.setColumna(columna);
 				if(tablero.devolverCasilla(c) instanceof CasillaMina) hayMina = true;
@@ -59,8 +59,8 @@ public abstract class TableroBuilder {
 	
 	public void ponerNumMinasAdyacentes() {
 		Coordenada c = new Coordenada();
-		for (int i = 0; i < tablero.getFilas() - 1; i++) {
-			for (int j = 0; j < tablero.getColumnas() - 1; j++) {
+		for (int i = 0; i <= tablero.getFilas() - 1; i++) {
+			for (int j = 0; j <= tablero.getColumnas() - 1; j++) {
 				c.setFila(i);
 				c.setColumna(j);
 				if(tablero.devolverCasilla(c) instanceof CasillaMina) {
@@ -83,34 +83,13 @@ public abstract class TableroBuilder {
 	}
 	
 	private void incrementarAdyacentes(Coordenada pC){
-		incrementarCasilla(pC.getFila()-1, pC.getColumna()+1);
-		incrementarCasilla(pC.getFila()-1, pC.getColumna());
 		incrementarCasilla(pC.getFila()-1, pC.getColumna()-1);
+		incrementarCasilla(pC.getFila()-1, pC.getColumna());
+		incrementarCasilla(pC.getFila()-1, pC.getColumna()+1);
 		incrementarCasilla(pC.getFila(), pC.getColumna()+1);
-		incrementarCasilla(pC.getFila(), pC.getColumna()-1);
 		incrementarCasilla(pC.getFila()+1, pC.getColumna()+1);
 		incrementarCasilla(pC.getFila()+1, pC.getColumna());
 		incrementarCasilla(pC.getFila()+1, pC.getColumna()-1);
-	}
-	
-	public void imprimirChivato() {
-		Coordenada c = new Coordenada();
-		Casilla casilla;
-		for (int i = 0; i < this.tablero.getFilas(); i++) {
-			for (int j = 0; j < this.tablero.getColumnas(); j++) {
-				c.setFila(i);
-				c.setColumna(j);
-				casilla = this.tablero.devolverCasilla(c);
-				
-				if(casilla instanceof CasillaMina) {
-					System.out.print(" * ");
-				} else if(casilla instanceof CasillaNumero) {
-					System.out.print(" " + ((CasillaNumero) casilla).getNumero() + " ");
-				} else {
-					System.out.print(" 0 ");
-				}	
-			}
-			System.out.println("");
-		}
+		incrementarCasilla(pC.getFila(), pC.getColumna()-1);
 	}
 }
