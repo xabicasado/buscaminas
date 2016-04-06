@@ -8,10 +8,7 @@ public class CasillaMina extends Casilla {
 	}
 
 	@Override
-	public void desplegarCasilla() {
+	public void accionCasilla() {
 		System.out.println("Ha finalizado el juego");
-
 	}
-
-
 }

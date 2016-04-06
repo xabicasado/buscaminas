@@ -11,9 +11,7 @@ public class CasillaNumero extends Casilla {
 	}
 
 	@Override
-	public void desplegarCasilla() {
-		setEstado(new Descubierta(this.getCoordenada()));
-	}
+	public void accionCasilla() { }
 	
 	public void incrementarNumero(){
 		this.numero = this.numero+1;

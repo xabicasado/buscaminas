@@ -16,10 +16,14 @@ public abstract class Casilla {
 	public Estado getEstado() { return estado; }
 	public void setEstado(Estado pEstado) { this.estado=pEstado; }
 	
-	public abstract void desplegarCasilla();
-	
-	public void accionCasilla(){
-		this.estado.descubrirCasilla();
+	public void desplegarCasilla(){
+		if(!(this.estado instanceof Descubierta)) {
+			setEstado(new Descubierta(this.getCoordenada()));
+			this.accionCasilla();
+		}
+		
 	}
+	
+	public abstract void accionCasilla();
 	
 }

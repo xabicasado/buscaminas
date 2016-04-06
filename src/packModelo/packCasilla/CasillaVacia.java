@@ -9,8 +9,7 @@ public class CasillaVacia extends Casilla {
 	}
 
 	@Override
-	public void desplegarCasilla() {
-		setEstado(new Descubierta(this.getCoordenada()));
+	public void accionCasilla() {
 		Buscaminas.getElBuscaminas().desplegarAdyacentes(this.getCoordenada());
 	}
 }
