@@ -6,6 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import packModelo.Buscaminas;
 import packModelo.packTablero.TableroBuilderNivel1;
 
 public class CasillaNumeroTest {
@@ -31,10 +32,8 @@ TableroBuilderNivel1 tb;
 
 	@Test
 	public void testDesplegarCasilla() {
-		es1 = new Cubierta(co1);
-		es2 = new Descubierta(co1);
 		ca.desplegarCasilla();
-		assertEquals(ca.getEstado(),);
+		assertTrue(ca.getEstado() instanceof Descubierta);
 	}
 
 	@Test
@@ -61,7 +60,14 @@ TableroBuilderNivel1 tb;
 
 	@Test
 	public void testAccionCasilla() {
-		fail("Not yet implemented");
+		es1 = new Cubierta(co1);
+		ca.setEstado(es1);
+		tb = new TableroBuilderNivel1();
+		Buscaminas.getElBuscaminas().setTableroBuilder(tb);
+		Buscaminas.getElBuscaminas().jugar();
+		Buscaminas.getElBuscaminas().getTablero().ponerCasilla(ca);
+		ca.accionCasilla();
+		assertTrue(ca.getEstado() instanceof Descubierta);
 	}
 
 }
