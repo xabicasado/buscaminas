@@ -63,4 +63,19 @@ private TableroBuilderNivel1 tb;
 		ca.desplegarCasilla();
 		System.out.println("/////Si dice que ha finalizado el juego es correcto/////");
 	}
+	
+	@Test
+	public void testMarcarDesmarcarCasilla() {
+		es = new Marcada(co1);
+		ca.setEstado(es);
+		tb = new TableroBuilderNivel1();
+		Buscaminas.getElBuscaminas().setTableroBuilder(tb);
+		Buscaminas.getElBuscaminas().jugar();
+		Buscaminas.getElBuscaminas().getTablero().ponerCasilla(ca);
+		assertTrue(ca.getEstado() instanceof Marcada);
+		ca.marcarDesmarcarCasilla();
+		assertTrue(ca.getEstado() instanceof Cubierta);
+		ca.marcarDesmarcarCasilla();
+		assertTrue(ca.getEstado() instanceof Marcada);
+	}
 }

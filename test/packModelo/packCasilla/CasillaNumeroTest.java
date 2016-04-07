@@ -65,5 +65,20 @@ private TableroBuilderNivel1 tb;
 		ca.desplegarCasilla();
 		assertTrue(ca.getEstado() instanceof Descubierta);
 	}
+	
+	@Test
+	public void testMarcarDesmarcarCasilla() {
+		es1 = new Marcada(co1);
+		ca.setEstado(es1);
+		tb = new TableroBuilderNivel1();
+		Buscaminas.getElBuscaminas().setTableroBuilder(tb);
+		Buscaminas.getElBuscaminas().jugar();
+		Buscaminas.getElBuscaminas().getTablero().ponerCasilla(ca);
+		assertTrue(ca.getEstado() instanceof Marcada);
+		ca.marcarDesmarcarCasilla();
+		assertTrue(ca.getEstado() instanceof Cubierta);
+		ca.marcarDesmarcarCasilla();
+		assertTrue(ca.getEstado() instanceof Marcada);
+	}
 
 }
