@@ -11,11 +11,10 @@ import packModelo.packTablero.Tablero;
 import packModelo.packTablero.TableroBuilderNivel1;
 
 public class CasillaVaciaTest {
-Coordenada co1,co2;
-CasillaVacia ca;
-Estado es1,es2;
-TableroBuilderNivel1 tb;
-Tablero ta;
+private Coordenada co1,co2;
+private CasillaVacia ca;
+private Estado es;
+private TableroBuilderNivel1 tb;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -30,19 +29,6 @@ Tablero ta;
 	}
 
 	@Test
-	public void testAccionCasilla() {
-		es1 = new Cubierta(co1);
-		ca.setEstado(es1);
-		tb = new TableroBuilderNivel1();
-		Buscaminas.getElBuscaminas().setTableroBuilder(tb);
-		Buscaminas.getElBuscaminas().jugar();
-		Buscaminas.getElBuscaminas().getTablero().ponerCasilla(ca);
-		ta = Buscaminas.getElBuscaminas().getTablero();
-		ca.accionCasilla();
-		assertTrue(ca.getEstado() instanceof Descubierta);
-	}
-
-	@Test
 	public void testSetCoordenada() {
 		assertNotEquals(ca.getCoordenada(),co2);
 		ca.setCoordenada(co2);
@@ -51,16 +37,16 @@ Tablero ta;
 
 	@Test
 	public void testSetEstado() {
-		assertNotEquals(ca.getEstado(),es1);
-		es1 = new Cubierta(co2);
-		ca.setEstado(es1);
-		assertEquals(ca.getEstado(),es1);
+		assertNotEquals(ca.getEstado(),es);
+		es = new Cubierta(co2);
+		ca.setEstado(es);
+		assertEquals(ca.getEstado(),es);
 	}
 
 	@Test
 	public void testDesplegarCasilla() {
-		es1 = new Cubierta(co1);
-		ca.setEstado(es1);
+		es = new Cubierta(co1);
+		ca.setEstado(es);
 		tb = new TableroBuilderNivel1();
 		Buscaminas.getElBuscaminas().setTableroBuilder(tb);
 		Buscaminas.getElBuscaminas().jugar();

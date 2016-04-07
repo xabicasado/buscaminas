@@ -10,11 +10,11 @@ import packModelo.Buscaminas;
 import packModelo.packTablero.TableroBuilderNivel1;
 
 public class CasillaNumeroTest {
-int n1,n2;
-Coordenada co1,co2;
-CasillaNumero ca;
-Estado es1,es2;
-TableroBuilderNivel1 tb;
+private int n1,n2;
+private Coordenada co1,co2;
+private CasillaNumero ca;
+private Estado es1;
+private TableroBuilderNivel1 tb;
 
 	@Before
 	public void setUp() throws Exception {

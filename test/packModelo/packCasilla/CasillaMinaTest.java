@@ -11,10 +11,10 @@ import packModelo.packTablero.Tablero;
 import packModelo.packTablero.TableroBuilderNivel1;
 
 public class CasillaMinaTest {
-Coordenada co1,co2;
-CasillaMina ca;
-Estado es;
-TableroBuilderNivel1 tb;
+private Coordenada co1,co2;
+private CasillaMina ca;
+private Estado es;
+private TableroBuilderNivel1 tb;
 
 	@Before
 	public void setUp() throws Exception {
