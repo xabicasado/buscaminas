@@ -39,6 +39,10 @@ public class Tablero {
 		}
 	}
 	
+	public void marcarDesmarcarCasilla(Coordenada pCoordenada){
+		casillas[pCoordenada.getFila()][pCoordenada.getColumna()].marcarDesmarcarCasilla();
+	}
+	
 	public void accionCasilla(int pFila, int pColumna){
 		casillas[pFila][pColumna].accionCasilla();
 	}

@@ -30,6 +30,10 @@ public class Buscaminas {
 		tablero.desplegarCasilla(pFila, pColumna);
 	}
 	
+	public void marcarDesmarcarCasilla(Coordenada pCoordenada){
+		tablero.marcarDesmarcarCasilla(pCoordenada);
+	}
+	
 	public void accionCasilla(int pFila, int pColumna){
 		tablero.accionCasilla(pFila, pColumna);
 	}

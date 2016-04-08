@@ -23,6 +23,14 @@ public abstract class Casilla {
 		}
 		
 	}
+	public void marcarDesmarcarCasilla(){
+		if(this.estado instanceof Cubierta){
+			setEstado(new Marcada(this.getCoordenada()));
+		}
+		else if(this.estado instanceof Marcada){
+			setEstado(new Cubierta(this.getCoordenada()));
+		}
+	}
 	
 	public abstract void accionCasilla();
 	
