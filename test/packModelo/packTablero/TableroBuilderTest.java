@@ -1,0 +1,39 @@
+package packModelo.packTablero;
+
+import static org.junit.Assert.*;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+public class TableroBuilderTest {
+
+	@Before
+	public void setUp() throws Exception {
+	}
+
+	@After
+	public void tearDown() throws Exception {
+	}
+
+	@Test
+	public void testGenerarTablero() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testInicializarCasillas() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testPonerMinas() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testPonerNumMinasAdyacentes() {
+		fail("Not yet implemented");
+	}
+
+}
