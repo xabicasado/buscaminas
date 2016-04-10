@@ -25,7 +25,7 @@ public abstract class TableroBuilder {
 		inicializarCasillas();
 		ponerMinas();
 		ponerNumMinasAdyacentes();
-		
+		this.tablero.imprimirChivato();
 		return this.tablero;
 	}
 	
