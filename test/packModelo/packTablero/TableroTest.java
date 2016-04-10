@@ -48,9 +48,4 @@ private Coordenada co1,co2,co3;
 		assertEquals(Buscaminas.getElBuscaminas().getTablero().devolverCasilla(co2),caN);
 		assertEquals(Buscaminas.getElBuscaminas().getTablero().devolverCasilla(co3),caV);
 	}
-
-	@Test
-	public void testDesplegarAdyacentes() {
-		fail("Not yet implemented");
-	}
 }

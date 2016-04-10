@@ -29,7 +29,7 @@ public abstract class TableroBuilder {
 		return this.tablero;
 	}
 	
-	public void inicializarCasillas() {
+	private void inicializarCasillas() {
 		for (int i = 0; i <= tablero.getFilas() - 1; i++) {
 			for (int j = 0; j <= tablero.getColumnas() - 1; j++) {
 				Coordenada c = new Coordenada(i,j);
@@ -38,7 +38,7 @@ public abstract class TableroBuilder {
 		}
 	}
 	
-	public void ponerMinas() {
+	private void ponerMinas() {
 		boolean hayMina;
 		Coordenada c = new Coordenada();
 		int fila, columna;
@@ -57,7 +57,7 @@ public abstract class TableroBuilder {
 		}
 	}
 	
-	public void ponerNumMinasAdyacentes() {
+	private void ponerNumMinasAdyacentes() {
 		Coordenada c = new Coordenada();
 		for (int i = 0; i <= tablero.getFilas() - 1; i++) {
 			for (int j = 0; j <= tablero.getColumnas() - 1; j++) {
