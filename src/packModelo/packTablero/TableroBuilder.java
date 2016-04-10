@@ -6,9 +6,11 @@ import packModelo.packCasilla.CasillaMina;
 import packModelo.packCasilla.CasillaNumero;
 import packModelo.packCasilla.CasillaVacia;
 import packModelo.packCasilla.Coordenada;
+import packVista.Ventana;
 
 public abstract class TableroBuilder {
 	protected Tablero tablero;
+	protected Ventana ventana;
 	
 	protected abstract void definirFilas();
 	protected abstract void definirColumnas();
@@ -23,6 +25,7 @@ public abstract class TableroBuilder {
 		
 		this.tablero.setCasillas(new Casilla[this.tablero.getFilas()][this.tablero.getColumnas()]);
 		inicializarCasillas();
+		Ventana.crearVentana(this.tablero.getFilas(), this.tablero.getColumnas());
 		ponerMinas();
 		ponerNumMinasAdyacentes();
 		this.tablero.imprimirChivato();
@@ -36,6 +39,7 @@ public abstract class TableroBuilder {
 				tablero.ponerCasilla(new CasillaVacia(c));
 			}
 		}
+		
 	}
 	
 	private void ponerMinas() {
