@@ -16,7 +16,6 @@ import packModelo.packCasilla.Casilla;
 import packModelo.packCasilla.CasillaNumero;
 import packModelo.packCasilla.CasillaVacia;
 import packModelo.packCasilla.Coordenada;
-import packModelo.packCasilla.Descubierta;
 import packModelo.packCasilla.Marcada;
 
 public class vBuscaminas extends JFrame {
