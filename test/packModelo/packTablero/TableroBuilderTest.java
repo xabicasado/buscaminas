@@ -24,7 +24,7 @@ public class TableroBuilderTest {
 
 	@Test
 	public void testGenerarTablero() {
-		tab=tB.generarTablero();
+		tab = tB.generarTablero();
 		for (int i = 0; i <= tab.getFilas() - 1; i++) {
 			for (int j = 0; j <= tab.getColumnas() - 1; j++) {
 				Coordenada c = new Coordenada(i,j);

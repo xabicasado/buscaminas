@@ -1,16 +1,15 @@
 package packModelo.packTablero;
 
 import java.util.Random;
+
 import packModelo.packCasilla.Casilla;
 import packModelo.packCasilla.CasillaMina;
 import packModelo.packCasilla.CasillaNumero;
 import packModelo.packCasilla.CasillaVacia;
 import packModelo.packCasilla.Coordenada;
-import packVista.Ventana;
 
 public abstract class TableroBuilder {
 	protected Tablero tablero;
-	protected Ventana ventana;
 	
 	protected abstract void definirFilas();
 	protected abstract void definirColumnas();
@@ -24,8 +23,7 @@ public abstract class TableroBuilder {
 		definirMinas();
 		
 		this.tablero.setCasillas(new Casilla[this.tablero.getFilas()][this.tablero.getColumnas()]);
-		inicializarCasillas();
-		Ventana.crearVentana(this.tablero.getFilas(), this.tablero.getColumnas());
+		inicializarCasillas();		
 		ponerMinas();
 		ponerNumMinasAdyacentes();
 		this.tablero.imprimirChivato();

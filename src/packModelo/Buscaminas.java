@@ -1,5 +1,6 @@
 package packModelo;
 
+import packModelo.packCasilla.Casilla;
 import packModelo.packCasilla.Coordenada;
 import packModelo.packTablero.Tablero;
 import packModelo.packTablero.TableroBuilder;
@@ -40,6 +41,10 @@ public class Buscaminas {
 	
 	public void desplegarAdyacentes(Coordenada pCoordenada){
 		tablero.desplegarAdyacentes(pCoordenada);
+	}
+	
+	public Casilla devolverCasilla(Coordenada pCoordenada) {
+		return this.tablero.devolverCasilla(pCoordenada);
 	}
 	
 	public static void main(String[] args) {
