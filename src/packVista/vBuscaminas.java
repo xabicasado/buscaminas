@@ -19,7 +19,7 @@ public class vBuscaminas extends JFrame {
 
 	private JPanel contentPane;
 	private JButton btn;
-	
+	private JButton [][] botones;
 	/**
 	 * Launch the application.
 	 */
@@ -63,6 +63,7 @@ public class vBuscaminas extends JFrame {
 				//btn = new JButton(i +","+ j);
 				Coordenada c = new Coordenada(i, j);
 				btn = new JButton();
+				botones [c.getFila()][c.getColumna()]=btn;
 				btn.addMouseListener(new MouseListener() {
 					@Override
 					public void mousePressed(MouseEvent e) {
@@ -70,11 +71,13 @@ public class vBuscaminas extends JFrame {
 					      Buscaminas.getElBuscaminas().desplegarCasilla(c.getFila(), c.getColumna());
 					      Casilla casilla = Buscaminas.getElBuscaminas().devolverCasilla(c);
 					      if(casilla instanceof CasillaVacia) {
-					    	  btn.setText("-");
+					    	  botones[c.getFila()][c.getColumna()].setText("-");
+					    	  imprimirAdyacentes(c, filas, columnas);
+					    	  
 					      } else if(casilla instanceof CasillaNumero) {
-					    	  btn.setText(String.valueOf(((CasillaNumero) casilla).getNumero()));
+					    	  botones[c.getFila()][c.getColumna()].setText(String.valueOf(((CasillaNumero) casilla).getNumero()));
 					      } else {
-					    	  btn.setText("*");
+					    	  botones[c.getFila()][c.getColumna()].setText("*");
 					      }
 					    }	    
 					    else if(e.getButton() == MouseEvent.BUTTON3) {
@@ -92,6 +95,44 @@ public class vBuscaminas extends JFrame {
 					public void mouseClicked(MouseEvent e) { }
 				});
 				panel.add(btn);
+			}
+		}
+	}
+	private void imprimirAdyacentes(Coordenada pCoordenada, int pFilas, int pColumnas){
+		Casilla casilla;
+		Coordenada c2 = new Coordenada();
+		casilla = Buscaminas.getElBuscaminas().devolverCasilla(pCoordenada.getFila()-1, pCoordenada.getColumna()-1);
+	    c2.setFila(pCoordenada.getFila()-1); c2.setColumna(pCoordenada.getColumna()-1);
+		imprimir(casilla,c2 , pFilas, pColumnas);
+		casilla = Buscaminas.getElBuscaminas().devolverCasilla(pCoordenada.getFila()-1, pCoordenada.getColumna());
+		c2.setFila(pCoordenada.getFila()-1); c2.setColumna(pCoordenada.getColumna()-1);
+		imprimir(casilla,c2, pFilas, pColumnas);
+		casilla = Buscaminas.getElBuscaminas().devolverCasilla(pCoordenada.getFila()-1, pCoordenada.getColumna()+1);
+		c2.setFila(pCoordenada.getFila()-1); c2.setColumna(pCoordenada.getColumna()-1);
+		imprimir(casilla,c2, pFilas, pColumnas);
+		casilla = Buscaminas.getElBuscaminas().devolverCasilla(pCoordenada.getFila(), pCoordenada.getColumna()+1);
+		c2.setFila(pCoordenada.getFila()-1); c2.setColumna(pCoordenada.getColumna()-1);
+		imprimir(casilla,c2, pFilas, pColumnas);
+		casilla = Buscaminas.getElBuscaminas().devolverCasilla(pCoordenada.getFila()+1, pCoordenada.getColumna()+1);
+		c2.setFila(pCoordenada.getFila()-1); c2.setColumna(pCoordenada.getColumna()-1);
+		imprimir(casilla,c2, pFilas, pColumnas);
+		casilla = Buscaminas.getElBuscaminas().devolverCasilla(pCoordenada.getFila()+1, pCoordenada.getColumna());
+		c2.setFila(pCoordenada.getFila()-1); c2.setColumna(pCoordenada.getColumna()-1);
+		imprimir(casilla,c2, pFilas, pColumnas);
+		casilla = Buscaminas.getElBuscaminas().devolverCasilla(pCoordenada.getFila()+1, pCoordenada.getColumna()-1);
+		c2.setFila(pCoordenada.getFila()-1); c2.setColumna(pCoordenada.getColumna()-1);	
+		imprimir(casilla,c2, pFilas, pColumnas);
+		casilla = Buscaminas.getElBuscaminas().devolverCasilla(pCoordenada.getFila(), pCoordenada.getColumna()-1);
+		c2.setFila(pCoordenada.getFila()-1); c2.setColumna(pCoordenada.getColumna()-1);	
+		imprimir(casilla,c2, pFilas, pColumnas);
+	}
+	private void imprimir(Casilla pCasilla, Coordenada pC, int pFilas, int pColumnas){
+		if (pC.getFila()>=0 && pC.getColumna()>=0 && pFilas<pC.getFila() && pColumnas<pC.getColumna()){
+			if(pCasilla instanceof CasillaVacia && !(botones[pC.getFila()][pC.getColumna()].getText().equals("-"))) {
+				botones[pC.getFila()][pC.getColumna()].setText("-");
+		    	imprimirAdyacentes(pC, pFilas, pColumnas);
+			} else if(pCasilla instanceof CasillaNumero) {
+				botones[pC.getFila()][pC.getColumna()].setText(String.valueOf(((CasillaNumero) pCasilla).getNumero()));
 			}
 		}
 	}

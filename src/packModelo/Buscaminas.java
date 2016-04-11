@@ -46,7 +46,10 @@ public class Buscaminas {
 	public Casilla devolverCasilla(Coordenada pCoordenada) {
 		return this.tablero.devolverCasilla(pCoordenada);
 	}
-	
+	public Casilla devolverCasilla(int pFila, int pColumna) {
+		Coordenada c = new Coordenada(pFila,pColumna);
+		return this.tablero.devolverCasilla(c);
+	}
 	public static void main(String[] args) {
 		
 	}
