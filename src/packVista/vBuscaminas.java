@@ -5,15 +5,19 @@ import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import packModelo.Buscaminas;
 import packModelo.packCasilla.Casilla;
 import packModelo.packCasilla.CasillaNumero;
 import packModelo.packCasilla.CasillaVacia;
 import packModelo.packCasilla.Coordenada;
+import packModelo.packCasilla.Descubierta;
+import packModelo.packCasilla.Marcada;
 
 public class vBuscaminas extends JFrame {
 
@@ -62,7 +66,6 @@ public class vBuscaminas extends JFrame {
 		
 		for (int i = 0; i < filas; i++) {
 			for (int j = 0; j < columnas; j++) {
-				//btn = new JButton(i +","+ j);
 				Coordenada c = new Coordenada(i, j);
 				btn = new JButton();
 				botones [c.getFila()][c.getColumna()] = btn;
@@ -72,18 +75,26 @@ public class vBuscaminas extends JFrame {
 					    if(e.getButton() == MouseEvent.BUTTON1) {
 					      Buscaminas.getElBuscaminas().desplegarCasilla(c.getFila(), c.getColumna());
 					      Casilla casilla = Buscaminas.getElBuscaminas().devolverCasilla(c);
-					      if(casilla instanceof CasillaVacia) {
+					      /*if(casilla instanceof CasillaVacia) {
 					    	  botones[c.getFila()][c.getColumna()].setText("-");
 					    	  imprimirAdyacentes(c);
-					    	  
 					      } else if(casilla instanceof CasillaNumero) {
 					    	  botones[c.getFila()][c.getColumna()].setText(String.valueOf(((CasillaNumero) casilla).getNumero()));
 					      } else {
 					    	  botones[c.getFila()][c.getColumna()].setText("*");
-					      }
+					      }*/
+					      imprimir(c);
 					    }	    
 					    else if(e.getButton() == MouseEvent.BUTTON3) {
-					      Buscaminas.getElBuscaminas().marcarDesmarcarCasilla(c);
+					    	if(botones[c.getFila()][c.getColumna()].isEnabled() == true){
+					    		Buscaminas.getElBuscaminas().marcarDesmarcarCasilla(c);
+							    Casilla casilla = Buscaminas.getElBuscaminas().devolverCasilla(c);
+							    if(casilla.getEstado() instanceof Marcada) {
+							    	botones[c.getFila()][c.getColumna()].setText("m");
+							    } else {
+							    	botones[c.getFila()][c.getColumna()].setText("");
+							    }
+					    	}
 					    }
 					}
 					
@@ -128,15 +139,21 @@ public class vBuscaminas extends JFrame {
 		c2.setColumna(pCoordenada.getColumna()-1);	
 		imprimir(c2);
 	}
+	
 	private void imprimir(Coordenada pC){
 		Casilla casilla;
-		if (pC.getFila() >= 0 && pC.getColumna() >= 0 && filas < pC.getFila() && columnas < pC.getColumna()){
+		if(pC.getFila() >= 0 && pC.getColumna() >= 0 && pC.getFila() < filas && pC.getColumna() <columnas){
 			casilla = Buscaminas.getElBuscaminas().devolverCasilla(pC);
-			if(casilla instanceof CasillaVacia && !(botones[pC.getFila()][pC.getColumna()].getText().equals("-"))) {
-				botones[pC.getFila()][pC.getColumna()].setText("-");
-		    	imprimirAdyacentes(pC);
-			} else if(casilla instanceof CasillaNumero) {
-				botones[pC.getFila()][pC.getColumna()].setText(String.valueOf(((CasillaNumero) casilla).getNumero()));
+			botones[pC.getFila()][pC.getColumna()].setEnabled(false);
+			if(botones[pC.getFila()][pC.getColumna()].getText().equals("")) {
+				if(casilla instanceof CasillaVacia) {
+					botones[pC.getFila()][pC.getColumna()].setText("-");
+			    	imprimirAdyacentes(pC);
+				} else if(casilla instanceof CasillaNumero) {
+					botones[pC.getFila()][pC.getColumna()].setText(String.valueOf(((CasillaNumero) casilla).getNumero()));
+				} else {
+					botones[pC.getFila()][pC.getColumna()].setText("*");
+				}
 			}
 		}
 	}
