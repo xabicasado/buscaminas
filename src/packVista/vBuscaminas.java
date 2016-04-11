@@ -19,6 +19,7 @@ public class vBuscaminas extends JFrame {
 
 	private JPanel contentPane;
 	private JButton btn;
+	private int filas, columnas;
 	private JButton [][] botones;
 	/**
 	 * Launch the application.
@@ -48,8 +49,8 @@ public class vBuscaminas extends JFrame {
 		setContentPane(contentPane);
 
 		Buscaminas.getElBuscaminas().jugar();
-		int filas = Buscaminas.getElBuscaminas().getTablero().getFilas();
-		int columnas = Buscaminas.getElBuscaminas().getTablero().getColumnas();
+		filas = Buscaminas.getElBuscaminas().getTablero().getFilas();
+		columnas = Buscaminas.getElBuscaminas().getTablero().getColumnas();
 		crearTablero(filas, columnas);
 	}
 	
@@ -57,13 +58,14 @@ public class vBuscaminas extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(filas, columnas, 0, 0));
 		contentPane.add(panel, BorderLayout.CENTER);
+		botones = new JButton[filas][columnas];
 		
 		for (int i = 0; i < filas; i++) {
 			for (int j = 0; j < columnas; j++) {
 				//btn = new JButton(i +","+ j);
 				Coordenada c = new Coordenada(i, j);
 				btn = new JButton();
-				botones [c.getFila()][c.getColumna()]=btn;
+				botones [c.getFila()][c.getColumna()] = btn;
 				btn.addMouseListener(new MouseListener() {
 					@Override
 					public void mousePressed(MouseEvent e) {
@@ -72,7 +74,7 @@ public class vBuscaminas extends JFrame {
 					      Casilla casilla = Buscaminas.getElBuscaminas().devolverCasilla(c);
 					      if(casilla instanceof CasillaVacia) {
 					    	  botones[c.getFila()][c.getColumna()].setText("-");
-					    	  imprimirAdyacentes(c, filas, columnas);
+					    	  imprimirAdyacentes(c);
 					    	  
 					      } else if(casilla instanceof CasillaNumero) {
 					    	  botones[c.getFila()][c.getColumna()].setText(String.valueOf(((CasillaNumero) casilla).getNumero()));
@@ -98,39 +100,40 @@ public class vBuscaminas extends JFrame {
 			}
 		}
 	}
-	private void imprimirAdyacentes(Coordenada pCoordenada, int pFilas, int pColumnas){
+	
+	private void imprimirAdyacentes(Coordenada pCoordenada){
 		Casilla casilla;
 		Coordenada c2 = new Coordenada();
 		casilla = Buscaminas.getElBuscaminas().devolverCasilla(pCoordenada.getFila()-1, pCoordenada.getColumna()-1);
 	    c2.setFila(pCoordenada.getFila()-1); c2.setColumna(pCoordenada.getColumna()-1);
-		imprimir(casilla,c2 , pFilas, pColumnas);
+		imprimir(casilla,c2);
 		casilla = Buscaminas.getElBuscaminas().devolverCasilla(pCoordenada.getFila()-1, pCoordenada.getColumna());
 		c2.setFila(pCoordenada.getFila()-1); c2.setColumna(pCoordenada.getColumna()-1);
-		imprimir(casilla,c2, pFilas, pColumnas);
+		imprimir(casilla,c2);
 		casilla = Buscaminas.getElBuscaminas().devolverCasilla(pCoordenada.getFila()-1, pCoordenada.getColumna()+1);
 		c2.setFila(pCoordenada.getFila()-1); c2.setColumna(pCoordenada.getColumna()-1);
-		imprimir(casilla,c2, pFilas, pColumnas);
+		imprimir(casilla,c2);
 		casilla = Buscaminas.getElBuscaminas().devolverCasilla(pCoordenada.getFila(), pCoordenada.getColumna()+1);
 		c2.setFila(pCoordenada.getFila()-1); c2.setColumna(pCoordenada.getColumna()-1);
-		imprimir(casilla,c2, pFilas, pColumnas);
+		imprimir(casilla,c2);
 		casilla = Buscaminas.getElBuscaminas().devolverCasilla(pCoordenada.getFila()+1, pCoordenada.getColumna()+1);
 		c2.setFila(pCoordenada.getFila()-1); c2.setColumna(pCoordenada.getColumna()-1);
-		imprimir(casilla,c2, pFilas, pColumnas);
+		imprimir(casilla,c2);
 		casilla = Buscaminas.getElBuscaminas().devolverCasilla(pCoordenada.getFila()+1, pCoordenada.getColumna());
 		c2.setFila(pCoordenada.getFila()-1); c2.setColumna(pCoordenada.getColumna()-1);
-		imprimir(casilla,c2, pFilas, pColumnas);
+		imprimir(casilla,c2);
 		casilla = Buscaminas.getElBuscaminas().devolverCasilla(pCoordenada.getFila()+1, pCoordenada.getColumna()-1);
 		c2.setFila(pCoordenada.getFila()-1); c2.setColumna(pCoordenada.getColumna()-1);	
-		imprimir(casilla,c2, pFilas, pColumnas);
+		imprimir(casilla,c2);
 		casilla = Buscaminas.getElBuscaminas().devolverCasilla(pCoordenada.getFila(), pCoordenada.getColumna()-1);
 		c2.setFila(pCoordenada.getFila()-1); c2.setColumna(pCoordenada.getColumna()-1);	
-		imprimir(casilla,c2, pFilas, pColumnas);
+		imprimir(casilla,c2);
 	}
-	private void imprimir(Casilla pCasilla, Coordenada pC, int pFilas, int pColumnas){
-		if (pC.getFila()>=0 && pC.getColumna()>=0 && pFilas<pC.getFila() && pColumnas<pC.getColumna()){
+	private void imprimir(Casilla pCasilla, Coordenada pC){
+		if (pC.getFila() >= 0 && pC.getColumna() >= 0 && filas < pC.getFila() && columnas < pC.getColumna()){
 			if(pCasilla instanceof CasillaVacia && !(botones[pC.getFila()][pC.getColumna()].getText().equals("-"))) {
 				botones[pC.getFila()][pC.getColumna()].setText("-");
-		    	imprimirAdyacentes(pC, pFilas, pColumnas);
+		    	imprimirAdyacentes(pC);
 			} else if(pCasilla instanceof CasillaNumero) {
 				botones[pC.getFila()][pC.getColumna()].setText(String.valueOf(((CasillaNumero) pCasilla).getNumero()));
 			}
