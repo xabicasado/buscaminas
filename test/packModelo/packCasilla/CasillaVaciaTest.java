@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import packModelo.Buscaminas;
-import packModelo.packTablero.Tablero;
 import packModelo.packTablero.TableroBuilderNivel1;
 
 public class CasillaVaciaTest {

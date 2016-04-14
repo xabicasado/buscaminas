@@ -6,7 +6,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import packModelo.packCasilla.CasillaVacia;
 import packModelo.packCasilla.Coordenada;
 import packModelo.packTablero.Tablero;
 import packModelo.packTablero.TableroBuilderNivel1;
@@ -16,10 +15,13 @@ public class TableroBuilderTest {
 	private TableroBuilderNivel1 tB;
 	@Before
 	public void setUp() throws Exception {
+		tB = new TableroBuilderNivel1();
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		tB = null;
+		tab = null;
 	}
 
 	@Test

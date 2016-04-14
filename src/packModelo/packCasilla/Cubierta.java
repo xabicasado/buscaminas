@@ -9,7 +9,7 @@ public class Cubierta extends Estado {
 	}
 	
 	public void descubrirCasilla(){
-		Buscaminas.getElBuscaminas().desplegarCasilla(this.getCoordenada().getFila(),this.getCoordenada().getColumna());
+		Buscaminas.getElBuscaminas().desplegarCasilla(this.getCoordenada());
 	}
 
 }

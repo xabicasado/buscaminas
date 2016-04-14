@@ -33,9 +33,10 @@ public class Tablero {
 		this.casillas[c.getFila()][c.getColumna()] = pCasilla;
 	}
 	
-	public void desplegarCasilla(int pFila ,int pColumna ) {
-		if ((pFila >=0 && pColumna>=0)&&(pFila<filas && pColumna < columnas)){
-			casillas[pFila][pColumna].desplegarCasilla();
+	public void desplegarCasilla(Coordenada pCoordenada) {
+		if ((pCoordenada.getFila() >=0 && pCoordenada.getColumna()>=0)&&
+				(pCoordenada.getFila()<filas && pCoordenada.getColumna() < columnas)){
+			casillas[pCoordenada.getFila()][pCoordenada.getColumna()].desplegarCasilla();
 		}
 	}
 	
@@ -48,14 +49,31 @@ public class Tablero {
 	}
 	
 	public void desplegarAdyacentes(Coordenada pCoordenada){
-		desplegarCasilla(pCoordenada.getFila()-1, pCoordenada.getColumna()-1);
-		desplegarCasilla(pCoordenada.getFila()-1, pCoordenada.getColumna());
-		desplegarCasilla(pCoordenada.getFila()-1, pCoordenada.getColumna()+1);
-		desplegarCasilla(pCoordenada.getFila(), pCoordenada.getColumna()+1);
-		desplegarCasilla(pCoordenada.getFila()+1, pCoordenada.getColumna()+1);
-		desplegarCasilla(pCoordenada.getFila()+1, pCoordenada.getColumna());
-		desplegarCasilla(pCoordenada.getFila()+1, pCoordenada.getColumna()-1);
-		desplegarCasilla(pCoordenada.getFila(), pCoordenada.getColumna()-1);
+		Coordenada c= new Coordenada();
+		c.setFila(pCoordenada.getFila()-1);
+		c.setColumna(pCoordenada.getColumna()-1);
+		desplegarCasilla(c);
+		c.setFila(pCoordenada.getFila()-1);
+		c.setColumna(pCoordenada.getColumna());
+		desplegarCasilla(c);
+		c.setFila(pCoordenada.getFila()-1);
+		c.setColumna(pCoordenada.getColumna()+1);
+		desplegarCasilla(c);
+		c.setFila(pCoordenada.getFila());
+		c.setColumna(pCoordenada.getColumna()+1);
+		desplegarCasilla(c);
+		c.setFila(pCoordenada.getFila()+1);
+		c.setColumna(pCoordenada.getColumna()+1);
+		desplegarCasilla(c);
+		c.setFila(pCoordenada.getFila()+1);
+		c.setColumna(pCoordenada.getColumna());
+		desplegarCasilla(c);
+		c.setFila(pCoordenada.getFila()+1);
+		c.setColumna(pCoordenada.getColumna()-1);
+		desplegarCasilla(c);
+		c.setFila(pCoordenada.getFila());
+		c.setColumna(pCoordenada.getColumna()-1);
+		desplegarCasilla(c);
 	}
 	
 	public void imprimirChivato() {

@@ -26,18 +26,14 @@ public class Buscaminas {
 		this.tablero = this.tableroBuilder.generarTablero();
 	}
 	
-	// TODO desplegarCasilla y accionCasilla deberían recibir Coordenada en lugar de dos variables
-	public void desplegarCasilla(int pFila ,int pColumna ) {
-		tablero.desplegarCasilla(pFila, pColumna);
+	public void desplegarCasilla(Coordenada pCoordenada) {
+		tablero.desplegarCasilla(pCoordenada);
 	}
 	
 	public void marcarDesmarcarCasilla(Coordenada pCoordenada){
 		tablero.marcarDesmarcarCasilla(pCoordenada);
 	}
-	
-	public void accionCasilla(int pFila, int pColumna){
-		tablero.accionCasilla(pFila, pColumna);
-	}
+
 	
 	public void desplegarAdyacentes(Coordenada pCoordenada){
 		tablero.desplegarAdyacentes(pCoordenada);
