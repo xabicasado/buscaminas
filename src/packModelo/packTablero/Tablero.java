@@ -11,6 +11,7 @@ public class Tablero {
 	private int columnas;
 	private int minas;
 	private Casilla [][] casillas;
+	private int nCasillasRestantes;
 	
 	public void setFilas(int filas) { this.filas = filas; }
 	public int getFilas() { return this.filas; }
@@ -20,6 +21,10 @@ public class Tablero {
 	
 	public void setMinas(int minas) { this.minas = minas; }
 	public int getMinas() { return this.minas; }
+	
+	public void setnCasillasRestantes(int nCasillasRestantes) { this.nCasillasRestantes = nCasillasRestantes; }
+	public int getnCasillasRestantes() { return nCasillasRestantes; }
+	public void decrementarCasillasRestantes() { this.nCasillasRestantes = this.nCasillasRestantes - 1; }
 	
 	public Casilla[][] getCasillas() { return this.casillas; }
 	public void setCasillas(Casilla[][] casillas) { this.casillas = casillas; }
@@ -95,24 +100,6 @@ public class Tablero {
 			}
 			System.out.println("");
 		}
-	}
-	
-	public void imprimirResultado() {
-		Coordenada c = new Coordenada();
-		Casilla casilla;
-		for (int i = 0; i < this.filas; i++) {
-			for (int j = 0; j < this.columnas; j++) {
-				c.setFila(i);
-				c.setColumna(j);
-				casilla = devolverCasilla(c);
-				
-				if(casilla.getEstado() instanceof Cubierta) {
-					System.out.print(" - ");
-				} else {
-					System.out.print(" X ");
-				}	
-			}
-			System.out.println("");
-		}
+		System.out.println("");
 	}
 }

@@ -9,6 +9,7 @@ public class Buscaminas {
 	private static Buscaminas elBuscaminas;
 	private TableroBuilder tableroBuilder;
 	private Tablero tablero;
+	private boolean derrota;
 	
 	private Buscaminas() { }
 	
@@ -24,6 +25,7 @@ public class Buscaminas {
 	public void jugar() {
 		// TODO Implementar método
 		this.tablero = this.tableroBuilder.generarTablero();
+		this.derrota = false;
 	}
 	
 	public void desplegarCasilla(Coordenada pCoordenada) {
@@ -33,7 +35,10 @@ public class Buscaminas {
 	public void marcarDesmarcarCasilla(Coordenada pCoordenada){
 		tablero.marcarDesmarcarCasilla(pCoordenada);
 	}
-
+	
+	public void decrementarCasillasRestantes() {
+		this.tablero.decrementarCasillasRestantes();
+	}
 	
 	public void desplegarAdyacentes(Coordenada pCoordenada){
 		tablero.desplegarAdyacentes(pCoordenada);
@@ -42,7 +47,11 @@ public class Buscaminas {
 	public Casilla devolverCasilla(Coordenada pCoordenada) {
 		return this.tablero.devolverCasilla(pCoordenada);
 	}
-	public static void main(String[] args) {
-		
+
+	public boolean hasGanado() {
+		return this.tablero.getnCasillasRestantes() == this.tablero.getMinas();
 	}
+	
+	public void derrotado() { this.derrota = true; }
+	public boolean hasPerdido() { return this.derrota; }
 }

@@ -7,7 +7,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -16,6 +18,7 @@ import packModelo.packCasilla.Casilla;
 import packModelo.packCasilla.CasillaNumero;
 import packModelo.packCasilla.CasillaVacia;
 import packModelo.packCasilla.Coordenada;
+import packModelo.packCasilla.Descubierta;
 import packModelo.packCasilla.Marcada;
 
 public class vBuscaminas extends JFrame {
@@ -23,7 +26,8 @@ public class vBuscaminas extends JFrame {
 	private JPanel contentPane;
 	private JButton btn;
 	private int filas, columnas;
-	private JButton [][] botones;
+	private JButton[][] botones;
+
 	/**
 	 * Launch the application.
 	 */
@@ -56,100 +60,118 @@ public class vBuscaminas extends JFrame {
 		columnas = Buscaminas.getElBuscaminas().getTablero().getColumnas();
 		crearTablero(filas, columnas);
 	}
-	
+
 	private void crearTablero(int filas, int columnas) {
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(filas, columnas, 0, 0));
 		contentPane.add(panel, BorderLayout.CENTER);
 		botones = new JButton[filas][columnas];
-		
+
 		for (int i = 0; i < filas; i++) {
 			for (int j = 0; j < columnas; j++) {
 				Coordenada c = new Coordenada(i, j);
 				btn = new JButton();
-				botones [c.getFila()][c.getColumna()] = btn;
+				botones[c.getFila()][c.getColumna()] = btn;
 				btn.addMouseListener(new MouseListener() {
 					@Override
 					public void mousePressed(MouseEvent e) {
-					    if(e.getButton() == MouseEvent.BUTTON1) {
-					      Buscaminas.getElBuscaminas().desplegarCasilla(c.getFila(), c.getColumna());
-					      Casilla casilla = Buscaminas.getElBuscaminas().devolverCasilla(c);
-					      /*if(casilla instanceof CasillaVacia) {
-					    	  botones[c.getFila()][c.getColumna()].setText("-");
-					    	  imprimirAdyacentes(c);
-					      } else if(casilla instanceof CasillaNumero) {
-					    	  botones[c.getFila()][c.getColumna()].setText(String.valueOf(((CasillaNumero) casilla).getNumero()));
-					      } else {
-					    	  botones[c.getFila()][c.getColumna()].setText("*");
-					      }*/
-					      imprimir(c);
-					    }	    
-					    else if(e.getButton() == MouseEvent.BUTTON3) {
-					    	if(botones[c.getFila()][c.getColumna()].isEnabled() == true){
-					    		Buscaminas.getElBuscaminas().marcarDesmarcarCasilla(c);
-							    Casilla casilla = Buscaminas.getElBuscaminas().devolverCasilla(c);
-							    if(casilla.getEstado() instanceof Marcada) {
-							    	botones[c.getFila()][c.getColumna()].setText("m");
-							    } else {
-							    	botones[c.getFila()][c.getColumna()].setText("");
-							    }
-					    	}
-					    }
+						if (e.getButton() == MouseEvent.BUTTON1) {
+							Buscaminas.getElBuscaminas().desplegarCasilla(c);
+							imprimir(c);
+							if (!Buscaminas.getElBuscaminas().hasPerdido()) {
+								if (Buscaminas.getElBuscaminas().hasGanado()) {
+									JOptionPane.showMessageDialog(null,
+											"Has ganado la partida!",
+											"Enhorabuena",
+											JOptionPane.INFORMATION_MESSAGE);
+								}
+							} else {
+								JOptionPane.showMessageDialog(null,
+										"Has perdido la partida!",
+										"Enhorabuena",
+										JOptionPane.ERROR_MESSAGE);
+							}
+						} else if (e.getButton() == MouseEvent.BUTTON3) {
+							if (botones[c.getFila()][c.getColumna()]
+									.isEnabled() == true) {
+								Buscaminas.getElBuscaminas()
+										.marcarDesmarcarCasilla(c);
+								Casilla casilla = Buscaminas.getElBuscaminas()
+										.devolverCasilla(c);
+								if (casilla.getEstado() instanceof Marcada) {
+									botones[c.getFila()][c.getColumna()]
+											.setText("m");
+								} else {
+									botones[c.getFila()][c.getColumna()]
+											.setText("");
+								}
+							}
+						}
 					}
-					
+
 					@Override
-					public void mouseReleased(MouseEvent e) { }
+					public void mouseReleased(MouseEvent e) {
+					}
+
 					@Override
-					public void mouseExited(MouseEvent e) { }
+					public void mouseExited(MouseEvent e) {
+					}
+
 					@Override
-					public void mouseEntered(MouseEvent e) { }
+					public void mouseEntered(MouseEvent e) {
+					}
+
 					@Override
-					public void mouseClicked(MouseEvent e) { }
+					public void mouseClicked(MouseEvent e) {
+					}
 				});
 				panel.add(btn);
 			}
 		}
 	}
-	
-	private void imprimirAdyacentes(Coordenada pCoordenada){
+
+	private void imprimirAdyacentes(Coordenada pCoordenada) {
 		Coordenada c2 = new Coordenada();
-	    c2.setFila(pCoordenada.getFila()-1);
-	    c2.setColumna(pCoordenada.getColumna()-1);
+		c2.setFila(pCoordenada.getFila() - 1);
+		c2.setColumna(pCoordenada.getColumna() - 1);
 		imprimir(c2);
-		c2.setFila(pCoordenada.getFila()-1);
+		c2.setFila(pCoordenada.getFila() - 1);
 		c2.setColumna(pCoordenada.getColumna());
 		imprimir(c2);
-		c2.setFila(pCoordenada.getFila()-1);
-		c2.setColumna(pCoordenada.getColumna()+1);
+		c2.setFila(pCoordenada.getFila() - 1);
+		c2.setColumna(pCoordenada.getColumna() + 1);
 		imprimir(c2);
 		c2.setFila(pCoordenada.getFila());
-		c2.setColumna(pCoordenada.getColumna()+1);
+		c2.setColumna(pCoordenada.getColumna() + 1);
 		imprimir(c2);
-		c2.setFila(pCoordenada.getFila()+1);
-		c2.setColumna(pCoordenada.getColumna()+1);
+		c2.setFila(pCoordenada.getFila() + 1);
+		c2.setColumna(pCoordenada.getColumna() + 1);
 		imprimir(c2);
-		c2.setFila(pCoordenada.getFila()+1); 
+		c2.setFila(pCoordenada.getFila() + 1);
 		c2.setColumna(pCoordenada.getColumna());
 		imprimir(c2);
-		c2.setFila(pCoordenada.getFila()+1); 
-		c2.setColumna(pCoordenada.getColumna()-1);	
+		c2.setFila(pCoordenada.getFila() + 1);
+		c2.setColumna(pCoordenada.getColumna() - 1);
 		imprimir(c2);
 		c2.setFila(pCoordenada.getFila());
-		c2.setColumna(pCoordenada.getColumna()-1);	
+		c2.setColumna(pCoordenada.getColumna() - 1);
 		imprimir(c2);
 	}
-	
-	private void imprimir(Coordenada pC){
+
+	private void imprimir(Coordenada pC) {
 		Casilla casilla;
-		if(pC.getFila() >= 0 && pC.getColumna() >= 0 && pC.getFila() < filas && pC.getColumna() <columnas){
+		if (pC.getFila() >= 0 && pC.getColumna() >= 0 && pC.getFila() < filas
+				&& pC.getColumna() < columnas) {
 			casilla = Buscaminas.getElBuscaminas().devolverCasilla(pC);
-			botones[pC.getFila()][pC.getColumna()].setEnabled(false);
-			if(botones[pC.getFila()][pC.getColumna()].getText().equals("")) {
-				if(casilla instanceof CasillaVacia) {
+			if (casilla.getEstado() instanceof Descubierta)
+				botones[pC.getFila()][pC.getColumna()].setEnabled(false);
+			if (botones[pC.getFila()][pC.getColumna()].getText().equals("")) {
+				if (casilla instanceof CasillaVacia) {
 					botones[pC.getFila()][pC.getColumna()].setText("-");
-			    	imprimirAdyacentes(pC);
-				} else if(casilla instanceof CasillaNumero) {
-					botones[pC.getFila()][pC.getColumna()].setText(String.valueOf(((CasillaNumero) casilla).getNumero()));
+					imprimirAdyacentes(pC);
+				} else if (casilla instanceof CasillaNumero) {
+					botones[pC.getFila()][pC.getColumna()].setText(String
+							.valueOf(((CasillaNumero) casilla).getNumero()));
 				} else {
 					botones[pC.getFila()][pC.getColumna()].setText("*");
 				}

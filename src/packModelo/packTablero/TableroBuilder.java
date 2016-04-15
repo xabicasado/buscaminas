@@ -26,6 +26,7 @@ public abstract class TableroBuilder {
 		inicializarCasillas();		
 		ponerMinas();
 		ponerNumMinasAdyacentes();
+		this.tablero.setnCasillasRestantes(this.tablero.getFilas()*this.tablero.getColumnas());
 		this.tablero.imprimirChivato();
 		return this.tablero;
 	}
@@ -46,7 +47,7 @@ public abstract class TableroBuilder {
 		int fila, columna;
 		Random r = new Random();
 		
-		for(int i = 0 ; i <= tablero.getMinas(); i++){
+		for(int i = 0 ; i < tablero.getMinas(); i++){
 			do {
 				fila = r.nextInt(tablero.getFilas());
 				columna = r.nextInt(tablero.getColumnas());

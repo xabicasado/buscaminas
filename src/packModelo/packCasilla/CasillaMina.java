@@ -1,5 +1,7 @@
 package packModelo.packCasilla;
 
+import packModelo.Buscaminas;
+
 
 public class CasillaMina extends Casilla {
 
@@ -9,6 +11,6 @@ public class CasillaMina extends Casilla {
 
 	@Override
 	public void accionCasilla() {
-		System.out.println("Ha finalizado el juego");
+		Buscaminas.getElBuscaminas().derrotado();
 	}
 }
