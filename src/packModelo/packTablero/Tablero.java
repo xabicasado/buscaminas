@@ -4,7 +4,6 @@ import packModelo.packCasilla.Casilla;
 import packModelo.packCasilla.CasillaMina;
 import packModelo.packCasilla.CasillaNumero;
 import packModelo.packCasilla.Coordenada;
-import packModelo.packCasilla.Cubierta;
 
 public class Tablero {
 	private int filas;
@@ -47,10 +46,6 @@ public class Tablero {
 	
 	public void marcarDesmarcarCasilla(Coordenada pCoordenada){
 		casillas[pCoordenada.getFila()][pCoordenada.getColumna()].marcarDesmarcarCasilla();
-	}
-	
-	public void accionCasilla(int pFila, int pColumna){
-		casillas[pFila][pColumna].accionCasilla();
 	}
 	
 	public void desplegarAdyacentes(Coordenada pCoordenada){
