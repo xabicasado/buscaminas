@@ -88,7 +88,7 @@ public class vBuscaminas extends JFrame {
 							} else {
 								JOptionPane.showMessageDialog(null,
 										"Has perdido la partida!",
-										"Enhorabuena",
+										"Que pena",
 										JOptionPane.ERROR_MESSAGE);
 							}
 						} else if (e.getButton() == MouseEvent.BUTTON3) {
