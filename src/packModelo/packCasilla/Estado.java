@@ -11,4 +11,6 @@ public abstract class Estado {
 	public void descubrirCasilla(){}
 	public Coordenada getCoordenada(){return this.coordenada;}
 
+	public void desplegarCasilla(Casilla pCasilla) { }
+
 }

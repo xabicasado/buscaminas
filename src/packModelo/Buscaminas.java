@@ -54,4 +54,8 @@ public class Buscaminas {
 	
 	public void derrotado() { this.derrota = true; }
 	public boolean hasPerdido() { return this.derrota; }
+
+	public void accionCasilla(Coordenada coordenada) {
+		tablero.devolverCasilla(coordenada).accionCasilla();
+	}
 }

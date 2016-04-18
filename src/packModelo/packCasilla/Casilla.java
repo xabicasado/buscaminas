@@ -19,11 +19,9 @@ public abstract class Casilla {
 	public void setEstado(Estado pEstado) { this.estado=pEstado; }
 	
 	public void desplegarCasilla(){
-		if((this.estado instanceof Cubierta)) {
-			setEstado(new Descubierta(this.getCoordenada()));
-			Buscaminas.getElBuscaminas().decrementarCasillasRestantes();
-			this.accionCasilla();
-		}
+		
+		this.estado.desplegarCasilla(this);
+
 		
 	}
 	public void marcarDesmarcarCasilla(){

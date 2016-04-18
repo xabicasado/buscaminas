@@ -9,7 +9,14 @@ public class Cubierta extends Estado {
 	}
 	
 	public void descubrirCasilla(){
-		Buscaminas.getElBuscaminas().desplegarCasilla(this.getCoordenada());
+		
+		Buscaminas.getElBuscaminas().accionCasilla(this.getCoordenada());
+	}
+	
+	public void desplegarCasilla(Casilla pCasilla) {
+		pCasilla.setEstado(new Descubierta(pCasilla.getCoordenada()));
+		Buscaminas.getElBuscaminas().decrementarCasillasRestantes();
+		this.descubrirCasilla();
 	}
 
 }
