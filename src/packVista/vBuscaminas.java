@@ -1,6 +1,8 @@
 package packVista;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
@@ -49,7 +51,8 @@ public class vBuscaminas extends JFrame {
 	 */
 	public vBuscaminas() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		// setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -75,35 +78,50 @@ public class vBuscaminas extends JFrame {
 				btn.addMouseListener(new MouseListener() {
 					@Override
 					public void mousePressed(MouseEvent e) {
-						if (e.getButton() == MouseEvent.BUTTON1) {
-							Buscaminas.getElBuscaminas().desplegarCasilla(c);
-							imprimir(c);
-							if (!Buscaminas.getElBuscaminas().hasPerdido()) {
-								if (Buscaminas.getElBuscaminas().hasGanado()) {
-									JOptionPane.showMessageDialog(null,
-											"Has ganado la partida!",
-											"Enhorabuena",
-											JOptionPane.INFORMATION_MESSAGE);
-								}
-							} else {
-								JOptionPane.showMessageDialog(null,
-										"Has perdido la partida!",
-										"Que pena",
-										JOptionPane.ERROR_MESSAGE);
-							}
-						} else if (e.getButton() == MouseEvent.BUTTON3) {
-							if (botones[c.getFila()][c.getColumna()]
-									.isEnabled() == true) {
+						if (!Buscaminas.getElBuscaminas().hasPerdido()
+								&& !Buscaminas.getElBuscaminas().hasGanado()) {
+							if (e.getButton() == MouseEvent.BUTTON1) {
 								Buscaminas.getElBuscaminas()
-										.marcarDesmarcarCasilla(c);
-								Casilla casilla = Buscaminas.getElBuscaminas()
-										.devolverCasilla(c);
-								if (casilla.getEstado() instanceof Marcada) {
-									botones[c.getFila()][c.getColumna()]
-											.setText("m");
+										.desplegarCasilla(c);
+								imprimir(c);
+								if (!Buscaminas.getElBuscaminas().hasPerdido()) {
+									if (Buscaminas.getElBuscaminas()
+											.hasGanado()) {
+										JOptionPane
+												.showMessageDialog(
+														null,
+														"Has ganado la partida!",
+														"Enhorabuena",
+														JOptionPane.INFORMATION_MESSAGE);
+										inhabilitarTablero(panel);
+									}
 								} else {
-									botones[c.getFila()][c.getColumna()]
-											.setText("");
+									JOptionPane.showMessageDialog(null,
+											"Has perdido la partida!",
+											"Que pena",
+											JOptionPane.ERROR_MESSAGE);
+									inhabilitarTablero(panel);
+								}
+							} else if (e.getButton() == MouseEvent.BUTTON3) {
+								if (botones[c.getFila()][c.getColumna()]
+										.isEnabled() == true) {
+									Buscaminas.getElBuscaminas()
+											.marcarDesmarcarCasilla(c);
+									Casilla casilla = Buscaminas
+											.getElBuscaminas().devolverCasilla(
+													c);
+									if (!Buscaminas.getElBuscaminas()
+											.hasPerdido()
+											&& !Buscaminas.getElBuscaminas()
+													.hasGanado()) {
+										if (casilla.getEstado() instanceof Marcada) {
+											botones[c.getFila()][c.getColumna()]
+													.setText("m");
+										} else {
+											botones[c.getFila()][c.getColumna()]
+													.setText("");
+										}
+									}
 								}
 							}
 						}
@@ -176,6 +194,15 @@ public class vBuscaminas extends JFrame {
 					botones[pC.getFila()][pC.getColumna()].setText("*");
 				}
 			}
+		}
+	}
+
+	private void inhabilitarTablero(Container container) {
+		Component[] components = container.getComponents();
+		for (Component component : components) {
+			component.setEnabled(false);
+			if (component instanceof Container)
+				inhabilitarTablero((Container) component);
 		}
 	}
 }

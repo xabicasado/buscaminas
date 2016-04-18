@@ -81,8 +81,7 @@ public class vLogin extends JDialog {
 									//TODO Excepción Tipo de Tablero incorrecto
 									break;
 							}
-							// TODO llamar a un vBuscaminas que imprima el tablero
-							
+							dispose(); // Cerramos vLogin antes de abrir vBuscaminas
 							vBuscaminas dialog = new vBuscaminas();
 							dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 							dialog.setLocationRelativeTo(null);
