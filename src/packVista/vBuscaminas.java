@@ -23,7 +23,7 @@ import packModelo.packCasilla.Coordenada;
 import packModelo.packCasilla.Descubierta;
 import packModelo.packCasilla.Marcada;
 
-public class vBuscaminas extends JFrame {
+public class vBuscaminas extends JFrame implements IObserver{
 
 	private JPanel contentPane;
 	private JButton btn;
@@ -59,6 +59,7 @@ public class vBuscaminas extends JFrame {
 		setContentPane(contentPane);
 
 		Buscaminas.getElBuscaminas().jugar();
+		Buscaminas.getElBuscaminas().setObservador(this);
 		filas = Buscaminas.getElBuscaminas().getTablero().getFilas();
 		columnas = Buscaminas.getElBuscaminas().getTablero().getColumnas();
 		crearTablero(filas, columnas);
@@ -83,7 +84,7 @@ public class vBuscaminas extends JFrame {
 							if (e.getButton() == MouseEvent.BUTTON1) {
 								Buscaminas.getElBuscaminas()
 										.desplegarCasilla(c);
-								imprimir(c);
+								//imprimir(c);
 								if (!Buscaminas.getElBuscaminas().hasPerdido()) {
 									if (Buscaminas.getElBuscaminas()
 											.hasGanado()) {
@@ -174,6 +175,10 @@ public class vBuscaminas extends JFrame {
 		c2.setFila(pCoordenada.getFila());
 		c2.setColumna(pCoordenada.getColumna() - 1);
 		imprimir(c2);
+	}
+	
+	public void update(Coordenada pC){
+		imprimir(pC);
 	}
 
 	private void imprimir(Coordenada pC) {

@@ -5,7 +5,7 @@ import packModelo.packCasilla.Coordenada;
 import packModelo.packTablero.Tablero;
 import packModelo.packTablero.TableroBuilder;
 
-public class Buscaminas {
+public class Buscaminas extends IObservado{
 	private static Buscaminas elBuscaminas;
 	private TableroBuilder tableroBuilder;
 	private Tablero tablero;
@@ -30,6 +30,7 @@ public class Buscaminas {
 	
 	public void desplegarCasilla(Coordenada pCoordenada) {
 		tablero.desplegarCasilla(pCoordenada);
+		notificar(pCoordenada);
 	}
 	
 	public void marcarDesmarcarCasilla(Coordenada pCoordenada){
