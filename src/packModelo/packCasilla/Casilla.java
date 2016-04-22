@@ -1,8 +1,5 @@
 package packModelo.packCasilla;
 
-import packModelo.Buscaminas;
-
-
 public abstract class Casilla {
 	private Estado estado;
 	private Coordenada coordenada;

@@ -57,7 +57,7 @@ public class vBuscaminas extends JFrame implements IObserver{
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-
+		
 		Buscaminas.getElBuscaminas().jugar();
 		Buscaminas.getElBuscaminas().setObservador(this);
 		filas = Buscaminas.getElBuscaminas().getTablero().getFilas();
@@ -70,7 +70,7 @@ public class vBuscaminas extends JFrame implements IObserver{
 		panel.setLayout(new GridLayout(filas, columnas, 0, 0));
 		contentPane.add(panel, BorderLayout.CENTER);
 		botones = new JButton[filas][columnas];
-
+		
 		for (int i = 0; i < filas; i++) {
 			for (int j = 0; j < columnas; j++) {
 				Coordenada c = new Coordenada(i, j);
