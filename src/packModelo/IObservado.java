@@ -8,8 +8,8 @@ public abstract class IObservado {
 
 	public IObservado() {
 	}
-	public void notificar(Coordenada pC){
-		observador.update(pC);
+	public void notificar(Coordenada pC, String tipo){
+		observador.update(pC, tipo);
 	}
 	public void setObservador(IObserver pObserver){
 		observador=pObserver;

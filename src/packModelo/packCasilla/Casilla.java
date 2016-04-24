@@ -1,7 +1,5 @@
 package packModelo.packCasilla;
 
-import packModelo.Buscaminas;
-
 
 public abstract class Casilla {
 	private Estado estado;
@@ -18,10 +16,9 @@ public abstract class Casilla {
 	public Estado getEstado() { return estado; }
 	public void setEstado(Estado pEstado) { this.estado=pEstado; }
 	
-	public void desplegarCasilla(){
-		
+	public Casilla desplegarCasilla(){
 		this.estado.desplegarCasilla(this);
-
+		return this;
 		
 	}
 	public void marcarDesmarcarCasilla(){

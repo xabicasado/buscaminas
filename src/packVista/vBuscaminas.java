@@ -149,7 +149,7 @@ public class vBuscaminas extends JFrame implements IObserver{
 		}
 	}
 
-	private void imprimirAdyacentes(Coordenada pCoordenada) {
+	/*private void imprimirAdyacentes(Coordenada pCoordenada) {
 		Coordenada c2 = new Coordenada();
 		c2.setFila(pCoordenada.getFila() - 1);
 		c2.setColumna(pCoordenada.getColumna() - 1);
@@ -175,13 +175,22 @@ public class vBuscaminas extends JFrame implements IObserver{
 		c2.setFila(pCoordenada.getFila());
 		c2.setColumna(pCoordenada.getColumna() - 1);
 		imprimir(c2);
-	}
+	}*/
 	
-	public void update(Coordenada pC){
-		imprimir(pC);
+	public void update(Coordenada pC, String texto){
+		imprimir(pC, texto);
 	}
 
-	private void imprimir(Coordenada pC) {
+	private void imprimir(Coordenada pC, String texto) {
+		
+		botones[pC.getFila()][pC.getColumna()].setEnabled(false);
+		botones[pC.getFila()][pC.getColumna()].setText(texto);
+		
+		
+		
+		
+		
+		/*
 		Casilla casilla;
 		if (pC.getFila() >= 0 && pC.getColumna() >= 0 && pC.getFila() < filas
 				&& pC.getColumna() < columnas) {
@@ -191,7 +200,7 @@ public class vBuscaminas extends JFrame implements IObserver{
 			if (botones[pC.getFila()][pC.getColumna()].getText().equals("")) {
 				if (casilla instanceof CasillaVacia) {
 					botones[pC.getFila()][pC.getColumna()].setText("-");
-					imprimirAdyacentes(pC);
+					//imprimirAdyacentes(pC);
 				} else if (casilla instanceof CasillaNumero) {
 					botones[pC.getFila()][pC.getColumna()].setText(String
 							.valueOf(((CasillaNumero) casilla).getNumero()));
@@ -199,7 +208,7 @@ public class vBuscaminas extends JFrame implements IObserver{
 					botones[pC.getFila()][pC.getColumna()].setText("*");
 				}
 			}
-		}
+		}*/
 	}
 
 	private void inhabilitarTablero(Container container) {

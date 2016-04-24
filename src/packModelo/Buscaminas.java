@@ -1,6 +1,6 @@
 package packModelo;
 
-import packModelo.packCasilla.Casilla;
+import packModelo.packCasilla.*;
 import packModelo.packCasilla.Coordenada;
 import packModelo.packTablero.Tablero;
 import packModelo.packTablero.TableroBuilder;
@@ -29,8 +29,12 @@ public class Buscaminas extends IObservado{
 	}
 	
 	public void desplegarCasilla(Coordenada pCoordenada) {
-		tablero.desplegarCasilla(pCoordenada);
-		notificar(pCoordenada);
+		Casilla c = tablero.desplegarCasilla(pCoordenada);
+		if (c!=null){
+			if (c instanceof CasillaMina) notificar(pCoordenada, "*");
+			else if (c instanceof CasillaVacia) notificar(pCoordenada, "-");
+			else if (c instanceof CasillaNumero) notificar(pCoordenada, ((CasillaNumero) c).getNumero()+"");
+		}
 	}
 	
 	public void marcarDesmarcarCasilla(Coordenada pCoordenada){
