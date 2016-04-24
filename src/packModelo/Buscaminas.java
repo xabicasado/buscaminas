@@ -5,7 +5,7 @@ import packModelo.packCasilla.Coordenada;
 import packModelo.packTablero.Tablero;
 import packModelo.packTablero.TableroBuilder;
 
-public class Buscaminas extends IObservado{
+public class Buscaminas extends Observable {
 	private static Buscaminas elBuscaminas;
 	private TableroBuilder tableroBuilder;
 	private Tablero tablero;

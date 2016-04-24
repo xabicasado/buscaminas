@@ -1,6 +1,9 @@
 package packModelo.packCasilla;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 918dc0c70c8b3af80dd9ff8bf01a304cc4df0d49
 public abstract class Casilla {
 	private Estado estado;
 	private Coordenada coordenada;
