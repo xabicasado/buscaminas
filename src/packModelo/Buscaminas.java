@@ -30,15 +30,17 @@ public class Buscaminas extends Observable{
 	
 	public void desplegarCasilla(Coordenada pCoordenada) {
 		Casilla c = tablero.desplegarCasilla(pCoordenada);
-		if (c!=null){
+		if (c!=null && c.getEstado() instanceof Descubierta){
 			if (c instanceof CasillaMina) notificar(pCoordenada, "*");
 			else if (c instanceof CasillaVacia) notificar(pCoordenada, "-");
 			else if (c instanceof CasillaNumero) notificar(pCoordenada, ((CasillaNumero) c).getNumero()+"");
+			
 		}
 	}
 	
 	public void marcarDesmarcarCasilla(Coordenada pCoordenada){
 		tablero.marcarDesmarcarCasilla(pCoordenada);
+		
 	}
 	
 	public void decrementarCasillasRestantes() {
