@@ -9,7 +9,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -17,10 +16,7 @@ import javax.swing.border.EmptyBorder;
 
 import packModelo.Buscaminas;
 import packModelo.packCasilla.Casilla;
-import packModelo.packCasilla.CasillaNumero;
-import packModelo.packCasilla.CasillaVacia;
 import packModelo.packCasilla.Coordenada;
-import packModelo.packCasilla.Descubierta;
 import packModelo.packCasilla.Marcada;
 
 public class vBuscaminas extends JFrame implements IObserver{
@@ -51,7 +47,6 @@ public class vBuscaminas extends JFrame implements IObserver{
 	 */
 	public vBuscaminas() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		// setBounds(100, 100, 450, 300);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -84,7 +79,6 @@ public class vBuscaminas extends JFrame implements IObserver{
 							if (e.getButton() == MouseEvent.BUTTON1) {
 								Buscaminas.getElBuscaminas()
 										.desplegarCasilla(c);
-								//imprimir(c);
 								if (!Buscaminas.getElBuscaminas().hasPerdido()) {
 									if (Buscaminas.getElBuscaminas()
 											.hasGanado()) {
@@ -127,88 +121,27 @@ public class vBuscaminas extends JFrame implements IObserver{
 							}
 						}
 					}
-
 					@Override
-					public void mouseReleased(MouseEvent e) {
-					}
-
+					public void mouseReleased(MouseEvent e) { }
 					@Override
-					public void mouseExited(MouseEvent e) {
-					}
-
+					public void mouseExited(MouseEvent e) { }
 					@Override
-					public void mouseEntered(MouseEvent e) {
-					}
-
+					public void mouseEntered(MouseEvent e) { }
 					@Override
-					public void mouseClicked(MouseEvent e) {
-					}
+					public void mouseClicked(MouseEvent e) { }
 				});
 				panel.add(btn);
 			}
 		}
 	}
-
-	/*private void imprimirAdyacentes(Coordenada pCoordenada) {
-		Coordenada c2 = new Coordenada();
-		c2.setFila(pCoordenada.getFila() - 1);
-		c2.setColumna(pCoordenada.getColumna() - 1);
-		imprimir(c2);
-		c2.setFila(pCoordenada.getFila() - 1);
-		c2.setColumna(pCoordenada.getColumna());
-		imprimir(c2);
-		c2.setFila(pCoordenada.getFila() - 1);
-		c2.setColumna(pCoordenada.getColumna() + 1);
-		imprimir(c2);
-		c2.setFila(pCoordenada.getFila());
-		c2.setColumna(pCoordenada.getColumna() + 1);
-		imprimir(c2);
-		c2.setFila(pCoordenada.getFila() + 1);
-		c2.setColumna(pCoordenada.getColumna() + 1);
-		imprimir(c2);
-		c2.setFila(pCoordenada.getFila() + 1);
-		c2.setColumna(pCoordenada.getColumna());
-		imprimir(c2);
-		c2.setFila(pCoordenada.getFila() + 1);
-		c2.setColumna(pCoordenada.getColumna() - 1);
-		imprimir(c2);
-		c2.setFila(pCoordenada.getFila());
-		c2.setColumna(pCoordenada.getColumna() - 1);
-		imprimir(c2);
-	}*/
 	
 	public void update(Coordenada pC, String texto){
 		imprimir(pC, texto);
 	}
 
 	private void imprimir(Coordenada pC, String texto) {
-		
 		botones[pC.getFila()][pC.getColumna()].setEnabled(false);
 		botones[pC.getFila()][pC.getColumna()].setText(texto);
-		
-		
-		
-		
-		
-		/*
-		Casilla casilla;
-		if (pC.getFila() >= 0 && pC.getColumna() >= 0 && pC.getFila() < filas
-				&& pC.getColumna() < columnas) {
-			casilla = Buscaminas.getElBuscaminas().devolverCasilla(pC);
-			if (casilla.getEstado() instanceof Descubierta)
-				botones[pC.getFila()][pC.getColumna()].setEnabled(false);
-			if (botones[pC.getFila()][pC.getColumna()].getText().equals("")) {
-				if (casilla instanceof CasillaVacia) {
-					botones[pC.getFila()][pC.getColumna()].setText("-");
-					//imprimirAdyacentes(pC);
-				} else if (casilla instanceof CasillaNumero) {
-					botones[pC.getFila()][pC.getColumna()].setText(String
-							.valueOf(((CasillaNumero) casilla).getNumero()));
-				} else {
-					botones[pC.getFila()][pC.getColumna()].setText("*");
-				}
-			}
-		}*/
 	}
 
 	private void inhabilitarTablero(Container container) {

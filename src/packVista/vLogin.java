@@ -2,20 +2,16 @@ package packVista;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
-
 import packModelo.Buscaminas;
 import packModelo.packTablero.TableroBuilderNivel1;
 import packModelo.packTablero.TableroBuilderNivel2;
@@ -144,7 +140,7 @@ public class vLogin extends JDialog {
 	}
 	
 	private boolean validarDatos() {
-		if((!txtNombre.getText().equals("")) /*&& ((cmbNivel.getSelectedIndex() + 1) > 0)*/) return true;
+		if((!txtNombre.getText().equals(""))) return true;
 		JOptionPane.showMessageDialog(null, "Rellene todos los campos para comenzar a jugar!", "Alerta", JOptionPane.WARNING_MESSAGE);
 		return false;
 	}
