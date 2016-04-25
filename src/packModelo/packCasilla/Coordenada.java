@@ -15,4 +15,9 @@ public class Coordenada {
 	
 	public int getColumna() { return this.columna; }
 	public void setColumna(int columna) { this.columna = columna; }
+	
+	public String toString()
+	{
+		return fila+","+columna;
+	}
 }

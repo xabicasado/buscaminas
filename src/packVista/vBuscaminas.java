@@ -14,6 +14,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import org.hamcrest.core.IsEqual;
+
+import packControlador.cCasilla;
 import packModelo.Buscaminas;
 import packModelo.packCasilla.Casilla;
 import packModelo.packCasilla.Coordenada;
@@ -21,7 +24,7 @@ import packModelo.packCasilla.Marcada;
 
 public class vBuscaminas extends JFrame implements IObserver{
 
-	private JPanel contentPane;
+	private JPanel contentPane, panel;
 	private JButton btn;
 	private int filas, columnas;
 	private JButton[][] botones;
@@ -61,75 +64,19 @@ public class vBuscaminas extends JFrame implements IObserver{
 	}
 
 	private void crearTablero(int filas, int columnas) {
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		panel.setLayout(new GridLayout(filas, columnas, 0, 0));
 		contentPane.add(panel, BorderLayout.CENTER);
 		botones = new JButton[filas][columnas];
+		cCasilla cCasilla = new cCasilla();
 
 		for (int i = 0; i < filas; i++) {
 			for (int j = 0; j < columnas; j++) {
 				Coordenada c = new Coordenada(i, j);
 				btn = new JButton();
+				btn.setName(c.toString());
 				botones[c.getFila()][c.getColumna()] = btn;
-				btn.addMouseListener(new MouseListener() {
-					@Override
-					public void mousePressed(MouseEvent e) {
-						if (!Buscaminas.getElBuscaminas().hasPerdido()
-								&& !Buscaminas.getElBuscaminas().hasGanado()) {
-							if (e.getButton() == MouseEvent.BUTTON1) {
-								Buscaminas.getElBuscaminas()
-										.desplegarCasilla(c);
-								if (!Buscaminas.getElBuscaminas().hasPerdido()) {
-									if (Buscaminas.getElBuscaminas()
-											.hasGanado()) {
-										JOptionPane
-												.showMessageDialog(
-														null,
-														"Has ganado la partida!",
-														"Enhorabuena",
-														JOptionPane.INFORMATION_MESSAGE);
-										inhabilitarTablero(panel);
-									}
-								} else {
-									JOptionPane.showMessageDialog(null,
-											"Has perdido la partida!",
-											"Que pena",
-											JOptionPane.ERROR_MESSAGE);
-									inhabilitarTablero(panel);
-								}
-							} else if (e.getButton() == MouseEvent.BUTTON3) {
-								if (botones[c.getFila()][c.getColumna()]
-										.isEnabled() == true) {
-									Buscaminas.getElBuscaminas()
-											.marcarDesmarcarCasilla(c);
-									Casilla casilla = Buscaminas
-											.getElBuscaminas().devolverCasilla(
-													c);
-									if (!Buscaminas.getElBuscaminas()
-											.hasPerdido()
-											&& !Buscaminas.getElBuscaminas()
-													.hasGanado()) {
-										if (casilla.getEstado() instanceof Marcada) {
-											botones[c.getFila()][c.getColumna()]
-													.setText("m");
-										} else {
-											botones[c.getFila()][c.getColumna()]
-													.setText("");
-										}
-									}
-								}
-							}
-						}
-					}
-					@Override
-					public void mouseReleased(MouseEvent e) { }
-					@Override
-					public void mouseExited(MouseEvent e) { }
-					@Override
-					public void mouseEntered(MouseEvent e) { }
-					@Override
-					public void mouseClicked(MouseEvent e) { }
-				});
+				btn.addMouseListener(cCasilla);
 				panel.add(btn);
 			}
 		}
@@ -137,6 +84,19 @@ public class vBuscaminas extends JFrame implements IObserver{
 	
 	public void update(Coordenada pC, String texto){
 		imprimir(pC, texto);
+		if (!Buscaminas.getElBuscaminas().hasPerdido()) {
+			if (Buscaminas.getElBuscaminas().hasGanado()) {
+				JOptionPane.showMessageDialog(null,
+						"Has ganado la partida!", "Enhorabuena",
+						JOptionPane.INFORMATION_MESSAGE);
+				inhabilitarTablero(panel);
+			}
+		} else {
+			JOptionPane.showMessageDialog(null,
+					"Has perdido la partida!", "Que pena",
+					JOptionPane.ERROR_MESSAGE);
+			inhabilitarTablero(panel);
+		}
 	}
 
 	private void imprimir(Coordenada pC, String texto) {
