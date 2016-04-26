@@ -40,6 +40,7 @@ public class Buscaminas extends Observable{
 	
 	public void marcarDesmarcarCasilla(Coordenada pCoordenada){
 		tablero.marcarDesmarcarCasilla(pCoordenada);
+		notificar(pCoordenada, "m");
 		
 	}
 	
