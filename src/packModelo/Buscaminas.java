@@ -1,9 +1,12 @@
 package packModelo;
 
+
+
 import packModelo.packCasilla.*;
 import packModelo.packCasilla.Coordenada;
 import packModelo.packTablero.Tablero;
 import packModelo.packTablero.TableroBuilder;
+import packVista.IObserver;
 
 public class Buscaminas extends Observable{
 	private static Buscaminas elBuscaminas;
@@ -65,5 +68,12 @@ public class Buscaminas extends Observable{
 
 	public void accionCasilla(Coordenada coordenada) {
 		tablero.devolverCasilla(coordenada).accionCasilla();
+	}
+	
+	public void notificar(Coordenada pC, String tipo){
+		observador.update(pC, tipo);
+	}
+	public  void setObservador(IObserver pObservador){
+		this.observador=pObservador;
 	}
 }

@@ -21,6 +21,7 @@ import packModelo.Buscaminas;
 import packModelo.packCasilla.Casilla;
 import packModelo.packCasilla.Coordenada;
 import packModelo.packCasilla.Marcada;
+import packModelo.packCronometro.Cronometro;
 
 public class vBuscaminas extends JFrame implements IObserver{
 
@@ -28,6 +29,7 @@ public class vBuscaminas extends JFrame implements IObserver{
 	private JButton btn;
 	private int filas, columnas;
 	private JButton[][] botones;
+	private Cronometro crono;
 
 	/**
 	 * Launch the application.
@@ -61,6 +63,8 @@ public class vBuscaminas extends JFrame implements IObserver{
 		filas = Buscaminas.getElBuscaminas().getTablero().getFilas();
 		columnas = Buscaminas.getElBuscaminas().getTablero().getColumnas();
 		crearTablero(filas, columnas);
+		crono=new Cronometro();
+		//TODO Esto es temporal, es para ver que funcciona
 	}
 
 	private void crearTablero(int filas, int columnas) {

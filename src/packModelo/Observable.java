@@ -1,6 +1,6 @@
 package packModelo;
 
-import packModelo.packCasilla.Coordenada;
+
 import packVista.IObserver;
 
 public abstract class Observable {
@@ -8,11 +8,8 @@ public abstract class Observable {
 
 	public Observable() {
 	}
-	public void notificar(Coordenada pC, String tipo){
-		observador.update(pC, tipo);
-	}
-	public void setObservador(IObserver pObserver){
-		observador=pObserver;
-	}
+	public  void notificar(){}
+	public  void setObservador(){}
+	
 
 }
