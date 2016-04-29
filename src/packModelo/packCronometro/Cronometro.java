@@ -3,22 +3,25 @@ package packModelo.packCronometro;
 import packModelo.Observable;
 
 public class Cronometro extends Observable implements Runnable {
-	Thread t;
+	private Thread t;
+	
 	public Cronometro() {
-		t=new Thread(this, "Crono");
-		t.start();
+		this.t = new Thread(this, "Crono");
+		// this.t.start();
 	}
 
 	@Override
 	public void run() {
-		for(int i=0;;i++){
-			System.out.println(""+i);
+		for(int i = 0; ; i++) {
+			int j = 0;
+			if(i == 60) {
+				j++;
+				i = 0;
+			}
+			System.out.println(j + ":" + i);
 			try {
 				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}	
+			} catch (InterruptedException e) { e.printStackTrace(); }	
 		}
 	}
 }

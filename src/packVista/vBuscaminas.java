@@ -5,8 +5,6 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,14 +12,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import org.hamcrest.core.IsEqual;
-
 import packControlador.cCasilla;
 import packModelo.Buscaminas;
-import packModelo.packCasilla.Casilla;
 import packModelo.packCasilla.Coordenada;
-import packModelo.packCasilla.Marcada;
 import packModelo.packCronometro.Cronometro;
+
+import java.awt.FlowLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import javax.swing.JTextField;
 
 public class vBuscaminas extends JFrame implements IObserver{
 
@@ -30,6 +30,10 @@ public class vBuscaminas extends JFrame implements IObserver{
 	private int filas, columnas;
 	private JButton[][] botones;
 	private Cronometro crono;
+	private JPanel panel_1;
+	private JButton btnReiniciar;
+	private JTextField txtNumMinas;
+	private JTextField txtCronometro;
 
 	/**
 	 * Launch the application.
@@ -57,17 +61,17 @@ public class vBuscaminas extends JFrame implements IObserver{
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-
-		Buscaminas.getElBuscaminas().jugar();
-		Buscaminas.getElBuscaminas().setObservador(this);
-		filas = Buscaminas.getElBuscaminas().getTablero().getFilas();
-		columnas = Buscaminas.getElBuscaminas().getTablero().getColumnas();
-		crearTablero(filas, columnas);
-		crono=new Cronometro();
-		//TODO Esto es temporal, es para ver que funcciona
+		contentPane.add(getPanel_1(), BorderLayout.NORTH);
+		
+		jugar();
+		/* crono = new Cronometro();
+		// TODO QUE VAYA EN EL MODELO */
 	}
-
+	
 	private void crearTablero(int filas, int columnas) {
+		if(panel != null) {
+			contentPane.remove(panel);
+		}
 		panel = new JPanel();
 		panel.setLayout(new GridLayout(filas, columnas, 0, 0));
 		contentPane.add(panel, BorderLayout.CENTER);
@@ -87,7 +91,14 @@ public class vBuscaminas extends JFrame implements IObserver{
 	}
 	
 	public void update(Coordenada pC, String texto){
-		imprimir(pC, texto);
+		if(!texto.equals("m")) {
+			botones[pC.getFila()][pC.getColumna()].setEnabled(false);
+			botones[pC.getFila()][pC.getColumna()].setText(texto);
+		} else if(botones[pC.getFila()][pC.getColumna()].getText().equals("m")) {
+				botones[pC.getFila()][pC.getColumna()].setText("");
+		} else {
+			botones[pC.getFila()][pC.getColumna()].setText(texto);
+		}
 		if (!Buscaminas.getElBuscaminas().hasPerdido()) {
 			if (Buscaminas.getElBuscaminas().hasGanado()) {
 				JOptionPane.showMessageDialog(null,
@@ -102,12 +113,7 @@ public class vBuscaminas extends JFrame implements IObserver{
 			inhabilitarTablero(panel);
 		}
 	}
-
-	private void imprimir(Coordenada pC, String texto) {
-		botones[pC.getFila()][pC.getColumna()].setEnabled(false);
-		botones[pC.getFila()][pC.getColumna()].setText(texto);
-	}
-
+	
 	private void inhabilitarTablero(Container container) {
 		Component[] components = container.getComponents();
 		for (Component component : components) {
@@ -115,5 +121,65 @@ public class vBuscaminas extends JFrame implements IObserver{
 			if (component instanceof Container)
 				inhabilitarTablero((Container) component);
 		}
+	}
+	
+	private JPanel getPanel_1() {
+		if (panel_1 == null) {
+			panel_1 = new JPanel();
+			panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+			panel_1.add(getTxtNumMinas());
+			panel_1.add(getBtnReiniciar());
+			panel_1.add(getTxtCronometro());
+		}
+		return panel_1;
+	}
+	private JButton getBtnReiniciar() {
+		if (btnReiniciar == null) {
+			btnReiniciar = new JButton("");
+			btnReiniciar.addMouseListener(new MouseListener() {
+				
+				@Override
+				public void mouseReleased(MouseEvent arg0) { }
+				
+				@Override
+				public void mousePressed(MouseEvent arg0) {
+					jugar();
+				}
+				
+				@Override
+				public void mouseExited(MouseEvent arg0) { }
+				
+				@Override
+				public void mouseEntered(MouseEvent arg0) { }
+				
+				@Override
+				public void mouseClicked(MouseEvent arg0) { }
+			});
+		}
+		return btnReiniciar;
+	}
+	private JTextField getTxtNumMinas() {
+		if (txtNumMinas == null) {
+			txtNumMinas = new JTextField();
+			txtNumMinas.setEnabled(false);
+			txtNumMinas.setColumns(10);
+		}
+		return txtNumMinas;
+	}
+	private JTextField getTxtCronometro() {
+		if (txtCronometro == null) {
+			txtCronometro = new JTextField();
+			txtCronometro.setEnabled(false);
+			txtCronometro.setColumns(10);
+		}
+		return txtCronometro;
+	}
+	
+	public void jugar() {
+		Buscaminas.getElBuscaminas().jugar();
+		Buscaminas.getElBuscaminas().setObservador(this);
+		filas = Buscaminas.getElBuscaminas().getTablero().getFilas();
+		columnas = Buscaminas.getElBuscaminas().getTablero().getColumnas();
+		crearTablero(filas, columnas);
 	}
 }

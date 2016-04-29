@@ -28,19 +28,7 @@ public class cCasilla implements MouseListener {
 				Buscaminas.getElBuscaminas().desplegarCasilla(c);
 				
 			} else if (e.getButton() == MouseEvent.BUTTON3) {
-				if (botones[c.getFila()][c.getColumna()].isEnabled() == true) {
-					Buscaminas.getElBuscaminas().marcarDesmarcarCasilla(c);
-					Casilla casilla = Buscaminas.getElBuscaminas()
-							.devolverCasilla(c);
-					if (!Buscaminas.getElBuscaminas().hasPerdido()
-							&& !Buscaminas.getElBuscaminas().hasGanado()) {
-						if (casilla.getEstado() instanceof Marcada) {
-							botones[c.getFila()][c.getColumna()].setText("m");
-						} else {
-							botones[c.getFila()][c.getColumna()].setText("");
-						}
-					}
-				}
+				if (btn.isEnabled() == true) Buscaminas.getElBuscaminas().marcarDesmarcarCasilla(c);
 			}
 		}
 	}
