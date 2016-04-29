@@ -33,6 +33,7 @@ public class vBuscaminas extends JFrame implements IObserver{
 	private Cronometro crono;
 	private JPanel panel_1;
 	private JButton btnReiniciar;
+	private JButton btnNueva;
 	private JTextField txtNumMinas;
 	private JTextField txtCronometro;
 
@@ -130,13 +131,14 @@ public class vBuscaminas extends JFrame implements IObserver{
 			panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 			panel_1.add(getTxtNumMinas());
 			panel_1.add(getBtnReiniciar());
+			panel_1.add(getBtnNueva());
 			panel_1.add(getTxtCronometro());
 		}
 		return panel_1;
 	}
 	private JButton getBtnReiniciar() {
 		if (btnReiniciar == null) {
-			btnReiniciar = new JButton("");
+			btnReiniciar = new JButton("Reiniciar");
 			btnReiniciar.addMouseListener(new MouseListener() {
 				
 				@Override
@@ -158,6 +160,40 @@ public class vBuscaminas extends JFrame implements IObserver{
 			});
 		}
 		return btnReiniciar;
+	}
+	private JButton getBtnNueva() {
+		if (btnNueva == null) {
+			btnNueva = new JButton("Nueva Partida");
+			btnNueva.addMouseListener(new MouseListener() {
+				
+				@Override
+				public void mouseReleased(MouseEvent arg0) { }
+				
+				@Override
+				public void mousePressed(MouseEvent arg0) {
+					nuevaPartida();
+				}
+				
+				private void nuevaPartida() {
+					dispose();
+					vLogin dialog =new vLogin();
+					dialog.setLocationRelativeTo(null);
+					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					dialog.setVisible(true);
+					
+				}
+
+				@Override
+				public void mouseExited(MouseEvent arg0) { }
+				
+				@Override
+				public void mouseEntered(MouseEvent arg0) { }
+				
+				@Override
+				public void mouseClicked(MouseEvent arg0) { }
+			});
+		}
+		return btnNueva;
 	}
 	private JTextField getTxtNumMinas() {
 		if (txtNumMinas == null) {
