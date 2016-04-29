@@ -7,6 +7,7 @@ import java.awt.EventQueue;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -143,7 +144,7 @@ public class vBuscaminas extends JFrame implements IObserver{
 				
 				@Override
 				public void mousePressed(MouseEvent arg0) {
-					jugar();
+					reiniciarPartida();
 				}
 				
 				@Override
@@ -181,5 +182,14 @@ public class vBuscaminas extends JFrame implements IObserver{
 		filas = Buscaminas.getElBuscaminas().getTablero().getFilas();
 		columnas = Buscaminas.getElBuscaminas().getTablero().getColumnas();
 		crearTablero(filas, columnas);
+	}
+	
+	private void reiniciarPartida(){
+		dispose();
+		vBuscaminas dialog = new vBuscaminas();
+		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		dialog.setLocationRelativeTo(null);
+		dialog.setVisible(true);
+		
 	}
 }
