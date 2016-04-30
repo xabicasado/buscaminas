@@ -17,14 +17,17 @@ import packControlador.cCasilla;
 import packModelo.Buscaminas;
 import packModelo.packCasilla.Coordenada;
 import packModelo.packCronometro.Cronometro;
+import java.util.ArrayList;
 
 import java.awt.FlowLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JTextField;
 
-public class vBuscaminas extends JFrame implements IObserver{
+public class vBuscaminas extends JFrame implements Observer{
 
 	private JPanel contentPane, panel;
 	private JButton btn;
@@ -93,27 +96,7 @@ public class vBuscaminas extends JFrame implements IObserver{
 	}
 	
 	public void update(Coordenada pC, String texto){
-		if(!texto.equals("m")) {
-			botones[pC.getFila()][pC.getColumna()].setEnabled(false);
-			botones[pC.getFila()][pC.getColumna()].setText(texto);
-		} else if(botones[pC.getFila()][pC.getColumna()].getText().equals("m")) {
-				botones[pC.getFila()][pC.getColumna()].setText("");
-		} else {
-			botones[pC.getFila()][pC.getColumna()].setText(texto);
-		}
-		if (!Buscaminas.getElBuscaminas().hasPerdido()) {
-			if (Buscaminas.getElBuscaminas().hasGanado()) {
-				JOptionPane.showMessageDialog(null,
-						"Has ganado la partida!", "Enhorabuena",
-						JOptionPane.INFORMATION_MESSAGE);
-				inhabilitarTablero(panel);
-			}
-		} else {
-			JOptionPane.showMessageDialog(null,
-					"Has perdido la partida!", "Que pena",
-					JOptionPane.ERROR_MESSAGE);
-			inhabilitarTablero(panel);
-		}
+		
 	}
 	
 	private void inhabilitarTablero(Container container) {
@@ -214,7 +197,7 @@ public class vBuscaminas extends JFrame implements IObserver{
 	
 	public void jugar() {
 		Buscaminas.getElBuscaminas().jugar();
-		Buscaminas.getElBuscaminas().setObservador(this);
+		Buscaminas.getElBuscaminas().addObserver(this);
 		filas = Buscaminas.getElBuscaminas().getTablero().getFilas();
 		columnas = Buscaminas.getElBuscaminas().getTablero().getColumnas();
 		crearTablero(filas, columnas);
@@ -226,6 +209,34 @@ public class vBuscaminas extends JFrame implements IObserver{
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		dialog.setLocationRelativeTo(null);
 		dialog.setVisible(true);
+		
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		Coordenada pC=(Coordenada) ((ArrayList<Object>) arg1).get(0);
+		String texto=(String) ((ArrayList<Object>) arg1).get(1);
+		if(!texto.equals("m")) {
+			botones[pC.getFila()][pC.getColumna()].setEnabled(false);
+			botones[pC.getFila()][pC.getColumna()].setText(texto);
+		} else if(botones[pC.getFila()][pC.getColumna()].getText().equals("m")) {
+				botones[pC.getFila()][pC.getColumna()].setText("");
+		} else {
+			botones[pC.getFila()][pC.getColumna()].setText(texto);
+		}
+		if (!Buscaminas.getElBuscaminas().hasPerdido()) {
+			if (Buscaminas.getElBuscaminas().hasGanado()) {
+				JOptionPane.showMessageDialog(null,
+						"Has ganado la partida!", "Enhorabuena",
+						JOptionPane.INFORMATION_MESSAGE);
+				inhabilitarTablero(panel);
+			}
+		} else {
+			JOptionPane.showMessageDialog(null,
+					"Has perdido la partida!", "Que pena",
+					JOptionPane.ERROR_MESSAGE);
+			inhabilitarTablero(panel);
+		}
 		
 	}
 }

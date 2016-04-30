@@ -2,11 +2,13 @@ package packModelo;
 
 
 
+import java.util.ArrayList;
+import java.util.Observable;
+
 import packModelo.packCasilla.*;
 import packModelo.packCasilla.Coordenada;
 import packModelo.packTablero.Tablero;
 import packModelo.packTablero.TableroBuilder;
-import packVista.IObserver;
 
 public class Buscaminas extends Observable{
 	private static Buscaminas elBuscaminas;
@@ -33,17 +35,37 @@ public class Buscaminas extends Observable{
 	
 	public void desplegarCasilla(Coordenada pCoordenada) {
 		Casilla c = tablero.desplegarCasilla(pCoordenada);
+		ArrayList<Object> a =new ArrayList<Object>();
 		if (c!=null && c.getEstado() instanceof Descubierta){
-			if (c instanceof CasillaMina) notificar(pCoordenada, "*");
-			else if (c instanceof CasillaVacia) notificar(pCoordenada, "-");
-			else if (c instanceof CasillaNumero) notificar(pCoordenada, ((CasillaNumero) c).getNumero()+"");
+			if (c instanceof CasillaMina) {
+				a.add(pCoordenada);
+				a.add("*");
+				setChanged();
+				notifyObservers(a);
+				}
+			else if (c instanceof CasillaVacia) {
+				a.add(pCoordenada);
+				a.add("-");
+				setChanged();
+				notifyObservers(a);
+			}
+			else if (c instanceof CasillaNumero) {
+				a.add(pCoordenada);
+				a.add(""+((CasillaNumero) c).getNumero()+"");
+				setChanged();
+				notifyObservers(a);
+			}
 			
 		}
 	}
 	
 	public void marcarDesmarcarCasilla(Coordenada pCoordenada){
+		ArrayList<Object> a =new ArrayList<Object>();
 		tablero.marcarDesmarcarCasilla(pCoordenada);
-		notificar(pCoordenada, "m");
+		a.add(pCoordenada);
+		a.add("m");
+		setChanged();
+		notifyObservers(a);
 		
 	}
 	
@@ -70,10 +92,6 @@ public class Buscaminas extends Observable{
 		tablero.devolverCasilla(coordenada).accionCasilla();
 	}
 	
-	public void notificar(Coordenada pC, String tipo){
-		observador.update(pC, tipo);
-	}
-	public  void setObservador(IObserver pObservador){
-		this.observador=pObservador;
-	}
+	
+	
 }

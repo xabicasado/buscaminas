@@ -1,6 +1,6 @@
 package packModelo.packCronometro;
 
-import packModelo.Observable;
+import java.util.Observable;
 
 public class Cronometro extends Observable implements Runnable {
 	private Thread t;
