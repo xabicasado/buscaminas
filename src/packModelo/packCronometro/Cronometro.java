@@ -9,6 +9,8 @@ public class Cronometro extends Observable implements Runnable {
 		this.t = new Thread(this, "Crono");
 		// this.t.start();
 	}
+	
+	
 
 	@Override
 	public void run() {
@@ -18,7 +20,8 @@ public class Cronometro extends Observable implements Runnable {
 				j++;
 				i = 0;
 			}
-			System.out.println(j + ":" + i);
+			setChanged();
+			notifyObservers(j+":"+i);
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) { e.printStackTrace(); }	

@@ -33,7 +33,6 @@ public class vBuscaminas extends JFrame implements Observer{
 	private JButton btn;
 	private int filas, columnas;
 	private JButton[][] botones;
-	private Cronometro crono;
 	private JPanel panel_1;
 	private JButton btnReiniciar;
 	private JButton btnNueva;
@@ -214,6 +213,8 @@ public class vBuscaminas extends JFrame implements Observer{
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
+		if (arg0 instanceof Buscaminas){
+			
 		Coordenada pC=(Coordenada) ((ArrayList<Object>) arg1).get(0);
 		String texto=(String) ((ArrayList<Object>) arg1).get(1);
 		if(!texto.equals("m")) {
@@ -238,5 +239,10 @@ public class vBuscaminas extends JFrame implements Observer{
 			inhabilitarTablero(panel);
 		}
 		
+	}
+		else{if(arg0 instanceof Cronometro){
+				//TODO este es el update para el cronometro, necesitamos que muestre lo que hay en arg1
+			}
+		}
 	}
 }
