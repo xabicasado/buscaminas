@@ -15,10 +15,11 @@ import javax.swing.border.EmptyBorder;
 
 import packControlador.cCasilla;
 import packModelo.Buscaminas;
+import packModelo.packCasilla.CasillaMina;
 import packModelo.packCasilla.Coordenada;
 import packModelo.packCronometro.Cronometro;
-import java.util.ArrayList;
 
+import java.util.ArrayList;
 import java.awt.FlowLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -73,9 +74,7 @@ public class vBuscaminas extends JFrame implements Observer{
 	}
 	
 	private void crearTablero(int filas, int columnas) {
-		if(panel != null) {
-			contentPane.remove(panel);
-		}
+		if(panel != null) contentPane.remove(panel);
 		panel = new JPanel();
 		panel.setLayout(new GridLayout(filas, columnas, 0, 0));
 		contentPane.add(panel, BorderLayout.CENTER);
@@ -92,18 +91,18 @@ public class vBuscaminas extends JFrame implements Observer{
 				panel.add(btn);
 			}
 		}
+		repintar();
 	}
 	
-	public void update(Coordenada pC, String texto){
-		
-	}
-	
-	private void inhabilitarTablero(Container container) {
-		Component[] components = container.getComponents();
-		for (Component component : components) {
-			component.setEnabled(false);
-			if (component instanceof Container)
-				inhabilitarTablero((Container) component);
+	private void mostrarMinas() {
+		for (int i = 0; i < filas; i++) {
+			for (int j = 0; j < columnas; j++) {
+				Coordenada c = new Coordenada(i, j);
+				if(Buscaminas.getElBuscaminas().devolverCasilla(c) instanceof CasillaMina){
+					botones[c.getFila()][c.getColumna()].setText("*");
+					botones[c.getFila()][c.getColumna()].setEnabled(false);
+				}
+			}
 		}
 	}
 	
@@ -128,7 +127,7 @@ public class vBuscaminas extends JFrame implements Observer{
 				
 				@Override
 				public void mousePressed(MouseEvent arg0) {
-					reiniciarPartida();
+					jugar();
 				}
 				
 				@Override
@@ -202,14 +201,6 @@ public class vBuscaminas extends JFrame implements Observer{
 		crearTablero(filas, columnas);
 	}
 	
-	private void reiniciarPartida(){
-		dispose();
-		vBuscaminas dialog = new vBuscaminas();
-		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		dialog.setLocationRelativeTo(null);
-		dialog.setVisible(true);
-		
-	}
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
@@ -230,13 +221,12 @@ public class vBuscaminas extends JFrame implements Observer{
 				JOptionPane.showMessageDialog(null,
 						"Has ganado la partida!", "Enhorabuena",
 						JOptionPane.INFORMATION_MESSAGE);
-				inhabilitarTablero(panel);
 			}
 		} else {
+			mostrarMinas();
 			JOptionPane.showMessageDialog(null,
 					"Has perdido la partida!", "Que pena",
 					JOptionPane.ERROR_MESSAGE);
-			inhabilitarTablero(panel);
 		}
 		
 	}
@@ -244,5 +234,9 @@ public class vBuscaminas extends JFrame implements Observer{
 				//TODO este es el update para el cronometro, necesitamos que muestre lo que hay en arg1
 			}
 		}
+	}
+	private void repintar(){
+		this.setSize(this.getWidth()+1, this.getHeight());
+		this.setSize(this.getWidth()-1, this.getHeight());
 	}
 }

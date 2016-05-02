@@ -15,6 +15,7 @@ public class Buscaminas extends Observable{
 	private TableroBuilder tableroBuilder;
 	private Tablero tablero;
 	private boolean derrota;
+	private Usuario usuario;
 	
 	private Buscaminas() { }
 	
@@ -26,9 +27,13 @@ public class Buscaminas extends Observable{
 	public void setTableroBuilder(TableroBuilder pTableroBuilder) { this.tableroBuilder = pTableroBuilder; }
 	
 	public Tablero getTablero() { return tablero;}
-
+	
+	public void crearUsuario(String pNombre, int pNivel) {
+		this.usuario = new Usuario(pNombre, pNivel);
+	}
+	
 	public void jugar() {
-		// TODO Implementar método
+		setTableroBuilder(this.usuario.getNivel());
 		this.tablero = this.tableroBuilder.generarTablero();
 		this.derrota = false;
 	}

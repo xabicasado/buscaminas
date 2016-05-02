@@ -63,20 +63,7 @@ public class vLogin extends JDialog {
 				btnJugar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						if(validarDatos()) {
-							switch (cmbNivel.getSelectedIndex() + 1) {
-								case 1:
-									Buscaminas.getElBuscaminas().setTableroBuilder(new TableroBuilderNivel1());
-									break;
-								case 2:
-									Buscaminas.getElBuscaminas().setTableroBuilder(new TableroBuilderNivel2());
-									break;
-								case 3:
-									Buscaminas.getElBuscaminas().setTableroBuilder(new TableroBuilderNivel3());
-									break;
-								default:
-									//TODO Excepción Tipo de Tablero incorrecto
-									break;
-							}
+							Buscaminas.getElBuscaminas().crearUsuario(txtNombre.getText(), cmbNivel.getSelectedIndex() + 1);
 							dispose(); // Cerramos vLogin antes de abrir vBuscaminas
 							vBuscaminas dialog = new vBuscaminas();
 							dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -141,7 +128,7 @@ public class vLogin extends JDialog {
 	
 	private boolean validarDatos() {
 		if((!txtNombre.getText().equals(""))) return true;
-		JOptionPane.showMessageDialog(null, "Rellene todos los campos para comenzar a jugar!", "Alerta", JOptionPane.WARNING_MESSAGE);
+		JOptionPane.showMessageDialog(null, "Introduzca su nombre para comenzar a jugar!", "Alerta", JOptionPane.WARNING_MESSAGE);
 		return false;
 	}
 }
