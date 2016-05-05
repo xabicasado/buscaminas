@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 
 import packModelo.packCasilla.*;
-import packModelo.packCasilla.Coordenada;
+import packModelo.packCronometro.Cronometro;
 import packModelo.packTablero.Tablero;
 import packModelo.packTablero.TableroBuilder;
 
@@ -16,6 +16,7 @@ public class Buscaminas extends Observable{
 	private Tablero tablero;
 	private boolean derrota;
 	private Usuario usuario;
+	private Cronometro crono;
 	
 	private Buscaminas() { }
 	
@@ -36,6 +37,7 @@ public class Buscaminas extends Observable{
 		setTableroBuilder(this.usuario.getNivel());
 		this.tablero = this.tableroBuilder.generarTablero();
 		this.derrota = false;
+		this.crono = new Cronometro();
 	}
 	
 	public void desplegarCasilla(Coordenada pCoordenada) {
@@ -96,7 +98,12 @@ public class Buscaminas extends Observable{
 	public void accionCasilla(Coordenada coordenada) {
 		tablero.devolverCasilla(coordenada).accionCasilla();
 	}
-	
-	
-	
+	 public void guardarPuntuacion(){
+		 usuario.setMinutos(crono.getMinutos());
+		 usuario.setSegundos(crono.getSegundos());
+		 //System.out.println(crono.getMinutos()+":"+crono.getSegundos());
+	 }
+	public Cronometro getCrono(){
+		return crono;
+	}
 }

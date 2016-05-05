@@ -3,16 +3,17 @@ package packVista;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import packControlador.cCasilla;
 import packModelo.Buscaminas;
 import packModelo.packCasilla.CasillaMina;
@@ -28,7 +29,7 @@ import java.util.Observer;
 
 import javax.swing.JTextField;
 
-public class vBuscaminas extends JFrame implements Observer{
+public class vBuscaminas extends JFrame implements Observer {
 
 	private JPanel contentPane, panel;
 	private JButton btn;
@@ -67,17 +68,19 @@ public class vBuscaminas extends JFrame implements Observer{
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		contentPane.add(getPanel_1(), BorderLayout.NORTH);
-		
+
 		jugar();
-		/* crono = new Cronometro();
-		// TODO QUE VAYA EN EL MODELO */
 	}
-	
+
 	private void crearTablero(int filas, int columnas) {
-		if(panel != null) contentPane.remove(panel);
+		if (panel != null)
+			contentPane.remove(panel);
 		panel = new JPanel();
 		panel.setLayout(new GridLayout(filas, columnas, 0, 0));
 		contentPane.add(panel, BorderLayout.CENTER);
+		int ancho = filas * columnas + 200;
+		int alto = filas * columnas / 2 - ancho;
+		this.setMinimumSize(new Dimension(ancho, alto));
 		botones = new JButton[filas][columnas];
 		cCasilla cCasilla = new cCasilla();
 
@@ -93,19 +96,21 @@ public class vBuscaminas extends JFrame implements Observer{
 		}
 		repintar();
 	}
-	
+
 	private void mostrarMinas() {
 		for (int i = 0; i < filas; i++) {
 			for (int j = 0; j < columnas; j++) {
 				Coordenada c = new Coordenada(i, j);
-				if(Buscaminas.getElBuscaminas().devolverCasilla(c) instanceof CasillaMina){
-					botones[c.getFila()][c.getColumna()].setText("*");
+				if (Buscaminas.getElBuscaminas().devolverCasilla(c) instanceof CasillaMina) {
+					ImageIcon mina = new ImageIcon(getClass().getResource(
+							"mina.png"));
+					botones[c.getFila()][c.getColumna()].setIcon(mina);
 					botones[c.getFila()][c.getColumna()].setEnabled(false);
 				}
 			}
 		}
 	}
-	
+
 	private JPanel getPanel_1() {
 		if (panel_1 == null) {
 			panel_1 = new JPanel();
@@ -117,126 +122,142 @@ public class vBuscaminas extends JFrame implements Observer{
 		}
 		return panel_1;
 	}
+
 	private JButton getBtnReiniciar() {
 		if (btnReiniciar == null) {
 			btnReiniciar = new JButton("Reiniciar");
 			btnReiniciar.addMouseListener(new MouseListener() {
-				
+
 				@Override
-				public void mouseReleased(MouseEvent arg0) { }
-				
+				public void mouseReleased(MouseEvent arg0) {
+				}
+
 				@Override
 				public void mousePressed(MouseEvent arg0) {
 					jugar();
 				}
-				
+
 				@Override
-				public void mouseExited(MouseEvent arg0) { }
-				
+				public void mouseExited(MouseEvent arg0) {
+				}
+
 				@Override
-				public void mouseEntered(MouseEvent arg0) { }
-				
+				public void mouseEntered(MouseEvent arg0) {
+				}
+
 				@Override
-				public void mouseClicked(MouseEvent arg0) { }
+				public void mouseClicked(MouseEvent arg0) {
+				}
 			});
 		}
 		return btnReiniciar;
 	}
+
 	private JButton getBtnNueva() {
 		if (btnNueva == null) {
 			btnNueva = new JButton("Nueva Partida");
 			btnNueva.addMouseListener(new MouseListener() {
-				
+
 				@Override
-				public void mouseReleased(MouseEvent arg0) { }
-				
+				public void mouseReleased(MouseEvent arg0) {
+				}
+
 				@Override
 				public void mousePressed(MouseEvent arg0) {
 					nuevaPartida();
 				}
-				
+
 				private void nuevaPartida() {
 					dispose();
-					vLogin dialog =new vLogin();
+					vLogin dialog = new vLogin();
 					dialog.setLocationRelativeTo(null);
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setVisible(true);
-					
+
 				}
 
 				@Override
-				public void mouseExited(MouseEvent arg0) { }
-				
+				public void mouseExited(MouseEvent arg0) {
+				}
+
 				@Override
-				public void mouseEntered(MouseEvent arg0) { }
-				
+				public void mouseEntered(MouseEvent arg0) {
+				}
+
 				@Override
-				public void mouseClicked(MouseEvent arg0) { }
+				public void mouseClicked(MouseEvent arg0) {
+				}
 			});
 		}
 		return btnNueva;
 	}
+
 	private JTextField getTxtNumMinas() {
 		if (txtNumMinas == null) {
 			txtNumMinas = new JTextField();
 			txtNumMinas.setEnabled(false);
-			txtNumMinas.setColumns(10);
+			txtNumMinas.setColumns(5);
 		}
 		return txtNumMinas;
 	}
+
 	private JTextField getTxtCronometro() {
 		if (txtCronometro == null) {
 			txtCronometro = new JTextField();
 			txtCronometro.setEnabled(false);
-			txtCronometro.setColumns(10);
+			txtCronometro.setColumns(5);
 		}
 		return txtCronometro;
 	}
-	
+
 	public void jugar() {
 		Buscaminas.getElBuscaminas().jugar();
 		Buscaminas.getElBuscaminas().addObserver(this);
+		Buscaminas.getElBuscaminas().getCrono().addObserver(this);
 		filas = Buscaminas.getElBuscaminas().getTablero().getFilas();
 		columnas = Buscaminas.getElBuscaminas().getTablero().getColumnas();
 		crearTablero(filas, columnas);
 	}
-	
 
 	@Override
-	public void update(Observable arg0, Object arg1) {
-		if (arg0 instanceof Buscaminas){
-			
-		Coordenada pC=(Coordenada) ((ArrayList<Object>) arg1).get(0);
-		String texto=(String) ((ArrayList<Object>) arg1).get(1);
-		if(!texto.equals("m")) {
-			botones[pC.getFila()][pC.getColumna()].setEnabled(false);
-			botones[pC.getFila()][pC.getColumna()].setText(texto);
-		} else if(botones[pC.getFila()][pC.getColumna()].getText().equals("m")) {
+	public void update(Observable observador, Object parametro) {
+		if (observador instanceof Buscaminas) {
+
+			Coordenada pC = (Coordenada) ((ArrayList<Object>) parametro).get(0);
+			String texto = (String) ((ArrayList<Object>) parametro).get(1);
+			if (!texto.equals("m")) {
+				botones[pC.getFila()][pC.getColumna()].setEnabled(false);
+				botones[pC.getFila()][pC.getColumna()].setText(texto);
+			} else if (botones[pC.getFila()][pC.getColumna()].getText().equals(
+					"m")) {
 				botones[pC.getFila()][pC.getColumna()].setText("");
-		} else {
-			botones[pC.getFila()][pC.getColumna()].setText(texto);
-		}
-		if (!Buscaminas.getElBuscaminas().hasPerdido()) {
-			if (Buscaminas.getElBuscaminas().hasGanado()) {
-				JOptionPane.showMessageDialog(null,
-						"Has ganado la partida!", "Enhorabuena",
-						JOptionPane.INFORMATION_MESSAGE);
+			} else {
+				botones[pC.getFila()][pC.getColumna()].setText(texto);
 			}
-		} else {
-			mostrarMinas();
-			JOptionPane.showMessageDialog(null,
-					"Has perdido la partida!", "Que pena",
-					JOptionPane.ERROR_MESSAGE);
-		}
-		
-	}
-		else{if(arg0 instanceof Cronometro){
-				//TODO este es el update para el cronometro, necesitamos que muestre lo que hay en arg1
+			if (!Buscaminas.getElBuscaminas().hasPerdido()) {
+				if (Buscaminas.getElBuscaminas().hasGanado()) {
+					JOptionPane.showMessageDialog(null,
+							"Has ganado la partida!", "Enhorabuena",
+							JOptionPane.INFORMATION_MESSAGE);
+					Buscaminas.getElBuscaminas().guardarPuntuacion();
+				}
+			} else {
+				mostrarMinas();
+				JOptionPane.showMessageDialog(null, "Has perdido la partida!",
+						"Que pena", JOptionPane.ERROR_MESSAGE);
 			}
+
+		} else if (observador instanceof Cronometro) {
+			mostrarCronometro((String) parametro);
 		}
 	}
-	private void repintar(){
-		this.setSize(this.getWidth()+1, this.getHeight());
-		this.setSize(this.getWidth()-1, this.getHeight());
+
+	private void mostrarCronometro(String tiempo) {
+		getTxtCronometro().setText(tiempo);
+	}
+
+	private void repintar() {
+		this.setSize(this.getWidth() + 1, this.getHeight());
+		this.setSize(this.getWidth() - 1, this.getHeight());
 	}
 }
