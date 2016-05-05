@@ -1,12 +1,12 @@
 package packVista;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
+import java.awt.Image;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import packControlador.cCasilla;
 import packModelo.Buscaminas;
 import packModelo.packCasilla.CasillaMina;
@@ -78,8 +79,8 @@ public class vBuscaminas extends JFrame implements Observer {
 		panel = new JPanel();
 		panel.setLayout(new GridLayout(filas, columnas, 0, 0));
 		contentPane.add(panel, BorderLayout.CENTER);
-		int ancho = filas * columnas + 200;
-		int alto = filas * columnas / 2 - ancho;
+		int ancho = filas * columnas + 250;
+		int alto = ancho - filas * columnas/2;
 		this.setMinimumSize(new Dimension(ancho, alto));
 		botones = new JButton[filas][columnas];
 		cCasilla cCasilla = new cCasilla();
@@ -104,8 +105,14 @@ public class vBuscaminas extends JFrame implements Observer {
 				if (Buscaminas.getElBuscaminas().devolverCasilla(c) instanceof CasillaMina) {
 					ImageIcon mina = new ImageIcon(getClass().getResource(
 							"mina.png"));
-					botones[c.getFila()][c.getColumna()].setIcon(mina);
+					Icon icono = new ImageIcon(mina.getImage().getScaledInstance(
+							botones[c.getFila()][c.getColumna()].getWidth(),
+							botones[c.getFila()][c.getColumna()].getHeight(),
+							Image.SCALE_DEFAULT));
+					botones[c.getFila()][c.getColumna()].setIcon(icono);
+					botones[c.getFila()][c.getColumna()].setText("");
 					botones[c.getFila()][c.getColumna()].setEnabled(false);
+					botones[c.getFila()][c.getColumna()].setDisabledIcon(botones[c.getFila()][c.getColumna()].getIcon());
 				}
 			}
 		}
@@ -196,7 +203,7 @@ public class vBuscaminas extends JFrame implements Observer {
 		if (txtNumMinas == null) {
 			txtNumMinas = new JTextField();
 			txtNumMinas.setEnabled(false);
-			txtNumMinas.setColumns(5);
+			txtNumMinas.setColumns(3);
 		}
 		return txtNumMinas;
 	}
@@ -205,7 +212,7 @@ public class vBuscaminas extends JFrame implements Observer {
 		if (txtCronometro == null) {
 			txtCronometro = new JTextField();
 			txtCronometro.setEnabled(false);
-			txtCronometro.setColumns(5);
+			txtCronometro.setColumns(3);
 		}
 		return txtCronometro;
 	}
