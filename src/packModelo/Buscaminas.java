@@ -37,7 +37,9 @@ public class Buscaminas extends Observable{
 		setTableroBuilder(this.usuario.getNivel());
 		this.tablero = this.tableroBuilder.generarTablero();
 		this.derrota = false;
-		this.crono = new Cronometro();
+		if (crono==null)this.crono = new Cronometro();
+		else crono.reset();
+		
 	}
 	
 	public void desplegarCasilla(Coordenada pCoordenada) {

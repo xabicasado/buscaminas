@@ -66,7 +66,7 @@ public class vLogin extends JDialog {
 							Buscaminas.getElBuscaminas().crearUsuario(txtNombre.getText(), cmbNivel.getSelectedIndex() + 1);
 							dispose(); // Cerramos vLogin antes de abrir vBuscaminas
 							vBuscaminas dialog = new vBuscaminas();
-							dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+							dialog.setDefaultCloseOperation(dialog.terminar());
 							dialog.setLocationRelativeTo(null);
 							//dialog.setModal(true);
 							dialog.setVisible(true);
