@@ -267,4 +267,9 @@ public class vBuscaminas extends JFrame implements Observer {
 		this.setSize(this.getWidth() + 1, this.getHeight());
 		this.setSize(this.getWidth() - 1, this.getHeight());
 	}
+	
+	public int terminar(){
+		Buscaminas.getElBuscaminas().terminar();
+		return 2;
+	}
 }

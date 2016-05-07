@@ -6,12 +6,11 @@ public class Cronometro extends Observable implements Runnable {
 	private Thread t;
 	private int minutos;
 	private int segundos;
-	private volatile boolean running;
+	private volatile boolean stopped;
 	
 	public Cronometro() {
 		this.t = new Thread(this, "Crono");
 		this.t.start();
-		running=true;
 	}
 	
 	public int getMinutos() { return minutos; }
@@ -21,13 +20,14 @@ public class Cronometro extends Observable implements Runnable {
 	public void run() {
 		minutos = 0;
 		segundos = 0;
-		while(running) {
+		while(!stopped) {
 			if(segundos == 60) {
 				minutos++;
 				segundos = 0;
 			}
 			setChanged();
 			String tiempo = (segundos < 10) ? minutos+":0"+segundos : minutos+":"+segundos ;
+			System.out.println(tiempo);
 			notifyObservers(tiempo);
 			try {
 				Thread.sleep(1000);
@@ -37,7 +37,7 @@ public class Cronometro extends Observable implements Runnable {
 	}
 
 	public void parar() {
-		running=false;
+		stopped=true;
 	}
 	
 	public void reset(){
