@@ -17,7 +17,9 @@ import javax.swing.border.EmptyBorder;
 
 import packControlador.cCasilla;
 import packModelo.Buscaminas;
+import packModelo.packCasilla.Casilla;
 import packModelo.packCasilla.CasillaMina;
+import packModelo.packCasilla.CasillaNumero;
 import packModelo.packCasilla.Coordenada;
 import packModelo.packCronometro.Cronometro;
 
@@ -62,7 +64,7 @@ public class vBuscaminas extends JFrame implements Observer {
 	 * Create the frame.
 	 */
 	public vBuscaminas() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // TODO Parar cronometro antes de cerrar
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -102,19 +104,30 @@ public class vBuscaminas extends JFrame implements Observer {
 		for (int i = 0; i < filas; i++) {
 			for (int j = 0; j < columnas; j++) {
 				Coordenada c = new Coordenada(i, j);
-				if (Buscaminas.getElBuscaminas().devolverCasilla(c) instanceof CasillaMina) {
-					ImageIcon mina = new ImageIcon(getClass().getResource(
-							"mina.png"));
-					Icon icono = new ImageIcon(mina.getImage().getScaledInstance(
-							botones[c.getFila()][c.getColumna()].getWidth(),
-							botones[c.getFila()][c.getColumna()].getHeight(),
-							Image.SCALE_DEFAULT));
-					botones[c.getFila()][c.getColumna()].setIcon(icono);
-					botones[c.getFila()][c.getColumna()].setText("");
-					botones[c.getFila()][c.getColumna()].setEnabled(false);
-					botones[c.getFila()][c.getColumna()].setDisabledIcon(botones[c.getFila()][c.getColumna()].getIcon());
-				}
+				if (Buscaminas.getElBuscaminas().devolverCasilla(c) instanceof CasillaMina)
+					asignarIcono(c);
 			}
+		}
+	}
+	private void asignarIcono (Coordenada pC){
+		ImageIcon imagen = null;
+		Casilla casilla = Buscaminas.getElBuscaminas().devolverCasilla(pC);
+		if (casilla instanceof CasillaMina) {
+			imagen = new ImageIcon(getClass().getResource(
+					"mina.png"));
+		} else if (casilla instanceof CasillaNumero) {
+			imagen = new ImageIcon(getClass().getResource(
+					((CasillaNumero) casilla).getNumero() + ".png"));
+		}
+		if (imagen != null) {
+			Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(
+					botones[pC.getFila()][pC.getColumna()].getWidth(),
+					botones[pC.getFila()][pC.getColumna()].getHeight(),
+					Image.SCALE_DEFAULT/2));
+			botones[pC.getFila()][pC.getColumna()].setIcon(icono);
+			botones[pC.getFila()][pC.getColumna()].setText("");
+			botones[pC.getFila()][pC.getColumna()].setEnabled(false);
+			botones[pC.getFila()][pC.getColumna()].setDisabledIcon(botones[pC.getFila()][pC.getColumna()].getIcon());
 		}
 	}
 
@@ -229,15 +242,16 @@ public class vBuscaminas extends JFrame implements Observer {
 	@Override
 	public void update(Observable observador, Object parametro) {
 		if (observador instanceof Buscaminas) {
-
+			// TODO ¿No puede llegar directamente el objeto Casilla?
 			Coordenada pC = (Coordenada) ((ArrayList<Object>) parametro).get(0);
 			String texto = (String) ((ArrayList<Object>) parametro).get(1);
 			if (!texto.equals("m")) {
 				botones[pC.getFila()][pC.getColumna()].setEnabled(false);
-				botones[pC.getFila()][pC.getColumna()].setText(texto);
+				asignarIcono(pC);
 			} else if (botones[pC.getFila()][pC.getColumna()].getText().equals(
 					"m")) {
 				botones[pC.getFila()][pC.getColumna()].setText("");
+				
 			} else {
 				botones[pC.getFila()][pC.getColumna()].setText(texto);
 			}
@@ -267,7 +281,6 @@ public class vBuscaminas extends JFrame implements Observer {
 		this.setSize(this.getWidth() + 1, this.getHeight());
 		this.setSize(this.getWidth() - 1, this.getHeight());
 	}
-	
 	public int terminar(){
 		Buscaminas.getElBuscaminas().terminar();
 		return 2;
