@@ -12,6 +12,6 @@ public class Cubierta extends Estado {
 	public void desplegarCasilla(Casilla pCasilla) {
 		pCasilla.setEstado(new Descubierta(pCasilla.getCoordenada()));
 		Buscaminas.getElBuscaminas().decrementarCasillasRestantes();
-		Buscaminas.getElBuscaminas().accionCasilla(this.getCoordenada());
+		pCasilla.accionCasilla();
 	}
 }

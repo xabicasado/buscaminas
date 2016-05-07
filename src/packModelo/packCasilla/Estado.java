@@ -8,7 +8,6 @@ public abstract class Estado {
 		coordenada=pCoordenada;
 	}
 	
-	public void descubrirCasilla(){}
 	public Coordenada getCoordenada(){return this.coordenada;}
 
 	public void desplegarCasilla(Casilla pCasilla) { }

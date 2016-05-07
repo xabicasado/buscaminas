@@ -2,16 +2,10 @@ package packControlador;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
-
-import org.omg.PortableServer.ServantLocatorPackage.CookieHolder;
-
 import packModelo.Buscaminas;
-import packModelo.packCasilla.Casilla;
 import packModelo.packCasilla.Coordenada;
-import packModelo.packCasilla.Marcada;
+
 
 public class cCasilla implements MouseListener {
 

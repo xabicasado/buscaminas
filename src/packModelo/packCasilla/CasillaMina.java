@@ -10,7 +10,7 @@ public class CasillaMina extends Casilla {
 	}
 
 	@Override
-	public void accionCasilla() {
+	protected void accionCasilla() {
 		Buscaminas.getElBuscaminas().derrotado();
 	}
 }

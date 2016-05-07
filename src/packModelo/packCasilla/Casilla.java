@@ -30,6 +30,6 @@ public abstract class Casilla {
 		}
 	}
 	
-	public abstract void accionCasilla();
+	protected abstract void accionCasilla();
 	
 }

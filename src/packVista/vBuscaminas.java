@@ -123,12 +123,27 @@ public class vBuscaminas extends JFrame implements Observer {
 			Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(
 					botones[pC.getFila()][pC.getColumna()].getWidth(),
 					botones[pC.getFila()][pC.getColumna()].getHeight(),
-					Image.SCALE_DEFAULT/2));
+					Image.SCALE_DEFAULT));
 			botones[pC.getFila()][pC.getColumna()].setIcon(icono);
 			botones[pC.getFila()][pC.getColumna()].setText("");
 			botones[pC.getFila()][pC.getColumna()].setEnabled(false);
 			botones[pC.getFila()][pC.getColumna()].setDisabledIcon(botones[pC.getFila()][pC.getColumna()].getIcon());
 		}
+	}
+	private void marcarbtn (Coordenada pC){
+		
+	
+		if (botones[pC.getFila()][pC.getColumna()].getIcon() == null) {
+			ImageIcon imagen = null;
+			Casilla casilla = Buscaminas.getElBuscaminas().devolverCasilla(pC);
+			imagen = new ImageIcon(getClass().getResource("bandera.png"));
+			Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(
+					botones[pC.getFila()][pC.getColumna()].getWidth()*3/4,
+					botones[pC.getFila()][pC.getColumna()].getHeight()*3/4,
+					Image.SCALE_DEFAULT));
+			botones[pC.getFila()][pC.getColumna()].setIcon(icono);
+		} else botones[pC.getFila()][pC.getColumna()].setIcon(null);
+		
 	}
 
 	private JPanel getPanel_1() {
@@ -248,12 +263,9 @@ public class vBuscaminas extends JFrame implements Observer {
 			if (!texto.equals("m")) {
 				botones[pC.getFila()][pC.getColumna()].setEnabled(false);
 				asignarIcono(pC);
-			} else if (botones[pC.getFila()][pC.getColumna()].getText().equals(
-					"m")) {
-				botones[pC.getFila()][pC.getColumna()].setText("");
 				
 			} else {
-				botones[pC.getFila()][pC.getColumna()].setText(texto);
+				marcarbtn(pC);
 			}
 			if (!Buscaminas.getElBuscaminas().hasPerdido()) {
 				if (Buscaminas.getElBuscaminas().hasGanado()) {

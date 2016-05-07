@@ -11,7 +11,7 @@ public class CasillaNumero extends Casilla {
 	}
 
 	@Override
-	public void accionCasilla() { }
+	protected void accionCasilla() { }
 	
 	public void incrementarNumero(){
 		this.numero = this.numero+1;
