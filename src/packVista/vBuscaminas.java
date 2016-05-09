@@ -43,6 +43,7 @@ public class vBuscaminas extends JFrame implements Observer {
 	private JButton btnNueva;
 	private JTextField txtNumMinas;
 	private JTextField txtCronometro;
+	private boolean mostrado;
 
 	/**
 	 * Launch the application.
@@ -64,14 +65,14 @@ public class vBuscaminas extends JFrame implements Observer {
 	 * Create the frame.
 	 */
 	public vBuscaminas() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // TODO Parar cronometro antes de cerrar
+		setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE); // TODO Parar cronometro antes de cerrar
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		contentPane.add(getPanel_1(), BorderLayout.NORTH);
-
+		mostrado = false;
 		jugar();
 	}
 
@@ -83,7 +84,9 @@ public class vBuscaminas extends JFrame implements Observer {
 		contentPane.add(panel, BorderLayout.CENTER);
 		int ancho = filas * columnas + 250;
 		int alto = ancho - filas * columnas/2;
-		this.setMinimumSize(new Dimension(ancho, alto));
+		Dimension d = new Dimension(ancho, alto);
+		this.setMinimumSize(d);
+		this.setSize(d);
 		botones = new JButton[filas][columnas];
 		cCasilla cCasilla = new cCasilla();
 
@@ -169,7 +172,9 @@ public class vBuscaminas extends JFrame implements Observer {
 
 				@Override
 				public void mousePressed(MouseEvent arg0) {
+					mostrado = false;
 					jugar();
+					
 				}
 
 				@Override
@@ -268,11 +273,12 @@ public class vBuscaminas extends JFrame implements Observer {
 				marcarbtn(pC);
 			}
 			if (!Buscaminas.getElBuscaminas().hasPerdido()) {
-				if (Buscaminas.getElBuscaminas().hasGanado()) {
+				if (Buscaminas.getElBuscaminas().hasGanado() && !mostrado) {
 					JOptionPane.showMessageDialog(null,
 							"Has ganado la partida!", "Enhorabuena",
 							JOptionPane.INFORMATION_MESSAGE);
 					Buscaminas.getElBuscaminas().guardarPuntuacion();
+					mostrado = true;
 				}
 			} else {
 				mostrarMinas();
@@ -292,9 +298,5 @@ public class vBuscaminas extends JFrame implements Observer {
 	private void repintar() {
 		this.setSize(this.getWidth() + 1, this.getHeight());
 		this.setSize(this.getWidth() - 1, this.getHeight());
-	}
-	public int terminar(){
-		Buscaminas.getElBuscaminas().terminar();
-		return 2;
 	}
 }

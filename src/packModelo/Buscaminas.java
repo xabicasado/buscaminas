@@ -104,10 +104,5 @@ public class Buscaminas extends Observable{
 	 }
 	public Cronometro getCrono(){
 		return crono;
-	}
-
-	public void terminar() {
-		crono.parar();
-		
-	}
+	}	
 }

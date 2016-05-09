@@ -27,7 +27,6 @@ public class Cronometro extends Observable implements Runnable {
 			}
 			setChanged();
 			String tiempo = (segundos < 10) ? minutos+":0"+segundos : minutos+":"+segundos ;
-			System.out.println(tiempo);
 			notifyObservers(tiempo);
 			try {
 				Thread.sleep(1000);
@@ -35,11 +34,6 @@ public class Cronometro extends Observable implements Runnable {
 			segundos++;
 		}
 	}
-
-	public void parar() {
-		stopped=true;
-	}
-	
 	public void reset(){
 		minutos = 0;
 		segundos = 0;
