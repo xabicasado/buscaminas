@@ -17,6 +17,7 @@ public class Buscaminas extends Observable{
 	private boolean derrota;
 	private Usuario usuario;
 	private Cronometro crono;
+	private int nMinasRestantes;
 	
 	private Buscaminas() { }
 	
@@ -39,55 +40,29 @@ public class Buscaminas extends Observable{
 		this.derrota = false;
 		if (crono==null)this.crono = new Cronometro();
 		else crono.reset();
-		
+		nMinasRestantes = tablero.getMinas();
 	}
 	
-	public void desplegarCasilla(Coordenada pCoordenada) {
-		Casilla c = tablero.desplegarCasilla(pCoordenada);
-		ArrayList<Object> a =new ArrayList<Object>();
+	public void desplegarCasilla(Coordenada pC) {
+		Casilla c = tablero.desplegarCasilla(pC);
 		if (c!=null && c.getEstado() instanceof Descubierta){
-			if (c instanceof CasillaMina) {
-				a.add(pCoordenada);
-				a.add("*");
-				setChanged();
-				notifyObservers(a);
-				}
-			else if (c instanceof CasillaVacia) {
-				a.add(pCoordenada);
-				a.add("-");
-				setChanged();
-				notifyObservers(a);
-			}
-			else if (c instanceof CasillaNumero) {
-				a.add(pCoordenada);
-				a.add(""+((CasillaNumero) c).getNumero()+"");
-				setChanged();
-				notifyObservers(a);
-			}
-			
+			setChanged();
+			notifyObservers(pC);
 		}
 	}
 	
-	public void marcarDesmarcarCasilla(Coordenada pCoordenada){
-		ArrayList<Object> a =new ArrayList<Object>();
-		tablero.marcarDesmarcarCasilla(pCoordenada);
-		a.add(pCoordenada);
-		a.add("m");
+	public void marcarDesmarcarCasilla(Coordenada pC){
+		tablero.marcarDesmarcarCasilla(pC);
 		setChanged();
-		notifyObservers(a);
-		
+		notifyObservers(pC);
 	}
 	
 	public void decrementarCasillasRestantes() {
 		this.tablero.decrementarCasillasRestantes();
 	}
 	
-	public void desplegarAdyacentes(Coordenada pCoordenada){
-		tablero.desplegarAdyacentes(pCoordenada);
-	}
-	
-	public Casilla devolverCasilla(Coordenada pCoordenada) {
-		return this.tablero.devolverCasilla(pCoordenada);
+	public void desplegarAdyacentes(Coordenada pC){
+		tablero.desplegarAdyacentes(pC);
 	}
 
 	public boolean hasGanado() {
@@ -104,5 +79,31 @@ public class Buscaminas extends Observable{
 	 }
 	public Cronometro getCrono(){
 		return crono;
+	}
+
+	public String tipoCasilla(Coordenada pC) {
+		if (tablero.devolverCasilla(pC) instanceof CasillaMina) return "mina";
+		else if (tablero.devolverCasilla(pC) instanceof CasillaNumero)
+			return ((CasillaNumero) tablero.devolverCasilla(pC)).getNumero()+"";
+		else return "vacia";
 	}	
+	public boolean estaMarcada(Coordenada pC) {
+		if (tablero.devolverCasilla(pC).getEstado() instanceof Marcada) return true;
+		else return false;
+	}
+	public boolean estaCubierta(Coordenada pC) {
+		if (tablero.devolverCasilla(pC).getEstado() instanceof Cubierta) return true;
+		else return false;
+	}
+
+	public void restarMinasRestantes() {
+		nMinasRestantes--;	
+	}
+
+	public void sumarMinasRestantes() {
+		nMinasRestantes++;	
+	}
+	public String getNMinasRestantes() {
+		return nMinasRestantes+"";
+	}
 }

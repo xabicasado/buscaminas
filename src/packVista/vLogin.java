@@ -13,9 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import packModelo.Buscaminas;
-import packModelo.packTablero.TableroBuilderNivel1;
-import packModelo.packTablero.TableroBuilderNivel2;
-import packModelo.packTablero.TableroBuilderNivel3;
 
 public class vLogin extends JDialog {
 

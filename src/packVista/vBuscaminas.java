@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.Image;
-
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -14,22 +13,15 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import packControlador.cCasilla;
 import packModelo.Buscaminas;
-import packModelo.packCasilla.Casilla;
-import packModelo.packCasilla.CasillaMina;
-import packModelo.packCasilla.CasillaNumero;
 import packModelo.packCasilla.Coordenada;
 import packModelo.packCronometro.Cronometro;
-
-import java.util.ArrayList;
 import java.awt.FlowLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Observable;
 import java.util.Observer;
-
 import javax.swing.JTextField;
 
 public class vBuscaminas extends JFrame implements Observer {
@@ -40,7 +32,6 @@ public class vBuscaminas extends JFrame implements Observer {
 	private JButton[][] botones;
 	private JPanel panel_1;
 	private JButton btnReiniciar;
-	private JButton btnNueva;
 	private JTextField txtNumMinas;
 	private JTextField txtCronometro;
 	private boolean mostrado;
@@ -100,6 +91,7 @@ public class vBuscaminas extends JFrame implements Observer {
 				panel.add(btn);
 			}
 		}
+		getTxtNumMinas().setText(Buscaminas.getElBuscaminas().getNMinasRestantes());
 		repintar();
 	}
 
@@ -107,20 +99,20 @@ public class vBuscaminas extends JFrame implements Observer {
 		for (int i = 0; i < filas; i++) {
 			for (int j = 0; j < columnas; j++) {
 				Coordenada c = new Coordenada(i, j);
-				if (Buscaminas.getElBuscaminas().devolverCasilla(c) instanceof CasillaMina)
+				if (Buscaminas.getElBuscaminas().tipoCasilla(c).equals("mina"))
 					asignarIcono(c);
 			}
 		}
 	}
 	private void asignarIcono (Coordenada pC){
 		ImageIcon imagen = null;
-		Casilla casilla = Buscaminas.getElBuscaminas().devolverCasilla(pC);
-		if (casilla instanceof CasillaMina) {
+		String tipoCasilla = Buscaminas.getElBuscaminas().tipoCasilla(pC);
+		if (tipoCasilla.equals("mina")) {
 			imagen = new ImageIcon(getClass().getResource(
 					"mina.png"));
-		} else if (casilla instanceof CasillaNumero) {
+		} else if (!tipoCasilla.equals("vacia")) {
 			imagen = new ImageIcon(getClass().getResource(
-					((CasillaNumero) casilla).getNumero() + ".png"));
+					(tipoCasilla + ".png")));
 		}
 		if (imagen != null) {
 			Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(
@@ -134,11 +126,8 @@ public class vBuscaminas extends JFrame implements Observer {
 		}
 	}
 	private void marcarbtn (Coordenada pC){
-		
-	
 		if (botones[pC.getFila()][pC.getColumna()].getIcon() == null) {
 			ImageIcon imagen = null;
-			Casilla casilla = Buscaminas.getElBuscaminas().devolverCasilla(pC);
 			imagen = new ImageIcon(getClass().getResource("bandera.png"));
 			Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(
 					botones[pC.getFila()][pC.getColumna()].getWidth()*3/4,
@@ -146,7 +135,6 @@ public class vBuscaminas extends JFrame implements Observer {
 					Image.SCALE_DEFAULT));
 			botones[pC.getFila()][pC.getColumna()].setIcon(icono);
 		} else botones[pC.getFila()][pC.getColumna()].setIcon(null);
-		
 	}
 
 	private JPanel getPanel_1() {
@@ -155,7 +143,6 @@ public class vBuscaminas extends JFrame implements Observer {
 			panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 			panel_1.add(getTxtNumMinas());
 			panel_1.add(getBtnReiniciar());
-			panel_1.add(getBtnNueva());
 			panel_1.add(getTxtCronometro());
 		}
 		return panel_1;
@@ -193,45 +180,6 @@ public class vBuscaminas extends JFrame implements Observer {
 		return btnReiniciar;
 	}
 
-	private JButton getBtnNueva() {
-		if (btnNueva == null) {
-			btnNueva = new JButton("Nueva Partida");
-			btnNueva.addMouseListener(new MouseListener() {
-
-				@Override
-				public void mouseReleased(MouseEvent arg0) {
-				}
-
-				@Override
-				public void mousePressed(MouseEvent arg0) {
-					nuevaPartida();
-				}
-
-				private void nuevaPartida() {
-					dispose();
-					vLogin dialog = new vLogin();
-					dialog.setLocationRelativeTo(null);
-					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					dialog.setVisible(true);
-
-				}
-
-				@Override
-				public void mouseExited(MouseEvent arg0) {
-				}
-
-				@Override
-				public void mouseEntered(MouseEvent arg0) {
-				}
-
-				@Override
-				public void mouseClicked(MouseEvent arg0) {
-				}
-			});
-		}
-		return btnNueva;
-	}
-
 	private JTextField getTxtNumMinas() {
 		if (txtNumMinas == null) {
 			txtNumMinas = new JTextField();
@@ -263,14 +211,13 @@ public class vBuscaminas extends JFrame implements Observer {
 	public void update(Observable observador, Object parametro) {
 		if (observador instanceof Buscaminas) {
 			// TODO ¿No puede llegar directamente el objeto Casilla?
-			Coordenada pC = (Coordenada) ((ArrayList<Object>) parametro).get(0);
-			String texto = (String) ((ArrayList<Object>) parametro).get(1);
-			if (!texto.equals("m")) {
-				botones[pC.getFila()][pC.getColumna()].setEnabled(false);
-				asignarIcono(pC);
-				
+			Coordenada c = (Coordenada) parametro;
+			if (Buscaminas.getElBuscaminas().estaMarcada(c) || Buscaminas.getElBuscaminas().estaCubierta(c)) {
+				marcarbtn(c);
+				getTxtNumMinas().setText(Buscaminas.getElBuscaminas().getNMinasRestantes());
 			} else {
-				marcarbtn(pC);
+				botones[c.getFila()][c.getColumna()].setEnabled(false);
+				asignarIcono(c);
 			}
 			if (!Buscaminas.getElBuscaminas().hasPerdido()) {
 				if (Buscaminas.getElBuscaminas().hasGanado() && !mostrado) {

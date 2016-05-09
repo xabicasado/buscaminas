@@ -1,5 +1,7 @@
 package packModelo.packCasilla;
 
+import packModelo.Buscaminas;
+
 
 public abstract class Casilla {
 	private Estado estado;
@@ -24,9 +26,11 @@ public abstract class Casilla {
 	public void marcarDesmarcarCasilla(){
 		if(this.estado instanceof Cubierta){
 			setEstado(new Marcada(this.getCoordenada()));
+			Buscaminas.getElBuscaminas().restarMinasRestantes();
 		}
 		else if(this.estado instanceof Marcada){
 			setEstado(new Cubierta(this.getCoordenada()));
+			Buscaminas.getElBuscaminas().sumarMinasRestantes();
 		}
 	}
 	
