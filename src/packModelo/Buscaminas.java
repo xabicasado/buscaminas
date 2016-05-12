@@ -95,6 +95,10 @@ public class Buscaminas extends Observable{
 		if (tablero.devolverCasilla(pC).getEstado() instanceof Cubierta) return true;
 		else return false;
 	}
+	public boolean estaDescubierta(Coordenada pC) {
+		if (tablero.devolverCasilla(pC).getEstado() instanceof Descubierta) return true;
+		else return false;
+	}
 
 	public void restarMinasRestantes() {
 		nMinasRestantes--;	
@@ -105,9 +109,5 @@ public class Buscaminas extends Observable{
 	}
 	public String getNMinasRestantes() {
 		return nMinasRestantes+"";
-	}
-
-	public Casilla devolverCasilla(Coordenada pCoordenada) {
-		 return this.tablero.devolverCasilla(pCoordenada);
 	}
 }
