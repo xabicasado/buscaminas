@@ -106,4 +106,8 @@ public class Buscaminas extends Observable{
 	public String getNMinasRestantes() {
 		return nMinasRestantes+"";
 	}
+
+	public Casilla devolverCasilla(Coordenada pCoordenada) {
+		 return this.tablero.devolverCasilla(pCoordenada);
+	}
 }
