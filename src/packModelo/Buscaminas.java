@@ -80,6 +80,7 @@ public class Buscaminas extends Observable{
 		return crono;
 	}
 	
+	//Sólo para JUnits
 	public void ponerCasilla(Casilla c){
 		this.tablero.ponerCasilla(c);
 	}
