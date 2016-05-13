@@ -2,7 +2,6 @@ package packModelo;
 
 
 
-import java.util.ArrayList;
 import java.util.Observable;
 
 import packModelo.packCasilla.*;
@@ -79,6 +78,10 @@ public class Buscaminas extends Observable{
 	 }
 	public Cronometro getCrono(){
 		return crono;
+	}
+	
+	public void ponerCasilla(Casilla c){
+		this.tablero.ponerCasilla(c);
 	}
 
 	public String tipoCasilla(Coordenada pC) {
