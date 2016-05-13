@@ -124,8 +124,16 @@ public class vLogin extends JDialog {
 	}
 	
 	private boolean validarDatos() {
-		if((!txtNombre.getText().equals(""))) return true;
-		JOptionPane.showMessageDialog(null, "Introduzca su nombre para comenzar a jugar!", "Alerta", JOptionPane.WARNING_MESSAGE);
-		return false;
+		boolean valido = false;
+		if((!txtNombre.getText().equals(""))) {
+			String pattern= "^[a-zA-Z0-9]*$";
+	        if(txtNombre.getText().matches(pattern)) valido = true;
+	        else
+				JOptionPane.showMessageDialog(null, 
+						"El nombre sólo puede contener caracteres alfanuméricos!", "Alerta", JOptionPane.WARNING_MESSAGE);				
+		} else 
+			JOptionPane.showMessageDialog(null, 
+					"Introduzca su nombre para comenzar a jugar!", "Alerta", JOptionPane.WARNING_MESSAGE);
+		return valido;
 	}
 }

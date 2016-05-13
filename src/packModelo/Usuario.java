@@ -19,6 +19,14 @@ public class Usuario {
 		this.segundos = 0;
 	}
 	
+	public Usuario(String usuario, int nivel, int minutos, int segundos) {
+		super();
+		this.usuario = usuario;
+		definirNivel(nivel);
+		this.minutos = minutos;
+		this.segundos = segundos;
+	}
+	
 	public String getUsuario() { return usuario; }
 	public void setUsuario(String usuario) { this.usuario = usuario; }
 	

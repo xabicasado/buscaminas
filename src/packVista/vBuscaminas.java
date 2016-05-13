@@ -1,10 +1,12 @@
 package packVista;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.Image;
+
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -13,15 +15,18 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import packControlador.cCasilla;
 import packModelo.Buscaminas;
 import packModelo.packCasilla.Coordenada;
 import packModelo.packCronometro.Cronometro;
+
 import java.awt.FlowLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Observable;
 import java.util.Observer;
+
 import javax.swing.JTextField;
 
 public class vBuscaminas extends JFrame implements Observer {
@@ -99,7 +104,7 @@ public class vBuscaminas extends JFrame implements Observer {
 		for (int i = 0; i < filas; i++) {
 			for (int j = 0; j < columnas; j++) {
 				Coordenada c = new Coordenada(i, j);
-				if (Buscaminas.getElBuscaminas().tipoCasilla(c).equals("mina"))
+				if (Buscaminas.getElBuscaminas().tipoCasilla(c).equals("mina") && !Buscaminas.getElBuscaminas().estaMarcada(c))
 					asignarIcono(c);
 			}
 		}
@@ -210,7 +215,6 @@ public class vBuscaminas extends JFrame implements Observer {
 	@Override
 	public void update(Observable observador, Object parametro) {
 		if (observador instanceof Buscaminas) {
-			// TODO ¿No puede llegar directamente el objeto Casilla?
 			Coordenada c = (Coordenada) parametro;
 			if (Buscaminas.getElBuscaminas().estaMarcada(c) || Buscaminas.getElBuscaminas().estaCubierta(c)) {
 				marcarbtn(c);
@@ -222,15 +226,16 @@ public class vBuscaminas extends JFrame implements Observer {
 			if (!Buscaminas.getElBuscaminas().hasPerdido()) {
 				if (Buscaminas.getElBuscaminas().hasGanado() && !mostrado) {
 					JOptionPane.showMessageDialog(null,
-							"Has ganado la partida!", "Enhorabuena",
+							"Has ganado la partida!", "Información",
 							JOptionPane.INFORMATION_MESSAGE);
 					Buscaminas.getElBuscaminas().guardarPuntuacion();
 					mostrado = true;
 				}
 			} else {
+				botones[c.getFila()][c.getColumna()].setBackground(new Color(255, 240, 100)); // La mina pulsada muestra otro fondo
 				mostrarMinas();
 				JOptionPane.showMessageDialog(null, "Has perdido la partida!",
-						"Que pena", JOptionPane.ERROR_MESSAGE);
+						"Información", JOptionPane.ERROR_MESSAGE);
 			}
 
 		} else if (observador instanceof Cronometro) {
@@ -244,6 +249,5 @@ public class vBuscaminas extends JFrame implements Observer {
 
 	private void repintar() {
 		this.setSize(this.getWidth() + 1, this.getHeight());
-		this.setSize(this.getWidth() - 1, this.getHeight());
 	}
 }

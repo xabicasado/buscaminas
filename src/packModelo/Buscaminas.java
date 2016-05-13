@@ -74,7 +74,7 @@ public class Buscaminas extends Observable{
 	 public void guardarPuntuacion(){
 		 usuario.setMinutos(crono.getMinutos());
 		 usuario.setSegundos(crono.getSegundos());
-		 //System.out.println(crono.getMinutos()+":"+crono.getSegundos());
+		 
 	 }
 	public Cronometro getCrono(){
 		return crono;
