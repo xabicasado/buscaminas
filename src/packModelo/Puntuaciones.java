@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 
+import packVista.vPuntuaciones;
+
 
 public class Puntuaciones {
 	private static Puntuaciones miPuntuaciones = new Puntuaciones();
@@ -34,7 +36,7 @@ public class Puntuaciones {
 	}
 	
 	
-	private void cargarlistaUsuarios() throws IOException {
+	public void cargarlistaUsuarios() throws IOException {
 		
 		
 		File f = new File("save.txt");
@@ -57,6 +59,7 @@ public class Puntuaciones {
 			miPuntuaciones.listaUsuarios.add(unUsuario);
 		}
 		sc.close();
+		Puntuaciones.getPuntuaciones().actualizarLista();
 		
 	}
 	
@@ -76,6 +79,7 @@ public class Puntuaciones {
 			e1.printStackTrace();
 		}
 		Puntuaciones.getPuntuaciones().actualizarLista();
+		vPuntuaciones puntuaciones = new vPuntuaciones();
 		
 		Iterator<Usuario> itr = miPuntuaciones.getIterador();
 		Usuario unJugador = null;
@@ -83,7 +87,8 @@ public class Puntuaciones {
 		
 		while ( itr.hasNext() ) {
 			unJugador = itr.next();
-			System.out.print("En la posicion " + ind + " esta "); unJugador.imprimirUsuario();
+			puntuaciones.mostrarPuntuaciones("En la posicion " + ind + " esta "+ unJugador.getUsuario());
+			System.out.print("En la posicion " + ind + " esta "+ unJugador.getUsuario());
 			ind = ind + 1;
 			
 		}
@@ -120,7 +125,7 @@ public class Puntuaciones {
 		while ( itr.hasNext() ) {
 			c1 = itr.next();
 			
-				if ( c1.getPuntuacion() > g.getPuntuacion() ) {
+				if ( c1.getPuntuacionInt() > g.getPuntuacionInt() ) {
 					g = c1;
 				}
 		}
@@ -147,12 +152,14 @@ public class Puntuaciones {
 			
 			while ( itr.hasNext() ) {
 				unaClasi = itr.next();
-				pw.write(unaClasi.getNombre()+"/"+unaClasi.getPuntuacion()+"/");
+				pw.write(unaClasi.getUsuario()+"/"+unaClasi.getPuntuacion()+"/");
 				pw.println();
 			}
 			
 			pw.close(); 
 		
 	}
+
+
 
 }

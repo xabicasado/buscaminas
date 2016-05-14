@@ -61,7 +61,7 @@ public class vBuscaminas extends JFrame implements Observer {
 	 * Create the frame.
 	 */
 	public vBuscaminas() {
-		setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE); // TODO Parar cronometro antes de cerrar
+		setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -229,6 +229,7 @@ public class vBuscaminas extends JFrame implements Observer {
 							"Has ganado la partida!", "Información",
 							JOptionPane.INFORMATION_MESSAGE);
 					Buscaminas.getElBuscaminas().guardarPuntuacion();
+					Buscaminas.getElBuscaminas().mostrarPuntuacion();
 					mostrado = true;
 				}
 			} else {

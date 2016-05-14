@@ -2,6 +2,7 @@ package packModelo;
 
 
 
+import java.io.IOException;
 import java.util.Observable;
 
 import packModelo.packCasilla.*;
@@ -71,10 +72,14 @@ public class Buscaminas extends Observable{
 	public void derrotado() { this.derrota = true; }
 	public boolean hasPerdido() { return this.derrota; }
 
-	 public void guardarPuntuacion(){
+	 public void guardarPuntuacion() {
 		 usuario.setMinutos(crono.getMinutos());
 		 usuario.setSegundos(crono.getSegundos());
-		 
+		 try {
+			Puntuaciones.getPuntuaciones().save();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	 }
 	public Cronometro getCrono(){
 		return crono;
@@ -113,5 +118,10 @@ public class Buscaminas extends Observable{
 	}
 	public String getNMinasRestantes() {
 		return nMinasRestantes+"";
+	}
+
+	public void mostrarPuntuacion() {
+		Puntuaciones.getPuntuaciones().imprimir();
+		
 	}
 }
