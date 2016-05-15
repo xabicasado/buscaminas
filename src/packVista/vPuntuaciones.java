@@ -11,7 +11,6 @@ import javax.swing.border.EmptyBorder;
 public class vPuntuaciones extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtPrimero;
 
 	/**
 	 * Launch the application.

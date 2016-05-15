@@ -11,17 +11,22 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 
+import packModelo.packTablero.*;
 import packVista.vPuntuaciones;
 
 
 public class Puntuaciones {
 	private static Puntuaciones miPuntuaciones = new Puntuaciones();
-	private ArrayList<Usuario> listaUsuarios;
+	private ArrayList<Usuario> listaUsuarios1;
+	private ArrayList<Usuario> listaUsuarios2;
+	private ArrayList<Usuario> listaUsuarios3;
 	
 	
 //Constructora
 	private Puntuaciones() {
-		this.listaUsuarios = new ArrayList<Usuario>();
+		this.listaUsuarios1 = new ArrayList<Usuario>(10);
+		this.listaUsuarios2 = new ArrayList<Usuario>(10);
+		this.listaUsuarios3 = new ArrayList<Usuario>(10);
 	}
 	
 	
@@ -31,8 +36,16 @@ public class Puntuaciones {
 	}
 	
 	
-	private Iterator<Usuario> getIterador() {
-		return miPuntuaciones.listaUsuarios.iterator();
+	private Iterator<Usuario> getIterador1() {
+		return miPuntuaciones.listaUsuarios1.iterator();
+	}
+	
+	private Iterator<Usuario> getIterador2() {
+		return miPuntuaciones.listaUsuarios2.iterator();
+	}
+	
+	private Iterator<Usuario> getIterador3() {
+		return miPuntuaciones.listaUsuarios3.iterator();
 	}
 	
 	
@@ -42,6 +55,8 @@ public class Puntuaciones {
 		File f = new File("save.txt");
 		FileReader fr = new FileReader(f);
 		BufferedReader bf = new BufferedReader( fr );
+		
+		
 		
 		Scanner sc = new Scanner(bf);
 		
@@ -56,32 +71,31 @@ public class Puntuaciones {
 			int pNivel = Integer.parseInt(sp[2]);
 			
 			Usuario unUsuario = new Usuario(pNombre, pNivel, pMinutos, pSegundos);
-			miPuntuaciones.listaUsuarios.add(unUsuario);
+			if (pNivel==1) miPuntuaciones.listaUsuarios1.add(unUsuario);
+			else if (pNivel==2) miPuntuaciones.listaUsuarios2.add(unUsuario);
+			else if (pNivel==3) miPuntuaciones.listaUsuarios3.add(unUsuario);
+			
 		}
 		sc.close();
-		Puntuaciones.getPuntuaciones().actualizarLista();
 		
 	}
 	
 	
-	public void guardarJugador(Usuario pUsuario ) {
-		
-		miPuntuaciones.listaUsuarios.add(pUsuario);
-		
-	}
-	
-	
-	public void imprimir() { //TODO repensar para la vista
+	public void imprimir(Usuario usuario) { //TODO repensar para la vista
 		try {
 			Puntuaciones.getPuntuaciones().cargarlistaUsuarios();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		Puntuaciones.getPuntuaciones().actualizarLista();
+		Puntuaciones.getPuntuaciones().actualizarLista(usuario);
 		vPuntuaciones puntuaciones = new vPuntuaciones();
-		
-		Iterator<Usuario> itr = miPuntuaciones.getIterador();
+		Iterator<Usuario> itr = null;
+		int niv = conseguirNivel(usuario);
+		if (niv==1) {itr = miPuntuaciones.getIterador1();}
+		else if (niv==2) {itr = miPuntuaciones.getIterador2();}
+		else if (niv==3) {itr = miPuntuaciones.getIterador3();}
+
 		Usuario unJugador = null;
 		int ind = 1;
 		
@@ -100,24 +114,58 @@ public class Puntuaciones {
 			e.printStackTrace();
 		}
 		
-		miPuntuaciones.listaUsuarios.clear();
 	}
 	
 	
-	private void actualizarLista() {
-		ArrayList<Usuario> lista = new ArrayList<Usuario>();
-		int i = 0;
+	private void actualizarLista(Usuario usuario) {
+		int niv=conseguirNivel(usuario);
 		
-		while ( !(miPuntuaciones.listaUsuarios.isEmpty()) && i<10 ) {
-			Usuario unUsuario = miPuntuaciones.sacarLaMayorClasiDelistaUsuarios();
-			lista.add(unUsuario);
-			i++;
+		Iterator<Usuario> itr = null;
+		if (niv==1) {itr = miPuntuaciones.getIterador1();}
+		else if (niv==2) {itr = miPuntuaciones.getIterador2();}
+		else if (niv==3) {itr = miPuntuaciones.getIterador3();}
+		Usuario unUsuario=null;
+		int i=0;
+		
+		if (niv==1){
+			while (itr.hasNext() && i < 10){
+				unUsuario=itr.next();
+				if (usuario.getPuntuacionInt()>unUsuario.getPuntuacionInt()){
+					if (listaUsuarios1.get(9)!=null){
+						listaUsuarios1.remove(9);
+						listaUsuarios1.add(i,usuario);
+					}
+				}
+				i++;
+			}
 		}
-		miPuntuaciones.listaUsuarios = lista;
-		
+		else if (niv==2){
+			while (itr.hasNext() && i < 10){
+				unUsuario=itr.next();
+				if (usuario.getPuntuacionInt()>unUsuario.getPuntuacionInt()){
+					if (listaUsuarios2.get(9)!=null){
+						listaUsuarios2.remove(9);
+						listaUsuarios2.add(i,usuario);
+					}
+				}
+				i++;
+			}
+		}
+		else if (niv==3){
+			while (itr.hasNext() && i < 10){
+				unUsuario=itr.next();
+				if (usuario.getPuntuacionInt()>unUsuario.getPuntuacionInt()){
+					if (listaUsuarios3.get(9)!=null){
+						listaUsuarios3.remove(9);
+						listaUsuarios3.add(i,usuario);
+					}
+				}
+				i++;
+			}
+		}
 	}
 	
-	private Usuario sacarLaMayorClasiDelistaUsuarios() {
+	/*private Usuario sacarLaMayorClasiDelistaUsuarios() {
 		Iterator<Usuario> itr = miPuntuaciones.getIterador();
 		Usuario c1;
 		Usuario g = new Usuario("", -1);
@@ -132,7 +180,7 @@ public class Puntuaciones {
 		
 		miPuntuaciones.listaUsuarios.remove(g);
 		return g;
-	}
+	}*/
 	
 	
 	public void save() throws IOException {
@@ -147,12 +195,23 @@ public class Puntuaciones {
 			bw = new BufferedWriter(w);
 			pw = new PrintWriter(bw);
 			
-			Iterator<Usuario> itr = miPuntuaciones.getIterador();
+			Iterator<Usuario> itr = miPuntuaciones.getIterador1();
 			Usuario unaClasi;
-			
 			while ( itr.hasNext() ) {
 				unaClasi = itr.next();
-				pw.write(unaClasi.getUsuario()+"/"+unaClasi.getPuntuacion()+"/");
+				pw.write(unaClasi.getUsuario()+"/"+unaClasi.getPuntuacion()+"/"+conseguirNivel(unaClasi));
+				pw.println();
+			}
+			itr = miPuntuaciones.getIterador2();
+			while ( itr.hasNext() ) {
+				unaClasi = itr.next();
+				pw.write(unaClasi.getUsuario()+"/"+unaClasi.getPuntuacion()+"/"+conseguirNivel(unaClasi));
+				pw.println();
+			}
+			itr = miPuntuaciones.getIterador3();
+			while ( itr.hasNext() ) {
+				unaClasi = itr.next();
+				pw.write(unaClasi.getUsuario()+"/"+unaClasi.getPuntuacion()+"/"+conseguirNivel(unaClasi));
 				pw.println();
 			}
 			
@@ -160,6 +219,15 @@ public class Puntuaciones {
 		
 	}
 
-
-
+	private int conseguirNivel(Usuario us){
+		int nivel=0;
+		if (us.getNivel() instanceof TableroBuilderNivel1){
+			nivel = 1;
+		}else if (us.getNivel() instanceof TableroBuilderNivel2){
+			nivel = 2;
+		}else if (us.getNivel() instanceof TableroBuilderNivel3){
+			nivel = 3;
+		}
+		return nivel;
+	}
 }

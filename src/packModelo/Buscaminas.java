@@ -121,7 +121,7 @@ public class Buscaminas extends Observable{
 	}
 
 	public void mostrarPuntuacion() {
-		Puntuaciones.getPuntuaciones().imprimir();
+		Puntuaciones.getPuntuaciones().imprimir(usuario);
 		
 	}
 }
