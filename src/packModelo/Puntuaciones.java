@@ -65,8 +65,11 @@ public class Puntuaciones {
 			String linea = sc.nextLine();
 			String[] sp = linea.split("/");
 			String pNombre = sp[0];
+			System.out.println(sp[1]);
 			String [] pPuntuacion = sp[1].split(":");
+			System.out.println(pPuntuacion[0]);
 			int pMinutos = Integer.parseInt(pPuntuacion[0]);
+			System.out.println(pPuntuacion[1]);
 			int pSegundos = Integer.parseInt(pPuntuacion[1]);
 			int pNivel = Integer.parseInt(sp[2]);
 			
@@ -81,15 +84,9 @@ public class Puntuaciones {
 	}
 	
 	
-	public void imprimir(Usuario usuario) { //TODO repensar para la vista
-		try {
-			Puntuaciones.getPuntuaciones().cargarlistaUsuarios();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		Puntuaciones.getPuntuaciones().actualizarLista(usuario);
-		vPuntuaciones puntuaciones = new vPuntuaciones();
+	public ArrayList<String> imprimir(Usuario usuario) { //TODO repensar para la vista
+		actualizarLista(usuario);
+		// vPuntuaciones puntuaciones = new vPuntuaciones();
 		Iterator<Usuario> itr = null;
 		int niv = conseguirNivel(usuario);
 		if (niv==1) {itr = miPuntuaciones.getIterador1();}
@@ -98,13 +95,11 @@ public class Puntuaciones {
 
 		Usuario unJugador = null;
 		int ind = 1;
-		
+		ArrayList<String> listaPuntuaciones = new ArrayList<String>();
 		while ( itr.hasNext() ) {
 			unJugador = itr.next();
-			puntuaciones.mostrarPuntuaciones("En la posicion " + ind + " esta "+ unJugador.getUsuario());
-			System.out.print("En la posicion " + ind + " esta "+ unJugador.getUsuario());
+			listaPuntuaciones.add(ind + ". " + unJugador.getUsuario() + " -> " + unJugador.getPuntuacion());
 			ind = ind + 1;
-			
 		}
 		
 		try {
@@ -113,7 +108,7 @@ public class Puntuaciones {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		return listaPuntuaciones;
 	}
 	
 	
@@ -121,44 +116,47 @@ public class Puntuaciones {
 		int niv=conseguirNivel(usuario);
 		
 		Iterator<Usuario> itr = null;
-		if (niv==1) {itr = miPuntuaciones.getIterador1();}
-		else if (niv==2) {itr = miPuntuaciones.getIterador2();}
-		else if (niv==3) {itr = miPuntuaciones.getIterador3();}
 		Usuario unUsuario=null;
 		int i=0;
-		
-		if (niv==1){
-			while (itr.hasNext() && i < 10){
+		boolean anadido=false;
+		if (niv==1) {
+			itr = miPuntuaciones.getIterador1();
+			while (itr.hasNext() && i < 10 && !anadido){
 				unUsuario=itr.next();
-				if (usuario.getPuntuacionInt()>unUsuario.getPuntuacionInt()){
-					if (listaUsuarios1.get(9)!=null){
+				if (usuario.getPuntuacionInt()<unUsuario.getPuntuacionInt()){
+					if (listaUsuarios1.size()>9){
 						listaUsuarios1.remove(9);
-						listaUsuarios1.add(i,usuario);
 					}
+					listaUsuarios1.add(i,usuario);
+					anadido=true;
 				}
 				i++;
 			}
 		}
-		else if (niv==2){
+		else if (niv==2) {
+			itr = miPuntuaciones.getIterador2();
 			while (itr.hasNext() && i < 10){
 				unUsuario=itr.next();
 				if (usuario.getPuntuacionInt()>unUsuario.getPuntuacionInt()){
-					if (listaUsuarios2.get(9)!=null){
+					if (listaUsuarios2.size()>9){
 						listaUsuarios2.remove(9);
-						listaUsuarios2.add(i,usuario);
 					}
+					listaUsuarios2.add(i,usuario);
+					anadido=true;
 				}
 				i++;
 			}
 		}
-		else if (niv==3){
+		else if (niv==3) {
+			itr = miPuntuaciones.getIterador3();
 			while (itr.hasNext() && i < 10){
 				unUsuario=itr.next();
 				if (usuario.getPuntuacionInt()>unUsuario.getPuntuacionInt()){
-					if (listaUsuarios3.get(9)!=null){
+					if (listaUsuarios3.size()>9){
 						listaUsuarios3.remove(9);
-						listaUsuarios3.add(i,usuario);
 					}
+					listaUsuarios3.add(i,usuario);
+					anadido=true;
 				}
 				i++;
 			}
@@ -196,22 +194,22 @@ public class Puntuaciones {
 			pw = new PrintWriter(bw);
 			
 			Iterator<Usuario> itr = miPuntuaciones.getIterador1();
-			Usuario unaClasi;
+			Usuario u;
 			while ( itr.hasNext() ) {
-				unaClasi = itr.next();
-				pw.write(unaClasi.getUsuario()+"/"+unaClasi.getPuntuacion()+"/"+conseguirNivel(unaClasi));
+				u = itr.next();
+				pw.write(u.getUsuario()+"/"+u.getPuntuacion()+"/"+conseguirNivel(u));
 				pw.println();
 			}
 			itr = miPuntuaciones.getIterador2();
 			while ( itr.hasNext() ) {
-				unaClasi = itr.next();
-				pw.write(unaClasi.getUsuario()+"/"+unaClasi.getPuntuacion()+"/"+conseguirNivel(unaClasi));
+				u = itr.next();
+				pw.write(u.getUsuario()+"/"+u.getPuntuacion()+"/"+conseguirNivel(u));
 				pw.println();
 			}
 			itr = miPuntuaciones.getIterador3();
 			while ( itr.hasNext() ) {
-				unaClasi = itr.next();
-				pw.write(unaClasi.getUsuario()+"/"+unaClasi.getPuntuacion()+"/"+conseguirNivel(unaClasi));
+				u = itr.next();
+				pw.write(u.getUsuario()+"/"+u.getPuntuacion()+"/"+conseguirNivel(u));
 				pw.println();
 			}
 			

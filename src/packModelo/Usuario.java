@@ -55,7 +55,7 @@ public class Usuario {
 	}
 
 	public String getPuntuacion() {
-		return minutos+""+segundos;
+		return minutos+":"+segundos;
 	}
 
 	public int getPuntuacionInt() {

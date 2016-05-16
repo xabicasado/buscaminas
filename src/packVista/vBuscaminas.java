@@ -24,6 +24,7 @@ import packModelo.packCronometro.Cronometro;
 import java.awt.FlowLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -227,10 +228,12 @@ public class vBuscaminas extends JFrame implements Observer {
 				if (Buscaminas.getElBuscaminas().hasGanado() && !mostrado) {
 					JOptionPane.showMessageDialog(null,
 							"Has ganado la partida!", "Información",
-							JOptionPane.INFORMATION_MESSAGE);
-					Buscaminas.getElBuscaminas().guardarPuntuacion();
-					Buscaminas.getElBuscaminas().mostrarPuntuacion();
+							JOptionPane.INFORMATION_MESSAGE);			
+					ArrayList<String> puntuaciones = Buscaminas.getElBuscaminas().mostrarPuntuacion();
 					mostrado = true;
+					vPuntuaciones dialog = new vPuntuaciones(puntuaciones);
+					dialog.setLocationRelativeTo(null);
+					dialog.setVisible(true);
 				}
 			} else {
 				botones[c.getFila()][c.getColumna()].setBackground(new Color(255, 240, 100)); // La mina pulsada muestra otro fondo

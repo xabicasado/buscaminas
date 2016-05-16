@@ -3,6 +3,7 @@ package packModelo;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Observable;
 
 import packModelo.packCasilla.*;
@@ -19,7 +20,10 @@ public class Buscaminas extends Observable{
 	private Cronometro crono;
 	private int nMinasRestantes;
 	
-	private Buscaminas() { }
+	private Buscaminas() {
+		cargarPuntuaciones();
+		System.out.println("Fichero cargado.");
+	}
 	
 	public static Buscaminas getElBuscaminas() {
 		if (elBuscaminas == null) elBuscaminas = new Buscaminas();
@@ -32,6 +36,14 @@ public class Buscaminas extends Observable{
 	
 	public void crearUsuario(String pNombre, int pNivel) {
 		this.usuario = new Usuario(pNombre, pNivel);
+	}
+	
+	private void cargarPuntuaciones(){
+		try {
+			Puntuaciones.getPuntuaciones().cargarlistaUsuarios();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void jugar() {
@@ -72,15 +84,6 @@ public class Buscaminas extends Observable{
 	public void derrotado() { this.derrota = true; }
 	public boolean hasPerdido() { return this.derrota; }
 
-	 public void guardarPuntuacion() {
-		 usuario.setMinutos(crono.getMinutos());
-		 usuario.setSegundos(crono.getSegundos());
-		 try {
-			Puntuaciones.getPuntuaciones().save();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	 }
 	public Cronometro getCrono(){
 		return crono;
 	}
@@ -119,9 +122,10 @@ public class Buscaminas extends Observable{
 	public String getNMinasRestantes() {
 		return nMinasRestantes+"";
 	}
-
-	public void mostrarPuntuacion() {
-		Puntuaciones.getPuntuaciones().imprimir(usuario);
-		
+	
+	public ArrayList<String> mostrarPuntuacion() {
+		usuario.setMinutos(crono.getMinutos());
+		usuario.setSegundos(crono.getSegundos());
+		return Puntuaciones.getPuntuaciones().imprimir(usuario);
 	}
 }
