@@ -11,8 +11,6 @@ import packModelo.packCasilla.CasillaNumero;
 import packModelo.packCasilla.CasillaMina;
 import packModelo.packCasilla.CasillaVacia;
 import packModelo.packCasilla.Coordenada;
-import packModelo.packCasilla.Descubierta;
-import packModelo.packTablero.TableroBuilderNivel1;
 
 public class BuscaminasTest {
 	private Casilla ca;
