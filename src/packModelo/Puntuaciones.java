@@ -11,9 +11,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 
-import packModelo.packTablero.*;
-import packVista.vPuntuaciones;
-
 
 public class Puntuaciones {
 	private static Puntuaciones miPuntuaciones = new Puntuaciones();
@@ -79,16 +76,14 @@ public class Puntuaciones {
 			else if (pNivel==3) miPuntuaciones.listaUsuarios3.add(unUsuario);
 			
 		}
-		sc.close();
-		
+		sc.close();	
 	}
 	
 	
-	public ArrayList<String> imprimir(Usuario usuario) { //TODO repensar para la vista
+	public ArrayList<String> imprimir(Usuario usuario) { 
 		actualizarLista(usuario);
-		// vPuntuaciones puntuaciones = new vPuntuaciones();
 		Iterator<Usuario> itr = null;
-		int niv = conseguirNivel(usuario);
+		int niv = usuario.conseguirNivel();
 		if (niv==1) {itr = miPuntuaciones.getIterador1();}
 		else if (niv==2) {itr = miPuntuaciones.getIterador2();}
 		else if (niv==3) {itr = miPuntuaciones.getIterador3();}
@@ -102,18 +97,15 @@ public class Puntuaciones {
 			ind = ind + 1;
 		}
 		
-		try {
-			miPuntuaciones.save();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		try {miPuntuaciones.save();}
+		catch (IOException e) {e.printStackTrace();}
+
 		return listaPuntuaciones;
 	}
 	
 	
 	private void actualizarLista(Usuario usuario) {
-		int niv=conseguirNivel(usuario);
+		int niv=usuario.conseguirNivel();
 		
 		Iterator<Usuario> itr = null;
 		Usuario unUsuario=null;
@@ -129,19 +121,25 @@ public class Puntuaciones {
 					}
 					listaUsuarios1.add(i,usuario);
 					anadido=true;
+				} else if (listaUsuarios1.size()<9){
+					listaUsuarios1.add(usuario);
+					anadido=true;
 				}
 				i++;
 			}
 		}
 		else if (niv==2) {
 			itr = miPuntuaciones.getIterador2();
-			while (itr.hasNext() && i < 10){
+			while (itr.hasNext() && i < 10 && !anadido){
 				unUsuario=itr.next();
-				if (usuario.getPuntuacionInt()>unUsuario.getPuntuacionInt()){
+				if (usuario.getPuntuacionInt()<unUsuario.getPuntuacionInt()){
 					if (listaUsuarios2.size()>9){
 						listaUsuarios2.remove(9);
 					}
 					listaUsuarios2.add(i,usuario);
+					anadido=true;
+				} else if (listaUsuarios2.size()<9){
+					listaUsuarios2.add(usuario);
 					anadido=true;
 				}
 				i++;
@@ -149,37 +147,22 @@ public class Puntuaciones {
 		}
 		else if (niv==3) {
 			itr = miPuntuaciones.getIterador3();
-			while (itr.hasNext() && i < 10){
+			while (itr.hasNext() && i < 10 && !anadido){
 				unUsuario=itr.next();
-				if (usuario.getPuntuacionInt()>unUsuario.getPuntuacionInt()){
+				if (usuario.getPuntuacionInt()<unUsuario.getPuntuacionInt()){
 					if (listaUsuarios3.size()>9){
 						listaUsuarios3.remove(9);
 					}
 					listaUsuarios3.add(i,usuario);
+					anadido=true;
+				} else if (listaUsuarios3.size()<9){
+					listaUsuarios3.add(usuario);
 					anadido=true;
 				}
 				i++;
 			}
 		}
 	}
-	
-	/*private Usuario sacarLaMayorClasiDelistaUsuarios() {
-		Iterator<Usuario> itr = miPuntuaciones.getIterador();
-		Usuario c1;
-		Usuario g = new Usuario("", -1);
-		
-		while ( itr.hasNext() ) {
-			c1 = itr.next();
-			
-				if ( c1.getPuntuacionInt() > g.getPuntuacionInt() ) {
-					g = c1;
-				}
-		}
-		
-		miPuntuaciones.listaUsuarios.remove(g);
-		return g;
-	}*/
-	
 	
 	public void save() throws IOException {
 		
@@ -197,35 +180,22 @@ public class Puntuaciones {
 			Usuario u;
 			while ( itr.hasNext() ) {
 				u = itr.next();
-				pw.write(u.getUsuario()+"/"+u.getPuntuacion()+"/"+conseguirNivel(u));
+				pw.write(u.getUsuario()+"/"+u.getPuntuacion()+"/"+u.conseguirNivel());
 				pw.println();
 			}
 			itr = miPuntuaciones.getIterador2();
 			while ( itr.hasNext() ) {
 				u = itr.next();
-				pw.write(u.getUsuario()+"/"+u.getPuntuacion()+"/"+conseguirNivel(u));
+				pw.write(u.getUsuario()+"/"+u.getPuntuacion()+"/"+u.conseguirNivel());
 				pw.println();
 			}
 			itr = miPuntuaciones.getIterador3();
 			while ( itr.hasNext() ) {
 				u = itr.next();
-				pw.write(u.getUsuario()+"/"+u.getPuntuacion()+"/"+conseguirNivel(u));
+				pw.write(u.getUsuario()+"/"+u.getPuntuacion()+"/"+u.conseguirNivel());
 				pw.println();
 			}
 			
 			pw.close(); 
-		
-	}
-
-	private int conseguirNivel(Usuario us){
-		int nivel=0;
-		if (us.getNivel() instanceof TableroBuilderNivel1){
-			nivel = 1;
-		}else if (us.getNivel() instanceof TableroBuilderNivel2){
-			nivel = 2;
-		}else if (us.getNivel() instanceof TableroBuilderNivel3){
-			nivel = 3;
-		}
-		return nivel;
 	}
 }

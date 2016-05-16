@@ -124,8 +124,9 @@ public class Buscaminas extends Observable{
 	}
 	
 	public ArrayList<String> mostrarPuntuacion() {
-		usuario.setMinutos(crono.getMinutos());
-		usuario.setSegundos(crono.getSegundos());
-		return Puntuaciones.getPuntuaciones().imprimir(usuario);
+		Usuario u = new Usuario(usuario.getUsuario(),usuario.conseguirNivel());
+		u.setMinutos(crono.getMinutos());
+		u.setSegundos(crono.getSegundos());
+		return Puntuaciones.getPuntuaciones().imprimir(u);
 	}
 }

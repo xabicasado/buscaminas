@@ -57,6 +57,18 @@ public class Usuario {
 	public String getPuntuacion() {
 		return minutos+":"+segundos;
 	}
+	
+	public int conseguirNivel(){
+		int nl=0;
+		if (nivel instanceof TableroBuilderNivel1){
+			nl = 1;
+		}else if (nivel instanceof TableroBuilderNivel2){
+			nl = 2;
+		}else if (nivel instanceof TableroBuilderNivel3){
+			nl = 3;
+		}
+		return nl;
+	}
 
 	public int getPuntuacionInt() {
 		return (minutos*60)+segundos;
