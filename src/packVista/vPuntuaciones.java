@@ -49,6 +49,7 @@ public class vPuntuaciones extends JFrame {
 	private JTextArea getTxaPuntuaciones() {
 		if (txaPuntuaciones == null) {
 			txaPuntuaciones = new JTextArea();
+			txaPuntuaciones.setEnabled(false);
 		}
 		return txaPuntuaciones;
 	}

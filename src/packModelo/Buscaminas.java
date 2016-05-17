@@ -22,7 +22,6 @@ public class Buscaminas extends Observable{
 	
 	private Buscaminas() {
 		cargarPuntuaciones();
-		System.out.println("Fichero cargado.");
 	}
 	
 	public static Buscaminas getElBuscaminas() {

@@ -62,11 +62,8 @@ public class Puntuaciones {
 			String linea = sc.nextLine();
 			String[] sp = linea.split("/");
 			String pNombre = sp[0];
-			System.out.println(sp[1]);
 			String [] pPuntuacion = sp[1].split(":");
-			System.out.println(pPuntuacion[0]);
 			int pMinutos = Integer.parseInt(pPuntuacion[0]);
-			System.out.println(pPuntuacion[1]);
 			int pSegundos = Integer.parseInt(pPuntuacion[1]);
 			int pNivel = Integer.parseInt(sp[2]);
 			
